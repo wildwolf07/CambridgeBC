@@ -181,6 +181,7 @@ void Bot::snapshot() {
     moved = false;
     cast_excl = false;
     if (!alive_state()) return;
+    if (CFG_ADAPT) track_deaths();
     n_alive = 0;
     is_leader = false;
     for (int i = 0; i < world.team_size; ++i) {
@@ -242,6 +243,21 @@ void Bot::snapshot() {
         u.state = static_cast<std::uint32_t>(ci.state);
         allies.push_back(u);
     }
+}
+
+void Bot::track_deaths() {
+    // Alive flags are readable for every champion regardless of vision, so each bot keeps the same tally.
+    auto scan = [&](const std::vector<std::uint32_t>& hs, std::vector<std::uint8_t>& was, int& deaths) {
+        if (was.size() != hs.size()) was.assign(hs.size(), 1);
+        for (std::size_t i = 0; i < hs.size(); ++i) {
+            std::int32_t a = 1;
+            if (bc::detail::sdk_champion_is_alive(hs[i], &a) != 0) continue;
+            if (was[i] && !a) ++deaths;
+            was[i] = a ? 1 : 0;
+        }
+    };
+    scan(world.ally_handles, ally_was_alive, ally_deaths);
+    scan(world.enemy_handles, enemy_was_alive, enemy_deaths);
 }
 
 void Bot::observe_groups() {
@@ -600,6 +616,8 @@ bool Bot::combat() {
         // Retreating is not free: allies already caught in melee die if the rest walk away.
         if (CFG_TEAMFIGHT) v -= flee_cost();
         float margin = P_SIM_MARGIN + (rich ? 0.5f : 0.f) + (low ? 0.8f : 0.f);
+        // Losing the trade war means their fights are better than our model: demand a bigger edge.
+        if (CFG_ADAPT) margin += std::clamp(P_ADAPT_K * static_cast<float>(ally_deaths - enemy_deaths), P_ADAPT_MIN, P_ADAPT_MAX);
         if (call) margin -= P_CALL_BONUS;
         if (isolated_prey) margin -= 0.6f;
         fight = v > margin || (helpless && v > -0.3f);

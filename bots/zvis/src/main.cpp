@@ -15,6 +15,12 @@ int main() {
                     std::printf("R%u me=%d(%d,%d) sees:", round_number(), (int)me.champion_name(), me.position().x, me.position().y);
                     for (auto& c : champions(team::enemy))
                         if (c.is_visible()) std::printf(" e%d(%d,%d)", (int)c.champion_name(), c.position().x, c.position().y);
+                    std::printf(" | alive(enemy raw):");
+                    for (auto& c : champions(team::enemy)) {
+                        std::int32_t a = -1;
+                        int rc = detail::sdk_champion_is_alive(static_cast<std::uint32_t>(static_cast<handle_champion_t>(c)), &a);
+                        std::printf(" %d/%d", rc, a);
+                    }
                     std::printf(" | allies:");
                     for (auto& c : champions(team::ally))
                         if (c.is_alive()) { bool v = c.is_visible(); std::printf(" a%d:%d", (int)c.champion_name(), (int)v); if (v) std::printf("@%lld", (long long)c.position().chebyshev_distance(me.position())); }

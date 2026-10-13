@@ -60,6 +60,9 @@ private:
     void init();
     void snapshot();
     void observe_groups();
+    void track_deaths();
+    std::vector<std::uint8_t> ally_was_alive, enemy_was_alive;
+    int ally_deaths = 0, enemy_deaths = 0;
     void predict_groups();
 
     float dps_of(int t, float s, float f) const;

@@ -129,3 +129,15 @@ moves lanes 367 → 420), so only seeded head-to-heads are trusted for small cha
 | — | CFG_LANCH (target dps/time-to-kill) / P_FOCUS_W 2.2 | pool 53.2% / 51.9% vs 54.6% | rejected |
 | — | P_REGION_TOPK=8 (regional credit for front-runners only) | 45.4% vs v16 (lanes 3/12 vs 7/12); control 50.0% | rejected |
 | v17 | Overrun guards: choose_group stops scoring below 18k fuel; no new group field below 20k | 50.9% vs v16 (control 50.0%), 0 crashes | adopted (robustness) |
+
+Self-play intent shares (v17 vs v17): dead 21%, combat 11% — both sides take every even fight. Ladder leaders win
+even fights 7:1 against us, so the same policy hands them kills. `sdk_champion_is_alive` works for every champion
+regardless of vision, so each bot keeps an identical kill/death tally with no communication.
+Handicap protocol for "stronger opponent" effects: weaken our bot (CFG_HITRUN=0, CFG_NO_SOLO=1 ≈ v14 fighting) and
+measure whether a change helps it against v17.
+
+| Ver | Change | Evidence | Decision |
+|---|---|---|---|
+| — | CFG_PAIR=0 / 1 | pool 48.1% / 51.4% (pair=1 better on 5-pick maps, 47.9% vs control 41.7%, n=48) | inconclusive, unchanged |
+| — | Draft swap (seeded econ) | ours 405, :3 402, ET 401, WHIM 421 rounds | not an econ lever |
+| v18 | CFG_ADAPT: fight margin += 0.1 × (our deaths − enemy deaths), clamped [−0.2, 0.8] | handicapped bot 41.7% → 48.6% vs v17 (n=72, gemdiff −66 → 0); full strength pool 53.2%, gemdiff +326 (baseline +120..+253) | adopted |

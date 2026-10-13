@@ -231,3 +231,15 @@
 #ifndef P_REGION_TOPK
 #define P_REGION_TOPK 0
 #endif
+#ifndef CFG_ADAPT
+#define CFG_ADAPT 1
+#endif
+#ifndef P_ADAPT_K
+#define P_ADAPT_K 0.1f
+#endif
+#ifndef P_ADAPT_MIN
+#define P_ADAPT_MIN -0.2f
+#endif
+#ifndef P_ADAPT_MAX
+#define P_ADAPT_MAX 0.8f
+#endif
