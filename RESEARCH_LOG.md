@@ -160,3 +160,8 @@ margin of 0 is well placed. Ward vision is personal (not shared with teammates; 
 Recommended fallback: beast_v13 (site v10) or beast_v14 (site v11). Full handoff, analyses and post-mortem:
 `research/README.md`. Top-team decision rules extracted with tools/policy.py (research/analysis/ladder_policy.txt):
 :3 approaches 50% on contact when ahead and retreats 62% when behind; our old bot was not numbers-aware.
+
+## 14 Oct 2026 (night) — ladder API analysis and v19
+- Ladder API reachable; analysed top-5 teams' replays and v18's 43 distinct challenge games (games are deterministic;
+  duplicates removed). Main causes of loss and the v19/v19s candidates are in research/06 and research/07.
+- v19 = v18 + CFG_BUILD 3 + CFG_KITE + CFG_GOLD_ROUTE + CFG_HOME_OPEN + CFG_PIN 2 + CFG_HEAL; v19s = v18 + BUILD 3 + PIN 2.

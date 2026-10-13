@@ -313,5 +313,5 @@
 #endif
 // Travel steps with equal progress prefer tiles farther from visible enemies.
 #ifndef CFG_TRAVEL_SPREAD
-#define CFG_TRAVEL_SPREAD 1
+#define CFG_TRAVEL_SPREAD 0
 #endif

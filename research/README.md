@@ -3,16 +3,20 @@
 Start here. This folder is the complete memory of the analysis and experiments done on the bot, written so that
 another engineer or model can continue without repeating anything.
 
-## Current status (13 Oct 2026)
+## Current status (14 Oct 2026, night session)
 
-- **Ladder reality check:** v18 (`submissions/beast_v18.zip`) was uploaded and **lost ~30 ladder games badly**
-  (reported by the team owner). v15–v18 were tuned almost entirely in local self-play against our own bots;
-  that test bed does not reproduce how the top ladder teams play. See `05_v18_postmortem_and_next_steps.md`.
-- **Recommended ladder submission right now:** fall back to the last version with a good ladder record —
-  `bots/beast_v13` (site v10, 23/35 = 66% on its first ladder sample) or `bots/beast_v14` (site v11) —
-  until a replacement is validated on the ladder.
-- The ladder site `2026a.battlecode.co.uk` is **blocked by the cloud sandbox's network policy**, so ladder replays
-  must be downloaded by a human into `ladder_replays/` (or the host allow-listed in the environment settings).
+- **Ladder access works** (`tools/ladder_fetch.py`, API at `2026a.battlecode.co.uk/api/v1`). Every top-5 team's
+  recent games were analysed (Mite 235, Kratos 150, WHIM 150, NOVA 132, SHINK ~150 replays) plus v18's 43 distinct
+  challenge games. Findings: `06_top_teams_and_v18_losses.md`. Test protocol: `07_ladder_test_plan.md`.
+- **Why we lose** (v18 vs Mite 0/9, WHIM 0/9, Kratos 1/9): (1) we die 2x as often (8.6 vs ~4.5 per game), half of
+  it Cassi+Issac; our Cassi fires point-blank and dies after 34% of her shots (top teams 5%); (2) by R400 our carries
+  have 25–45% less strength (we buy health, earn less gold, Tavi earns 300 vs 708); (3) we open in contested ground
+  (9.5% of R1–80 in the enemy half vs 2–5%) and walk into contact 33 times a game (Mite 19); (4) when a fight is lost
+  we stay and trade (pin rule) — die 50% vs Kratos 13%.
+- **Candidates:** `submissions/beast_v19.zip` (all ladder-motivated fixes; self-play 52.8% vs v18 with 18% fewer
+  deaths) and `submissions/beast_v19s.zip` (strength build + pin rule only; 50% vs v18). Self-play cannot judge
+  these (see 06 §6); **validate on the ladder with the deterministic per-map baseline** in
+  `analysis/v18_baseline_vs_top.txt`. Fallback: v14.
 
 ## Files
 
@@ -23,6 +27,8 @@ another engineer or model can continue without repeating anything.
 | `03_experiments.md` | Every experiment (adopted and rejected), with sample sizes and numbers |
 | `04_environment_and_tools.md` | Sandbox setup, every tool in `tools/`, evaluation protocol and its pitfalls |
 | `05_v18_postmortem_and_next_steps.md` | Why v15–v18 likely failed on the ladder; prioritised plan |
+| `06_top_teams_and_v18_losses.md` | Top-5 ladder teams vs orZers: measured causes of loss, v19 changes, open leads |
+| `07_ladder_test_plan.md` | How to A/B v19/v19s on the ladder cheaply (games are deterministic) |
 | `analysis/` | Raw outputs of every analysis tool run on the ladder replays (regenerable) |
 | `data/ladder_replays_extracted.tar.xz` | Per-round JSON of all 25 ladder replays (`tar xJf`; format in `tools/replay_dump.mjs`) |
 | `data/maps_ascii/` | ASCII renders of the 9 maps (`S`/`E` spawns, `A` altar, `w` wolf, `k` elk, `g` gem cluster, `G` gold cluster, `M` monolith, `#` wall, `o` hole, `"` bush) |

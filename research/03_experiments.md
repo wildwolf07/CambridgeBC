@@ -47,3 +47,20 @@ stronger v17/v18 — a proxy for facing better fighters.
 2. Every change needs ladder confirmation (or a benchmark built from top-team behaviour) before shipping.
 3. Always check the crash column (a top-K insertion bug crashed every turn and still "built").
 4. Do not run `rm -rf bots/*_s[0-9]` — committed folders like `bots/c_all_s1` match it.
+
+## v19 session (14 Oct, ladder-evidence driven; `analysis/v19_ablations.txt`)
+Base `a_base` = v18 + `CFG_BUILD 3`. 36 games per row (SE ≈ 8%).
+| Change | Result | Decision |
+|---|---|---|
+| CFG_BUILD 3 (all-strength carries) vs v18 | 55.6% (+16 gems) | adopted (Mite build) |
+| CFG_KITE (ranged micro) vs a_base | 44.4%; radius-1 38.9%; busy-melee aware 41.7% | adopted in v19 (ladder evidence: Cassi death 34%→5% target) |
+| CFG_GOLD_ROUTE vs a_base | 47.2% | adopted in v19 (Tavi gold 273→556 locally) |
+| CFG_HOME_OPEN vs a_base | 47.2% | adopted in v19 (enemy-half time 15%→2%) |
+| CFG_SIM_HEAL vs a_base | 38.9% | rejected |
+| CFG_PIN 2 / 0 vs a_base | 55.6% / 52.8% | PIN 2 adopted (v19, v19s) |
+| CFG_RETREAT2 vs a_base | 41.7% | rejected |
+| CFG_TRAVEL_SPREAD (v19 + it) | 50% vs v18 (−84), 41.7% vs v19 | rejected |
+| Willow instead of Ryth (with heal) | 33.3% (24 games, 4/5-pick maps) | rejected for now |
+| v19 full vs v18 / a_base | 52.8% / 47.2%, deaths 750 vs v19s 918 | candidate |
+| v19s (BUILD3+PIN2) vs v18 / a_base | 50.0% / 55.6% | candidate |
+| first all-in (with NO_SOLO=1, SIM_HEAL) | 25% vs v18, 22% vs v16 | rejected (too passive) |
