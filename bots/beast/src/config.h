@@ -55,7 +55,7 @@
 #define P_SHOP_BASE 150
 #endif
 #ifndef CFG_BUILD
-#define CFG_BUILD 2
+#define CFG_BUILD 3
 #endif
 #ifndef P_ENGAGE
 #define P_ENGAGE 1.5f
@@ -245,4 +245,12 @@
 #endif
 #ifndef P_GHOST_ON
 #define P_GHOST_ON 2
+#endif
+// v19 (ladder evidence, research/06): ranged units keep max range from enemy melee instead of trading point-blank.
+#ifndef CFG_KITE
+#define CFG_KITE 1
+#endif
+// Count a dash-capable enemy melee as threatening from 4 tiles (dash 2 + step + attack) instead of 2.
+#ifndef P_KITE_DASH
+#define P_KITE_DASH 0
 #endif

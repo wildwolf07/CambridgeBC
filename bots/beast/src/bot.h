@@ -74,6 +74,8 @@ private:
     bool combat();
     bool engage(const UnitView& e);
     void engage_inner(const UnitView& e);
+    void kite(const UnitView& e);
+    float melee_threat(vec2 q) const;
     void retreat();
     float sim_fight() const;
     // Engagement cluster (CFG_TEAMFIGHT): indices into allies / enemies sharing one connected fight.

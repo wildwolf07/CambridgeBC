@@ -48,7 +48,7 @@ int cooldown(int slot) {
 bool in_bounds(vec2 p) { return p.x >= 0 && p.y >= 0 && p.x < world.W && p.y < world.H; }
 
 // Shard build orders (item_type enum values). Cycle the tail once exhausted.
-constexpr std::uint32_t M_STR = 0, M_FOC = 2, P_STR = 6, P_FOC = 8, P_HP = 10, D_HP = 16, J_HP = 28;
+constexpr std::uint32_t M_STR = 0, M_FOC = 2, P_STR = 6, P_FOC = 8, P_HP = 10, D_STR = 12, D_HP = 16, J_STR = 24, J_HP = 28;
 // Emblem families in purchase order; each entry is bought as five matching shards.
 #if CFG_BUILD == 0
 constexpr std::uint32_t BUILD_STR[] = {P_STR, J_HP, P_STR, D_HP, P_STR, P_HP};
@@ -56,8 +56,12 @@ constexpr std::uint32_t BUILD_TANK[] = {P_HP, P_STR, J_HP, P_STR, D_HP, P_HP};
 #elif CFG_BUILD == 1
 constexpr std::uint32_t BUILD_STR[] = {M_STR, J_HP, D_HP, P_STR, P_STR, P_HP};
 constexpr std::uint32_t BUILD_TANK[] = {M_STR, J_HP, D_HP, P_STR, P_HP, P_STR};
-#else
+#elif CFG_BUILD == 2
 constexpr std::uint32_t BUILD_STR[] = {M_STR, J_HP, P_STR, D_HP, P_STR, P_HP};
+constexpr std::uint32_t BUILD_TANK[] = {M_STR, J_HP, P_STR, D_HP, P_HP, P_STR};
+#else
+// Top-team build (Mite buys ~25 strength shards per carry and almost no health): strength wins fights and farms faster.
+constexpr std::uint32_t BUILD_STR[] = {P_STR, J_STR, P_STR, D_STR, P_STR, P_STR};
 constexpr std::uint32_t BUILD_TANK[] = {M_STR, J_HP, P_STR, D_HP, P_HP, P_STR};
 #endif
 constexpr std::uint32_t BUILD_FOC[] = {M_FOC, J_HP, P_FOC, D_HP, P_FOC, P_HP};
@@ -945,6 +949,10 @@ bool Bot::engage(const UnitView& e) {
 }
 
 void Bot::engage_inner(const UnitView& e) {
+    if (CFG_KITE && !kit.melee) {
+        kite(e);
+        return;
+    }
     int d = cheb(pos, e.pos);
     const bool e_flee_risk = e.hp < 0.35f * e.max_hp;
     // Stun first when it stops damage, a channel or an escape.
@@ -1040,6 +1048,141 @@ void Bot::engage_inner(const UnitView& e) {
     if (d <= range && kit.melee) attack_unit_handle(e.h, true);
 }
 
+float Bot::melee_threat(vec2 q) const {
+    // Damage per round that enemy melee could land on tile q next turn (step + adjacent strike).
+    float t = 0;
+    for (auto& e : enemies) {
+        if (!enemy_can_act(e) || e.range > 1) continue;
+        const bool dasher = e.type == static_cast<int>(bc::champion_type::vendetta) || e.type == static_cast<int>(bc::champion_type::issac) ||
+                            e.type == static_cast<int>(bc::champion_type::ren) || e.type == static_cast<int>(bc::champion_type::vesper_vale);
+        const int reach = (P_KITE_DASH && dasher) ? 4 : 2;
+        if (cheb(q, e.pos) <= reach) t += dps_of(e.type, e.str, e.focus);
+    }
+    return t;
+}
+
+void Bot::kite(const UnitView& e) {
+    // Ranged micro. A ranged attack costs the move and an enemy melee can step and strike in one turn, so shooting
+    // with a melee within 2 trades our fragile body for one hit. Ladder evidence: our Cassi died within 6 rounds of
+    // 34% of her shots (5% for Kratos/Mite), mostly shots taken with a melee adjacent. Keep max range; step away
+    // first, shoot when the tile is safe, or when the shot kills, or when there is nowhere safer to go.
+    const int d = cheb(pos, e.pos);
+    float burst = str * ((kit.reset >= 0 && (st & ST_CAST) && cooldown(kit.reset) == 0) ? 2.f : 1.f);
+    if (kit.dmg.slot >= 0 && (st & ST_CAST) && cooldown(kit.dmg.slot) == 0) burst += kit.dmg.mod * focus;
+    const bool kill_now = e.hp <= burst && d <= range;
+    const float thr_here = melee_threat(pos);
+    auto shoot = [&]() {
+        const int dd = cheb(pos, e.pos);
+        for (const Spell* sp : {&kit.cc, &kit.dmg}) {
+            if (!(st & ST_CAST) || sp->slot < 0 || dd > static_cast<int>(sp->range) || cooldown(sp->slot) != 0) continue;
+            if (sp == &kit.cc && e.stunned) continue;
+            if (raw_cast(sp->slot, 1, e.h, {-1, -1}) == 1) {
+                st &= ~ST_CAST;
+                if (sp->excl) cast_excl = true;
+            }
+        }
+        if ((st & ST_CAST) && kit.aoe.slot >= 0 && dd <= static_cast<int>(kit.aoe.range) && cooldown(kit.aoe.slot) == 0) {
+            if (raw_cast(kit.aoe.slot, 0, 0, e.pos) == 1) {
+                st &= ~ST_CAST;
+                if (kit.aoe.excl) cast_excl = true;
+            }
+        }
+        if (dd <= range) {
+            attack_unit_handle(e.h, true);
+            return;
+        }
+        for (auto& o : enemies)
+            if (cheb(pos, o.pos) <= range && !world.enemy_spawn.is_set(o.pos)) {
+                attack_unit_handle(o.h, true);
+                return;
+            }
+    };
+    // Tile score for stepping: melee threat dominates, then wanting a target at exactly max range, then ranged danger.
+    auto tile_sc = [&](vec2 q) {
+        const int dq = cheb(q, e.pos);
+        float sc = melee_threat(q) * 1000.f + danger_at(q) * 2.f;
+        sc += static_cast<float>(dq > range ? (dq - range) * 30 : (range - dq) * 10);
+        const int sd = world.spawn_f().get(q);
+        sc += static_cast<float>(sd == UNREACH ? 300 : sd) * 0.3f;
+        return sc;
+    };
+    if (thr_here > 0 && !kill_now && can_walk()) {
+        // Stun the closest acting melee if that does not cost the step.
+        if ((st & ST_CAST) && kit.cc.slot >= 0 && !kit.cc.excl && cooldown(kit.cc.slot) == 0) {
+            const UnitView* m = nullptr;
+            for (auto& o : enemies)
+                if (enemy_can_act(o) && o.range <= 1 && cheb(pos, o.pos) <= static_cast<int>(kit.cc.range) && (!m || cheb(pos, o.pos) < cheb(pos, m->pos)))
+                    m = &o;
+            if (m && raw_cast(kit.cc.slot, 1, m->h, {-1, -1}) == 1) st &= ~ST_CAST;
+        }
+        if (melee_threat(pos) > 0) {
+            if (kit.dash >= 0 && (st & ST_CAST) && cooldown(kit.dash) == 0) {
+                vec2 bp = pos;
+                float bs = tile_sc(pos);
+                for (int dx = -2; dx <= 2; ++dx)
+                    for (int dy = -2; dy <= 2; ++dy) {
+                        const vec2 q{pos.x + dx, pos.y + dy};
+                        if (q == pos || !in_bounds(q) || blocked.is_set(q)) continue;
+                        const float sc = tile_sc(q);
+                        if (sc < bs) {
+                            bs = sc;
+                            bp = q;
+                        }
+                    }
+                if (bp != pos && raw_cast(kit.dash, 0, 0, bp) == 1) {
+                    pos = bp;
+                    st &= ~ST_CAST;
+                }
+            }
+            vec2 best = pos;
+            float bs = tile_sc(pos);
+            for (auto dd : DIRS) {
+                const vec2 q = pos + dd;
+                if (!in_bounds(q) || blocked.is_set(q)) continue;
+                const float sc = tile_sc(q);
+                if (sc < bs) {
+                    bs = sc;
+                    best = q;
+                }
+            }
+            if (best != pos && melee_threat(best) < melee_threat(pos) && raw_move(best) == 1) {
+                last_pos = pos;
+                pos = best;
+                moved = true;
+                st &= ~ST_MOVE;
+                return;
+            }
+        }
+        // Cornered (or the stun removed the threat): shoot.
+        shoot();
+        return;
+    }
+    if (d <= range) {
+        shoot();
+        return;
+    }
+    // Out of range: close to exactly max range through tiles no melee can reach next turn.
+    if (!can_walk()) return;
+    vec2 best = pos;
+    float bs = tile_sc(pos);
+    for (auto dd : DIRS) {
+        const vec2 q = pos + dd;
+        if (!in_bounds(q) || blocked.is_set(q)) continue;
+        if (melee_threat(q) > 0 && !kill_now) continue;
+        const float sc = tile_sc(q);
+        if (sc < bs) {
+            bs = sc;
+            best = q;
+        }
+    }
+    if (best != pos && raw_move(best) == 1) {
+        last_pos = pos;
+        pos = best;
+        moved = true;
+        st &= ~ST_MOVE;
+    }
+}
+
 void Bot::retreat() {
     const auto& sf = world.spawn_f();
     if (CFG_HITRUN && (st & ST_ATTACK)) {
@@ -1057,7 +1200,7 @@ void Bot::retreat() {
                     if (enemy_can_act(e) && cheb(pos, e.pos) <= (e.range <= 1 ? 2 : e.range + 1)) chased = true;
                 const int sd = sf.get(pos);
                 const bool dash_ok = kit.dash >= 0 && (st & ST_CAST) && cooldown(kit.dash) == 0;
-                if (chased && sd > 4 && !dash_ok) {
+                if (!CFG_KITE && chased && sd > 4 && !dash_ok) {
                     if ((st & ST_CAST) && kit.cc.slot >= 0 && cooldown(kit.cc.slot) == 0 && cheb(pos, tgt->pos) <= static_cast<int>(kit.cc.range))
                         if (raw_cast(kit.cc.slot, 1, tgt->h, {-1, -1}) == 1) st &= ~ST_CAST;
                     attack_unit_handle(tgt->h, true);
