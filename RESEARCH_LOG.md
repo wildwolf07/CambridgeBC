@@ -141,3 +141,17 @@ measure whether a change helps it against v17.
 | — | CFG_PAIR=0 / 1 | pool 48.1% / 51.4% (pair=1 better on 5-pick maps, 47.9% vs control 41.7%, n=48) | inconclusive, unchanged |
 | — | Draft swap (seeded econ) | ours 405, :3 402, ET 401, WHIM 421 rounds | not an econ lever |
 | v18 | CFG_ADAPT: fight margin += 0.1 × (our deaths − enemy deaths), clamped [−0.2, 0.8] | handicapped bot 41.7% → 48.6% vs v17 (n=72, gemdiff −66 → 0); full strength pool 53.2%, gemdiff +326 (baseline +120..+253) | adopted |
+
+Fight-sim calibration (11,902 logged decisions, v18 vs v17, outcome within 12 rounds): P(I die) falls monotonically
+with the sim value (v<−3: 56%, −2..−1: 24%, v≥1: 7.5–9%); fight and flee outcomes are similar around v≈0, so the
+margin of 0 is well placed. Ward vision is personal (not shared with teammates; probe bots/zward).
+
+| Ver | Change | Evidence | Decision |
+|---|---|---|---|
+| — | Ghost memory on the handicapped bot (T=6 / T=4 / gated) | 48.6% / 38.9% / 40.3–41.7% vs 37.5% base (n=72); full strength 47–53% | rejected (non-monotonic, likely noise) |
+| — | Team-fight cluster / buddy pairs on the handicapped bot | 37.5% / 29.2% vs 37.5% | rejected |
+| — | Cassi STR build / HP-first build | pool 54.6% / 54.2% vs 53.2% (gemdiff lower) | no gain |
+| — | 5th pick Stellar (instead of Tavi) | 5-pick maps: 56.8% vs 51.0% (n=192) but paired re-test 52.1% vs 50.5% with lower gemdiff; +17 vs :3-draft, −8 vs v15 | inconclusive, kept Tavi |
+| — | 5th pick Marcella | 46.9% vs 46.9% control (n=64), gemdiff worse | rejected |
+| — | CFG_HUNT (isolated prey) on v18 | pool 49.5% vs 53.2% | rejected |
+| — | Endgame tribute race | only 11/40 losses within 100 gems | not a lever |

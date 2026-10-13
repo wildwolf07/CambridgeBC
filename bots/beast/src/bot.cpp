@@ -61,6 +61,8 @@ constexpr std::uint32_t BUILD_STR[] = {M_STR, J_HP, P_STR, D_HP, P_STR, P_HP};
 constexpr std::uint32_t BUILD_TANK[] = {M_STR, J_HP, P_STR, D_HP, P_HP, P_STR};
 #endif
 constexpr std::uint32_t BUILD_FOC[] = {M_FOC, J_HP, P_FOC, D_HP, P_FOC, P_HP};
+// Linked-pair survival: Cassi's death also kills Issac, so her first emblems are health.
+constexpr std::uint32_t BUILD_CHP[] = {P_HP, D_HP, M_FOC, P_FOC, J_HP, P_HP};
 constexpr int BUILD_LEN = 6;
 }  // namespace
 
@@ -446,7 +448,7 @@ void Bot::shop() {
     if (gold < 30) return;
     const bool tank = type == static_cast<int>(bc::champion_type::ryth);
     const bool caster = CFG_CASSI_FOCUS && type == static_cast<int>(bc::champion_type::cassi);
-    const std::uint32_t* build = caster ? BUILD_FOC : (tank ? BUILD_TANK : BUILD_STR);
+    const std::uint32_t* build = caster ? (CFG_CASSI_FOCUS == 2 ? BUILD_CHP : BUILD_FOC) : (tank ? BUILD_TANK : BUILD_STR);
     int guard = 0;
     while (gold >= 30 && guard++ < 12) {
         const int fam = build_step / 5;
@@ -838,8 +840,9 @@ float Bot::sim_fight() const {
             if (ne >= 10 || d > 8 || (world.enemy_spawn.is_set(e.pos) && d > e.range + 1)) continue;
             E[ne++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci_t(e.type) ? 2.f : 1.f, 0, false};
         }
-        if (CFG_GHOST) {
+        if (CFG_GHOST == 1 || (CFG_GHOST == 2 && ally_deaths - enemy_deaths >= P_GHOST_ON)) {
             // Enemies that slipped out of sight a few rounds ago are probably still close: they join late.
+            // (CFG_GHOST 2: only once the kill/death tally says their fights beat ours.)
             for (auto& m : world.enemy_mem) {
                 const int age = round - m.round;
                 if (age < 1 || age > P_GHOST_T || ne >= 10 || m.hp <= 0) continue;

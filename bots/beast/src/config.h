@@ -243,3 +243,6 @@
 #ifndef P_ADAPT_MAX
 #define P_ADAPT_MAX 0.8f
 #endif
+#ifndef P_GHOST_ON
+#define P_GHOST_ON 2
+#endif
