@@ -64,3 +64,10 @@ Base `a_base` = v18 + `CFG_BUILD 3`. 36 games per row (SE ≈ 8%).
 | v19 full vs v18 / a_base | 52.8% / 47.2%, deaths 750 vs v19s 918 | candidate |
 | v19s (BUILD3+PIN2) vs v18 / a_base | 50.0% / 55.6% | candidate |
 | first all-in (with NO_SOLO=1, SIM_HEAL) | 25% vs v18, 22% vs v16 | rejected (too passive) |
+| Post-v19 (each on top of v19; vs v19 / vs v18, 36+36 games) | | |
+| CFG_LOCKS 2 (own-side altar locks) | 58.3% / 41.7% | not adopted (noise) |
+| CFG_LOCKS 1 (enemy-side locks) | 50.0% / 55.6% | not adopted (noise) |
+| CFG_LINKED_CAUTION 2 (C&I low at 55%, heal +0.12) | 52.8% / 47.2% | not adopted (noise) |
+| CFG_ISSAC_HP (Issac health build) | 41.7% / 61.1% | not adopted (noise) |
+| CFG_CASSI_SUPPORT (Cassi engages only next to an allied melee) | 52.8% / 41.7% | not adopted (noise) |
+All switches remain in `bots/beast/src/config.h` for ladder A/B if wanted.
