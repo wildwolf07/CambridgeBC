@@ -118,3 +118,14 @@ Largest idle bucket: melee waiting at distance 3 (CFG_NO_SOLO).
 | v16 | CFG_NO_SOLO=0 (melee may step into reach first) + CFG_LOCKFIX (break or skip enemy altar locks) | pool 56.5% vs 52.8% (gemdiff better vs all 4); v16 60.2% vs v15 and vs v14 (n=108 each) | adopted |
 | — | CFG_TERRITORY=0 / P_TERRITORY=6 | 54.2% / 57.4% vs 56.5% base | no gain |
 | — | P_SIM_MARGIN −0.3 / +0.3 | 44.9% / 55.1% vs 56.5% | keep 0 |
+
+Fuel: 100k per turn after round 1 (~190k on round 1; probe bots/zfuel). v16 peaked at 98.7k: choose_group costs
+~55k on 40+ groups (regional lookahead 24k, search only ~5k). Single-run econ vs idle is chaotic (one turn's difference
+moves lanes 367 → 420), so only seeded head-to-heads are trusted for small changes.
+
+| Ver | Change | Evidence | Decision |
+|---|---|---|---|
+| — | CFG_GHOST (recently seen enemies join the fight sim late) | 35–46% vs v16 (too passive) | rejected |
+| — | CFG_LANCH (target dps/time-to-kill) / P_FOCUS_W 2.2 | pool 53.2% / 51.9% vs 54.6% | rejected |
+| — | P_REGION_TOPK=8 (regional credit for front-runners only) | 45.4% vs v16 (lanes 3/12 vs 7/12); control 50.0% | rejected |
+| v17 | Overrun guards: choose_group stops scoring below 18k fuel; no new group field below 20k | 50.9% vs v16 (control 50.0%), 0 crashes | adopted (robustness) |

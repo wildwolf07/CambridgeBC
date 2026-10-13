@@ -39,6 +39,7 @@ def main():
     per = {o: [0, 0, 0] for o in opps}
     per_map = {m: [0, 0] for m in maps}
     kd = [0, 0]
+    crash = [0]
     rounds = []
     for r in results:
         cside = "A" if r["a"] in cands else "B"
@@ -55,13 +56,14 @@ def main():
         per[opp][2] += rc.get("gems", 0) - ro.get("gems", 0)
         kd[0] += rc.get("kills", 0)
         kd[1] += rc.get("deaths", 0)
+        crash[0] += rc.get("crashes", 0)
     for o in opps:
         w, n, gd = per[o]
         print(f"{a.cand} vs {o:14}: {w:3}/{n:<3} ({100*w/max(1,n):5.1f}%)  gemdiff/game {gd/max(1,n):+7.1f}")
     print("per map: " + "  ".join(f"{m}:{v[0]}/{v[1]}" for m, v in per_map.items()))
     tw = sum(v[0] for v in per.values())
     tn = sum(v[1] for v in per.values())
-    print(f"TOTAL {tw}/{tn} ({100*tw/max(1,tn):.1f}%)  K/D {kd[0]}/{kd[1]}  avg win round {sum(rounds)/max(1,len(rounds)):.0f}")
+    print(f"TOTAL {tw}/{tn} ({100*tw/max(1,tn):.1f}%)  K/D {kd[0]}/{kd[1]}  avg win round {sum(rounds)/max(1,len(rounds)):.0f}  CRASHES {crash[0]}")
 
 
 if __name__ == "__main__":

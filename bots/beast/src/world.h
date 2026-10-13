@@ -63,6 +63,7 @@ struct EnemyMem {
     float hp = 0, max_hp = 1;
     int type = 0;
     int gems = 0;
+    float str = 50, focus = 100;
 };
 
 struct World {

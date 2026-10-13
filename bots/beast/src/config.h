@@ -204,3 +204,30 @@
 #ifndef P_LOCK_UNTIL
 #define P_LOCK_UNTIL 1500
 #endif
+#ifndef CFG_GHOST
+#define CFG_GHOST 0
+#endif
+#ifndef P_GHOST_T
+#define P_GHOST_T 6
+#endif
+#ifndef P_GHOST_D
+#define P_GHOST_D 12
+#endif
+#ifndef CFG_LANCH
+#define CFG_LANCH 0
+#endif
+#ifndef P_FOCUS_W
+#define P_FOCUS_W 1.4f
+#endif
+#ifndef CFG_FASTCG
+#define CFG_FASTCG 0
+#endif
+#ifndef P_CG_R
+#define P_CG_R 24
+#endif
+#ifndef P_CG_FUEL
+#define P_CG_FUEL 0
+#endif
+#ifndef P_REGION_TOPK
+#define P_REGION_TOPK 0
+#endif

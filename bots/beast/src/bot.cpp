@@ -223,6 +223,8 @@ void Bot::snapshot() {
             m->max_hp = u.max_hp;
             m->type = u.type;
             m->gems = u.gems;
+            m->str = u.str;
+            m->focus = u.focus;
         }
     }
     for (auto h : world.ally_handles) {
@@ -554,7 +556,9 @@ bool Bot::combat() {
         int ei = -1;
         for (int i = 0; i < static_cast<int>(world.enemy_handles.size()); ++i)
             if (world.enemy_handles[i] == e.h) ei = i;
-        if (ei == shared_focus) sc *= 1.4f;
+        if (ei == shared_focus) sc *= P_FOCUS_W;
+        // Lanchester: removing a high-damage enemy early shortens the whole fight.
+        if (CFG_LANCH) sc *= std::max(0.3f, dps_of(e.type, e.str, e.focus) / 60.f);
         if (sc > best_sc) {
             best_sc = sc;
             best = &e;
@@ -815,6 +819,22 @@ float Bot::sim_fight() const {
             const int d = cheb(pos, e.pos);
             if (ne >= 10 || d > 8 || (world.enemy_spawn.is_set(e.pos) && d > e.range + 1)) continue;
             E[ne++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci_t(e.type) ? 2.f : 1.f, 0, false};
+        }
+        if (CFG_GHOST) {
+            // Enemies that slipped out of sight a few rounds ago are probably still close: they join late.
+            for (auto& m : world.enemy_mem) {
+                const int age = round - m.round;
+                if (age < 1 || age > P_GHOST_T || ne >= 10 || m.hp <= 0) continue;
+                bool seen = false;
+                for (auto& e : enemies)
+                    if (e.h == m.h) seen = true;
+                if (seen) continue;
+                const int d = cheb(pos, m.pos);
+                if (d > P_GHOST_D || world.enemy_spawn.is_set(m.pos)) continue;
+                const int t = m.type < 0 || m.type > 11 ? 0 : m.type;
+                const int rng = TYPES[t].melee ? 1 : 3;
+                E[ne++] = {m.hp, dps_of(t, m.str, m.focus), is_ci_t(t) ? 2.f : 1.f, std::max(0, d - rng - age), false};
+            }
         }
     }
     return sim_race(A, na, E, ne);
@@ -1466,7 +1486,13 @@ int Bot::choose_group() {
     roots.set(pos);
     bitboard visited;
     bc::distance_field myf;
-    myf.compute(world.static_block, roots, visited);
+    // CFG_FASTCG: read each group's cached field at our tile instead of a fresh full-map search every turn;
+    // fields not built yet are built one per turn and estimated meanwhile.
+    if (CFG_FASTCG != 1) {
+        if (CFG_FASTCG == 2) myf.compute(world.static_block, roots, visited, P_CG_R);
+        else myf.compute(world.static_block, roots, visited);
+    }
+    int built_now = 0;
     const auto& sf = world.spawn_f();
     const float dps = std::max(10.f, my_camp_dps());
     const int pack_cur = sh.pack();
@@ -1485,11 +1511,41 @@ int Bot::choose_group() {
     for (int gi = 0; gi < static_cast<int>(world.groups.size()); ++gi) {
         auto& g = world.groups[gi];
         if (g.monolith) continue;
+        if (bc::fuel_remaining() < 18000) break;  // keep the best found so far rather than overrun the turn
         int d = UNREACH;
+        if (CFG_FASTCG == 2) {
+            for (auto& c : g.camps) {
+                const int v = myf.get(c.pos);
+                if (v < d) d = v;
+                if (g.camps.size() > 3) break;
+            }
+            if (d == UNREACH) {
+                if (g.field) {
+                    d = g.field->get(pos);
+                } else {
+                    int e = 99;
+                    for (auto& c : g.camps) e = std::min(e, cheb(pos, c.pos));
+                    d = std::max(P_CG_R + 1, e + e / 4);
+                }
+            }
+        } else if (CFG_FASTCG) {
+            if (!g.field && built_now == 0 && bc::fuel_remaining() > 50000) {
+                world.group_field(gi);
+                ++built_now;
+            }
+            if (g.field) {
+                d = g.field->get(pos);
+            } else {
+                d = 99;
+                for (auto& c : g.camps) d = std::min(d, cheb(pos, c.pos));
+                d = d + d / 4;
+            }
+        } else {
         for (auto& c : g.camps) {
             const int v = myf.get(c.pos);
             if (v < d) d = v;
             if (g.camps.size() > 3) break;
+        }
         }
         if (d == UNREACH) {
             if (gi == pack_cur) pcur_valid = false;
@@ -1545,7 +1601,7 @@ int Bot::choose_group() {
                 pbest = gi;
             }
         }
-        if (CFG_REGION) {
+        if (CFG_REGION && P_REGION_TOPK == 0) {
             // One-step greedy cannot see that a rich area repays the walk: credit nearby harvestable gems.
             float rv = 0;
             for (const auto& [hj, wgt] : g.nbrs) {
@@ -1573,6 +1629,43 @@ int Bot::choose_group() {
         if (sc > best_sc) {
             best_sc = sc;
             best = gi;
+        }
+    }
+    if (CFG_REGION && P_REGION_TOPK > 0) {
+        // Regional credit only reorders the front-runners; scoring every group's neighbourhood costs ~24k fuel.
+        int top[P_REGION_TOPK];
+        int nt = 0;
+        for (int gi = 0; gi < static_cast<int>(world.groups.size()); ++gi) {
+            if (gscore[gi] <= 0) continue;
+            int k;
+            if (nt < P_REGION_TOPK) {
+                k = nt++;
+            } else {
+                if (gscore[top[P_REGION_TOPK - 1]] >= gscore[gi]) continue;
+                k = P_REGION_TOPK - 1;
+            }
+            while (k > 0 && gscore[top[k - 1]] < gscore[gi]) {
+                top[k] = top[k - 1];
+                --k;
+            }
+            top[k] = gi;
+        }
+        best = -1;
+        best_sc = 0;
+        for (int t = 0; t < nt; ++t) {
+            const int gi = top[t];
+            float rv = 0;
+            for (const auto& [hj, wgt] : world.groups[gi].nbrs) {
+                const auto& h = world.groups[hj];
+                if (h.state == GState::respawning && h.respawn_round - round > 25) continue;
+                if (claimed_other[hj]) continue;
+                rv += static_cast<float>(h.gems) * wgt;
+            }
+            gscore[gi] *= 1.f + P_REGION_W * rv / 100.f;
+            if (gscore[gi] > best_sc) {
+                best_sc = gscore[gi];
+                best = gi;
+            }
         }
     }
     // The pack target only changes once it is finished or unreachable.
@@ -1665,6 +1758,12 @@ bool Bot::opportunistic_attack(int skip_gi) {
 
 void Bot::act_group(int gi) {
     auto& g = world.groups[gi];
+    if (!g.field && bc::fuel_remaining() < 20000) {
+        // Building this group's distance field would overrun the turn: walk straight at it this once.
+        act = A_F_TRAV;
+        if (!attack_camp(g)) step_towards(g.center);
+        return;
+    }
     const auto& f = world.group_field(gi);
     const bool all_dead = g.state == GState::reward ||
                           (g.state != GState::respawning && g.hp_left() <= 0 && g.seen_round == round);
@@ -1796,6 +1895,13 @@ void Bot::farm() {
     if (follow_squad()) return;
     if (!squad_mode && follow_partner()) return;
     if (gscore.size() != world.groups.size()) gscore.assign(world.groups.size(), 0.f);
+    // Target selection scores every group (~55k fuel on 40+ groups); on a turn already spent on combat
+    // maths, keep the current target rather than overrun the 100k per-turn budget.
+    if (bc::fuel_remaining() < P_CG_FUEL && target_valid(target)) {
+        claim(target);
+        act_group(target);
+        return;
+    }
     std::fill(gscore.begin(), gscore.end(), 0.f);
     int cand = choose_group();
     if (target_valid(target) && cand != target) {
