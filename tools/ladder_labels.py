@@ -20,7 +20,15 @@ def _load():
 def names(json_path):
     mid = os.path.basename(json_path)[:-5]
     e = _load().get(mid)
-    return {0: e["A"], 1: e["B"]} if e else None
+    if e:
+        return {0: e["A"], 1: e["B"]}
+    # Local match files are named "<botA>-vs-<botB>-<stamp>": label sides by bot name (seed suffix _sN dropped).
+    if "-vs-" in mid:
+        a, rest = mid.split("-vs-", 1)
+        b = rest.rsplit("-", 1)[0]
+        strip = lambda x: x.rsplit("_s", 1)[0] if x.rsplit("_s", 1)[-1].isdigit() else x
+        return {0: strip(a), 1: strip(b)}
+    return None
 
 
 def team_of(json_path, team_name):

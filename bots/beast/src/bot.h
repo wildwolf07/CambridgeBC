@@ -75,6 +75,7 @@ private:
     bool engage(const UnitView& e);
     void engage_inner(const UnitView& e);
     void kite(const UnitView& e);
+    bool try_heal();
     float melee_threat(vec2 q) const;
     void retreat();
     float sim_fight() const;

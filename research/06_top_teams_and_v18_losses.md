@@ -71,3 +71,33 @@ Monster-str, Jungle-hp, Power-str, Durability-hp, … → about half health.
   turn into strength. Top teams' Cassi earn 37–323.
 - Locks on own-side altars (`CFG_LOCKS` currently locks enemy-side altars, off).
 - Early game (R0–100): we lose 67 vs 17 champions; most are lone Cassi pokes and contested-camp group fights.
+
+## 5. More measurements (same data)
+- **Opening R1–80** (`tools/opening.py`): time in enemy half / rounds with an enemy within 4 / deaths per game /
+  gems by R80: orZers 9.5% / 11.5% / **1.30** / 97; Mite 5.4% / 6.6% / 0.40 / 138; Kratos 4.4% / 6.3% / 0.18 / 124;
+  NOVA 2.1% / 6.4% / 0.32 / 125; WHIM 11.4% / 9.3% / 0.49 / 118. Top teams open at home and farm more.
+- **Ranged response** (`tools/ranged_response.py`, Cassi turns that start with an acting enemy melee within 2):
+  v18 steps away 7%, shoots 63%, dies within 6 rounds 56% (13/game); Kratos 48% / 21% / 19% (7/game);
+  Mite 33% / 39% / 18% (5.3/game). First local kite version: 74% / 9% / 18% but 19.6 such turns/game (too passive,
+  too exposed) → `P_KITE_FREE`: a melee two tiles away that is adjacent to one of our champions is ignored.
+- **Fight initiation** (`tools/initiation.py`): conditions when we strike first are similar to Kratos's (numbers 1.84
+  vs 1.89 / Kratos 1.78 vs 1.85; strength ratio median 0.85 / 0.92), but outcomes differ completely: Kratos wins its
+  initiated fights even when behind in numbers (43 deaths vs 94 kills) or strength <0.85 (73 vs 101); we lose them
+  (68/24, 146/26). The difference is fight quality (strength per hit, Cassi exposure), not when to fight.
+- **Time budget** (`tools/timebudget.py`): nearly identical except capture 6.0% vs 7.5% and submit 3.4% vs 5.0%;
+  their Tavi captures 12% of its alive rounds, ours 5%. Our Tavi hits camps more than Kratos's/NOVA's in R1–150
+  (46.6 vs 41.6/39.8 rounds) yet earns 83 gold vs 117/316: it does the damage, others capture.
+- **Per map vs top 3** (v18): expanse 984 vs 981 gems with 0 deaths (pure race), rows 880/990 (2.2 vs 0.2 deaths);
+  collision/corners/interlock blowouts (15–18 deaths vs 2–10). On those maps our Cassi has an enemy melee adjacent
+  8.9 times/game and dies within 6 rounds 84% of those times.
+- Mite's Willow: heals ≈15 times a game (4855 HP). Our bot parsed `kit.heal` but never used it → `CFG_HEAL`
+  (`try_heal`, most injured ally within 4, before combat). Local check: 14 heals in an 804-round game.
+
+## 6. Local evaluation dilemma (important for the next model)
+Self-play rewards aggression: v15–v18 each beat older versions by engaging more, then lost on the ladder. The
+first all-in v19 (KITE+BUILD3+NO_SOLO+SIM_HEAL+GOLD_ROUTE) went 25% vs v18, 22% vs v16, 50% vs v14 locally.
+Ablations vs `a_base` (= v18 + BUILD3), 36 games each, SE ≈ 8%: KITE 44.4%, KITE radius 1 38.9%,
+GOLD_ROUTE 47.2% (more in `analysis/v19_ablations.txt`). BUILD3 alone vs v18: 55.6%.
+Top teams are *not* passive (Kratos starts ~7.5 fights/game and wins them), so the target is v18-level
+aggression with better fight quality, not more caution. Ladder A/B (deterministic: one game per map and side is
+enough) is the only trustworthy judge.

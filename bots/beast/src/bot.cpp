@@ -749,6 +749,7 @@ struct SU {
     float hp, dps, val;
     int start;
     bool me;
+    int type = -1;
 };
 // Lanchester-style focus-fire race; units join the fight `start` rounds in. Value = bodies won (C&I count 2),
 // our own death costs half a body more, plus half the HP-fraction difference.
@@ -810,12 +811,12 @@ bool Bot::helper_ok(const UnitView& a) const {
 float Bot::sim_fight() const {
     SU A[10], E[10];
     int na = 0, ne = 0;
-    A[na++] = {hp, dps_of(type, str, focus), is_ci_t(type) ? 2.f : 1.f, 0, true};
+    A[na++] = {hp, dps_of(type, str, focus), is_ci_t(type) ? 2.f : 1.f, 0, true, type};
     if (CFG_TEAMFIGHT) {
         for (int ai : cl_a)
-            if (na < 10) A[na++] = {allies[ai].hp, dps_of(allies[ai].type, allies[ai].str, allies[ai].focus), is_ci_t(allies[ai].type) ? 2.f : 1.f, 0, false};
+            if (na < 10) A[na++] = {allies[ai].hp, dps_of(allies[ai].type, allies[ai].str, allies[ai].focus), is_ci_t(allies[ai].type) ? 2.f : 1.f, 0, false, allies[ai].type};
         for (int ei : cl_e)
-            if (ne < 10) E[ne++] = {enemies[ei].hp, dps_of(enemies[ei].type, enemies[ei].str, enemies[ei].focus), is_ci_t(enemies[ei].type) ? 2.f : 1.f, 0, false};
+            if (ne < 10) E[ne++] = {enemies[ei].hp, dps_of(enemies[ei].type, enemies[ei].str, enemies[ei].focus), is_ci_t(enemies[ei].type) ? 2.f : 1.f, 0, false, enemies[ei].type};
         if (CFG_TEAMFIGHT >= 2 && !cl_e.empty()) {
             // Reinforcements on both sides arrive after walking into reach.
             for (int ai = 0; ai < static_cast<int>(allies.size()); ++ai) {
@@ -824,7 +825,7 @@ float Bot::sim_fight() const {
                 for (int ei : cl_e) dd = std::min(dd, cheb(allies[ai].pos, enemies[ei].pos));
                 if (dd > P_JOIN_D) continue;
                 A[na++] = {allies[ai].hp, dps_of(allies[ai].type, allies[ai].str, allies[ai].focus), is_ci_t(allies[ai].type) ? 2.f : 1.f,
-                           std::max(0, dd - allies[ai].range), false};
+                           std::max(0, dd - allies[ai].range), false, allies[ai].type};
             }
             for (int ei = 0; ei < static_cast<int>(enemies.size()); ++ei) {
                 if (std::find(cl_e.begin(), cl_e.end(), ei) != cl_e.end() || ne >= 10 || world.enemy_spawn.is_set(enemies[ei].pos)) continue;
@@ -833,16 +834,16 @@ float Bot::sim_fight() const {
                 dd = std::min(dd, cheb(pos, enemies[ei].pos));
                 if (dd > P_JOIN_D) continue;
                 E[ne++] = {enemies[ei].hp, dps_of(enemies[ei].type, enemies[ei].str, enemies[ei].focus), is_ci_t(enemies[ei].type) ? 2.f : 1.f,
-                           std::max(0, dd - enemies[ei].range), false};
+                           std::max(0, dd - enemies[ei].range), false, enemies[ei].type};
             }
         }
     } else {
         for (auto& a : allies)
-            if (na < 10 && cheb(a.pos, pos) <= 7) A[na++] = {a.hp, dps_of(a.type, a.str, a.focus), is_ci_t(a.type) ? 2.f : 1.f, 0, false};
+            if (na < 10 && cheb(a.pos, pos) <= 7) A[na++] = {a.hp, dps_of(a.type, a.str, a.focus), is_ci_t(a.type) ? 2.f : 1.f, 0, false, a.type};
         for (auto& e : enemies) {
             const int d = cheb(pos, e.pos);
             if (ne >= 10 || d > 8 || (world.enemy_spawn.is_set(e.pos) && d > e.range + 1)) continue;
-            E[ne++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci_t(e.type) ? 2.f : 1.f, 0, false};
+            E[ne++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci_t(e.type) ? 2.f : 1.f, 0, false, e.type};
         }
         if (CFG_GHOST == 1 || (CFG_GHOST == 2 && ally_deaths - enemy_deaths >= P_GHOST_ON)) {
             // Enemies that slipped out of sight a few rounds ago are probably still close: they join late.
@@ -858,9 +859,30 @@ float Bot::sim_fight() const {
                 if (d > P_GHOST_D || world.enemy_spawn.is_set(m.pos)) continue;
                 const int t = m.type < 0 || m.type > 11 ? 0 : m.type;
                 const int rng = TYPES[t].melee ? 1 : 3;
-                E[ne++] = {m.hp, dps_of(t, m.str, m.focus), is_ci_t(t) ? 2.f : 1.f, std::max(0, d - rng - age), false};
+                E[ne++] = {m.hp, dps_of(t, m.str, m.focus), is_ci_t(t) ? 2.f : 1.f, std::max(0, d - rng - age), false, t};
             }
         }
+    }
+    if (CFG_SIM_HEAL) {
+        // Willow's heal (3.0 x focus, cooldown 8) and Varg's self-shield (2.5 x focus) are HP the race must burn first.
+        // Ladder trace 0a035566: a Willow heal turned our winning duel into a loss. Enemy cooldowns are unknown: assume ready.
+        auto bolster = [&](SU* S, int n, bool ours) {
+            float heal = 0;
+            for (int i = 0; i < n; ++i) {
+                if (S[i].type == static_cast<int>(bc::champion_type::willow)) heal += 3.0f * P_SIM_HEAL_F;
+                if (S[i].type == static_cast<int>(bc::champion_type::varg)) {
+                    const bool ready = !ours || !S[i].me || (kit.shield >= 0 && cooldown(kit.shield) == 0);
+                    if (ready) S[i].hp += 2.5f * 100.f;
+                }
+            }
+            if (heal <= 0) return;
+            int t = -1;
+            for (int i = 0; i < n; ++i)
+                if (S[i].type != static_cast<int>(bc::champion_type::willow) && (t < 0 || S[i].hp < S[t].hp)) t = i;
+            if (t >= 0) S[t].hp += heal;
+        };
+        bolster(E, ne, false);
+        bolster(A, na, true);
     }
     return sim_race(A, na, E, ne);
 }
@@ -1055,8 +1077,18 @@ float Bot::melee_threat(vec2 q) const {
         if (!enemy_can_act(e) || e.range > 1) continue;
         const bool dasher = e.type == static_cast<int>(bc::champion_type::vendetta) || e.type == static_cast<int>(bc::champion_type::issac) ||
                             e.type == static_cast<int>(bc::champion_type::ren) || e.type == static_cast<int>(bc::champion_type::vesper_vale);
-        const int reach = (P_KITE_DASH && dasher) ? 4 : 2;
-        if (cheb(q, e.pos) <= reach) t += dps_of(e.type, e.str, e.focus);
+        const int reach = (P_KITE_DASH && dasher) ? 4 : P_KITE_R;
+        const int dq = cheb(q, e.pos);
+        if (dq > reach) continue;
+        if (P_KITE_FREE && dq >= 2) {
+            // A melee already trading with one of our champions rarely turns away for a ranged unit two tiles off
+            // (Mite's Cassi shoots 40% of such turns and dies 14% of the time).
+            bool engaged = false;
+            for (auto& a : allies)
+                if (cheb(a.pos, e.pos) <= 1) engaged = true;
+            if (engaged) continue;
+        }
+        t += dps_of(e.type, e.str, e.focus);
     }
     return t;
 }
@@ -1181,6 +1213,37 @@ void Bot::kite(const UnitView& e) {
         moved = true;
         st &= ~ST_MOVE;
     }
+}
+
+bool Bot::try_heal() {
+    // Willow: heal (3.0 x focus, range 4, cooldown 8, does not cost the move). Mite's Willow heals ~4855 HP a game.
+    if (!(st & ST_CAST) || cooldown(kit.heal) != 0) return false;
+    const float amount = 3.0f * focus;
+    std::uint32_t best_h = 0;
+    float best_sc = 0;
+    auto consider = [&](std::uint32_t h, float hp_, float max_, vec2 p, bool fighting) {
+        if (cheb(p, pos) > 4) return;
+        const float missing = max_ - hp_;
+        if (missing < 0.6f * amount && !(fighting && hp_ < 0.5f * max_)) return;
+        float sc = std::min(missing, amount) * (fighting ? 1.5f : 1.f) * (hp_ < 0.35f * max_ ? 1.5f : 1.f);
+        if (sc > best_sc) {
+            best_sc = sc;
+            best_h = h;
+        }
+    };
+    auto in_fight = [&](vec2 p) {
+        for (auto& e : enemies)
+            if (cheb(e.pos, p) <= 3) return true;
+        return false;
+    };
+    consider(world.self_handle, hp, max_hp, pos, in_fight(pos));
+    for (auto& a : allies) consider(a.h, a.hp, a.max_hp, a.pos, in_fight(a.pos));
+    if (!best_h) return false;
+    if (raw_cast(kit.heal, 1, best_h, {-1, -1}) == 1) {
+        st &= ~ST_CAST;
+        return true;
+    }
+    return false;
 }
 
 void Bot::retreat() {
@@ -1733,8 +1796,21 @@ int Bot::choose_group() {
         if (gi == pack_cur && ((g.state == GState::respawning && wait > 12) || (g.state == GState::reward && helpers > 0)))
             pcur_valid = false;
         if (g.state == GState::reward && !g.is_tile(pos) && (ally_capturing(g) || (helpers > 0 && gi != target))) continue;
-        const float gold_w = round < 150 ? P_GOLD_W1 : (round < 400 ? P_GOLD_W2 : P_GOLD_W3);
+        float gold_w = round < 150 ? P_GOLD_W1 : (round < 400 ? P_GOLD_W2 : P_GOLD_W3);
+        if (CFG_GOLD_ROUTE) {
+            // The capturer gets all the gold. Route it to champions that turn it into strength: Tavi shops anywhere
+            // (NOVA's Tavi earns 1068 gold/game, ours 471), carries next; Cassi's 30 base strength wastes it.
+            if (type == static_cast<int>(bc::champion_type::tavi)) gold_w *= P_GOLD_TAVI;
+            else if (type == static_cast<int>(bc::champion_type::cassi) || type == static_cast<int>(bc::champion_type::willow)) gold_w *= P_GOLD_CASSI;
+            else if (type == static_cast<int>(bc::champion_type::vendetta) || type == static_cast<int>(bc::champion_type::varg)) gold_w *= P_GOLD_CARRY;
+        }
         float value = static_cast<float>(g.gems) + gold_w * static_cast<float>(g.gold);
+        if (CFG_HOME_OPEN) {
+            // Top teams open at home (R1-80: 2-5% of time in our half, half our contact rate, 0.2-0.4 deaths vs our 1.3)
+            // and farm more by R80 (124-138 gems vs our 97). Devalue camps on the enemy side, strongly in the opening.
+            const int dm = cheb(g.center, world.spawn_center), de = cheb(g.center, world.enemy_center);
+            if (de < dm) value *= round < P_HOME_UNTIL ? P_HOME_PEN : P_HOME_PEN_LATE;
+        }
         if (P_CONTEST_PEN < 1.f && round - g.enemy_round < 20) value *= P_CONTEST_PEN;
         auto score = [&](int h) {
             const float team_dps = dps * (1.f + 0.85f * static_cast<float>(h));
@@ -2164,6 +2240,7 @@ void Bot::turn_inner() {
     if (at_spawn || type == static_cast<int>(bc::champion_type::tavi)) shop();
     if (bc::fuel_remaining() < 20000) return;
 
+    if (CFG_HEAL && kit.heal >= 0) try_heal();
     if (CFG_COMBAT_OLD ? combat_old() : combat()) {
         act = A_COMBAT;
         return;

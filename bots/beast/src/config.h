@@ -88,7 +88,7 @@
 #define P_CALL_BONUS 0.7f
 #endif
 #ifndef CFG_NO_SOLO
-#define CFG_NO_SOLO 0
+#define CFG_NO_SOLO 1
 #endif
 #ifndef CFG_SQUAD
 #define CFG_SQUAD 0
@@ -253,4 +253,49 @@
 // Count a dash-capable enemy melee as threatening from 4 tiles (dash 2 + step + attack) instead of 2.
 #ifndef P_KITE_DASH
 #define P_KITE_DASH 0
+#endif
+// Fight sim counts Willow heals and Varg shields as extra HP (P_SIM_HEAL_F = Willow focus assumed).
+#ifndef CFG_SIM_HEAL
+#define CFG_SIM_HEAL 1
+#endif
+#ifndef P_SIM_HEAL_F
+#define P_SIM_HEAL_F 110.f
+#endif
+// Gold routing in camp choice: per-champion multipliers on the gold weight.
+#ifndef CFG_GOLD_ROUTE
+#define CFG_GOLD_ROUTE 1
+#endif
+#ifndef P_GOLD_TAVI
+#define P_GOLD_TAVI 2.5f
+#endif
+#ifndef P_GOLD_CARRY
+#define P_GOLD_CARRY 1.4f
+#endif
+#ifndef P_GOLD_CASSI
+#define P_GOLD_CASSI 0.2f
+#endif
+// Opening at home: camp value multiplier for enemy-half camps before P_HOME_UNTIL and afterwards.
+#ifndef CFG_HOME_OPEN
+#define CFG_HOME_OPEN 1
+#endif
+#ifndef P_HOME_UNTIL
+#define P_HOME_UNTIL 120
+#endif
+#ifndef P_HOME_PEN
+#define P_HOME_PEN 0.3f
+#endif
+#ifndef P_HOME_PEN_LATE
+#define P_HOME_PEN_LATE 0.8f
+#endif
+// Melee threat radius for kiting (2 = step+strike reach; 1 = only flee when already adjacent).
+#ifndef P_KITE_R
+#define P_KITE_R 2
+#endif
+// Use the Willow heal (kit.heal) on the most injured ally in range.
+#ifndef CFG_HEAL
+#define CFG_HEAL 1
+#endif
+// Kiting ignores a melee two tiles away when an ally is adjacent to it (it is busy).
+#ifndef P_KITE_FREE
+#define P_KITE_FREE 1
 #endif
