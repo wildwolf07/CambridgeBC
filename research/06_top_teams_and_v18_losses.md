@@ -101,3 +101,24 @@ GOLD_ROUTE 47.2% (more in `analysis/v19_ablations.txt`). BUILD3 alone vs v18: 55
 Top teams are *not* passive (Kratos starts ~7.5 fights/game and wins them), so the target is v18-level
 aggression with better fight quality, not more caution. Ladder A/B (deterministic: one game per map and side is
 enough) is the only trustworthy judge.
+
+## 7. Exposure and C&I (later in the night)
+- **Who creates contacts** (`tools/contact_origin.py`, nearest enemy goes from >4 to ≤4): we step in 33.4/game and
+  die within 10 rounds after 12.2% of those (Mite 19.1 / 8.7%, Kratos 26.6 / 3.6%, WHIM 19.7 / 6.8%, NOVA 29.0 /
+  6.8%). Of our step-ins, 21.1/game are followed by no hit at all (walking past enemies; Mite 9.3, Kratos 16.6) and
+  10.2/game by a champion hit (death 20% vs Mite 10%, Kratos 3%). A tie-break that keeps travel steps away from
+  visible enemies (`CFG_TRAVEL_SPREAD`) tested negative locally and is off.
+- **Sim calibration on replays** (`tools/sim_replay_calib.py`): the fight sim is not more optimistic against top
+  teams (P(die | v≈+1) 7.8% ladder vs 7.3% self-play). We simply spend many more samples in losing contacts
+  (v ≤ −2: 2099 vs 1534 at v ≥ +1; Kratos the reverse) and there we *stay* 28% of the time (dies 50%) vs Kratos 21%
+  (dies 13%). By champion: our Cassi stays 49%, Tavi 57% (Kratos 33%/32%); melee similar. → `CFG_PIN 2`, `CFG_KITE`.
+- **C&I death events per game**: ours 2.72 vs top teams (Cassi killed first 1.70, Issac 1.02); Kratos 0.68,
+  Mite 0.86 in their games. In v19 local self-play Issac is the one killed (1.89/game), usually after fighting on at
+  ~40–45% HP → testing `CFG_LINKED_CAUTION 2` (C&I "low" at 55%, heal threshold +0.12) and `CFG_ISSAC_HP`.
+- **SHINK (#5)**: its Cassi has our bad technique (shoots 53% / steps away 12% with a melee within 2, dies 54%), but
+  meets that situation only 7/game (ours 13) because it opens at home (5.5% enemy half). Exposure matters as much
+  as technique.
+- **NOVA (#4)** concentrates gold: Tavi 1062 + Vendetta 960 gold/game (mostly wolf captures), Cassi+Issac ~170.
+  Kratos spreads it over its melee; ours was spread with Tavi at 181. v19's `CFG_GOLD_ROUTE` moves Tavi to ~556
+  by R400 locally (v18: 273).
+- **Challenges**: a challenge group = 5 random distinct maps, challenger always side A.
