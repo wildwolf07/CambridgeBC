@@ -363,10 +363,19 @@ bool Bot::step_field(const bc::distance_field& f, bool onto_root) {
     for (auto d : DIRS) {
         const vec2 q = pos + d;
         if (!in_bounds(q) || blocked.is_set(q)) continue;
-        const int v = f.get(q);
-        if (v == UNREACH || (v == 0 && !onto_root)) continue;
-        if (v > cur) continue;
+        const int v0 = f.get(q);
+        if (v0 == UNREACH || (v0 == 0 && !onto_root)) continue;
+        if (v0 > cur) continue;
         if (guard && enemy_danger_at(q) > 0) continue;
+        int v = v0 * 8;
+        if (CFG_TRAVEL_SPREAD && !enemies.empty()) {
+            // Equal-progress steps: keep away from visible enemies. Ladder: we walk into contact (enemy within 4)
+            // without fighting 21 times a game vs Mite 9 / Kratos 17.
+            int dmin = 99;
+            for (auto& e : enemies)
+                if (!e.stunned && !(e.state & (ST_RECALL | ST_SUBMIT | ST_TELE))) dmin = std::min(dmin, cheb(q, e.pos));
+            if (dmin <= 5) v += 5 - dmin;
+        }
         int k = n++;
         while (k > 0 && (cv[k - 1] > v || (cv[k - 1] == v && cp[k - 1] == last_pos))) {
             cp[k] = cp[k - 1];
@@ -377,7 +386,7 @@ bool Bot::step_field(const bc::distance_field& f, bool onto_root) {
         cv[k] = v;
     }
     for (int i = 0; i < n; ++i) {
-        if (cv[i] == cur && cp[i] == last_pos) continue;
+        if (cv[i] / 8 == cur && cp[i] == last_pos) continue;
         const int r = raw_move(cp[i]);
         if (r == 1) {
             last_pos = pos;
@@ -669,6 +678,10 @@ bool Bot::combat() {
             for (auto& a : allies)
                 if (cheb(a.pos, pos) <= 4) ++mates;
             duel_ok = mates > 0 || my_t <= his_t * 1.1f;
+            // Ladder: in losing contacts our units stayed and traded (dies 50%) while Kratos stepped away (dies 13%);
+            // top teams rarely chase. P_PIN 2: only trade back when the duel itself is won; 0: never.
+            if (CFG_PIN == 2) duel_ok = my_t <= his_t * 1.1f;
+            if (CFG_PIN == 0) duel_ok = false;
         }
         if (pin && !can_escape && duel_ok) {
             sh.set_rally(pos, round);
@@ -1296,6 +1309,14 @@ void Bot::retreat() {
         const int sd = sf.get(q);
         float sc = danger_at(q) * 10.f + static_cast<float>(sd == UNREACH ? 300 : sd) * 0.5f;
         if (buddy) sc += static_cast<float>(cheb(q, buddy->pos)) * 0.8f;
+        if (CFG_RETREAT2) {
+            // Gain distance from the closest acting enemy: Kratos's retreat steps go straight away (side-steps 5%,
+            // ours 13-20%), because danger_at() scores distance 1 and 2 from a melee the same.
+            int dmin = 99;
+            for (auto& e : enemies)
+                if (enemy_can_act(e) && !world.enemy_spawn.is_set(e.pos)) dmin = std::min(dmin, cheb(q, e.pos));
+            if (dmin <= 5) sc -= static_cast<float>(dmin) * P_RETREAT2_W;
+        }
         return sc;
     };
     if (kit.dash >= 0 && (st & ST_CAST) && cooldown(kit.dash) == 0 && danger_at(pos) > 0) {

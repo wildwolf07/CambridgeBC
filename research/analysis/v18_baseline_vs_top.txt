@@ -1,0 +1,8 @@
+v18 (orZers, side A, unranked challenges 13 Oct ~21:17) — deterministic baseline per opponent and map
+opp                      collision             corners             elkring             expanse           interlock               lanes            monolith               packs                rows
+:3                               - loss  542-1006 R773 loss  720-1008 R745                   -                   - loss  832-1002 R759                   - loss  720-1044 R641 WIN  1056-660  R479
+KratosMessi    loss  510-1012 R789 loss  666-1002 R508 loss  288-1008 R479 WIN  1032-972  R392 loss  680-1032 R597 loss  614-1000 R483 loss  768-1024 R422 loss  624-1004 R582 loss  858-1056 R437
+Mite           loss  146-1002 R671 loss  144-1022 R451 loss  396-1008 R499 loss  984-1004 R391 loss  138-1028 R414 loss  398-1006 R497 loss  592-1024 R425 loss  404-1000 R456 loss  726-1056 R403
+NOVA           loss  154-1030 R649                   - loss  936-1008 R673 WIN  1032-914  R392                   -                   - WIN  1002-908  R495 loss  654-1022 R541 loss  990-1056 R491
+SHINK AI 6500  loss  474-1006 R705 loss  224-1000 R506                   - loss  936-1004 R368                   -                   -                   - loss  830-1030 R565 loss  792-1056 R429
+WHIM           loss  400-1012 R714 loss  198-1052 R558 loss  612-1044 R645 loss  936-1012 R381 loss  132-1000 R486 loss  988-1002 R611 loss  724-1004 R408 loss  668-1008 R603 loss  858-1056 R448

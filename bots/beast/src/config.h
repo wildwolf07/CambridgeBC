@@ -88,7 +88,7 @@
 #define P_CALL_BONUS 0.7f
 #endif
 #ifndef CFG_NO_SOLO
-#define CFG_NO_SOLO 1
+#define CFG_NO_SOLO 0
 #endif
 #ifndef CFG_SQUAD
 #define CFG_SQUAD 0
@@ -256,7 +256,7 @@
 #endif
 // Fight sim counts Willow heals and Varg shields as extra HP (P_SIM_HEAL_F = Willow focus assumed).
 #ifndef CFG_SIM_HEAL
-#define CFG_SIM_HEAL 1
+#define CFG_SIM_HEAL 0
 #endif
 #ifndef P_SIM_HEAL_F
 #define P_SIM_HEAL_F 110.f
@@ -298,4 +298,20 @@
 // Kiting ignores a melee two tiles away when an ally is adjacent to it (it is busy).
 #ifndef P_KITE_FREE
 #define P_KITE_FREE 1
+#endif
+// Pinned by a melee (within 2, no escape): 1 = trade back if any ally within 4 or duel won (v18), 2 = only if the
+// duel is won, 0 = always retreat.
+#ifndef CFG_PIN
+#define CFG_PIN 2
+#endif
+// Retreat scoring rewards distance from the closest acting enemy (weight per tile).
+#ifndef CFG_RETREAT2
+#define CFG_RETREAT2 0
+#endif
+#ifndef P_RETREAT2_W
+#define P_RETREAT2_W 6.f
+#endif
+// Travel steps with equal progress prefer tiles farther from visible enemies.
+#ifndef CFG_TRAVEL_SPREAD
+#define CFG_TRAVEL_SPREAD 1
 #endif

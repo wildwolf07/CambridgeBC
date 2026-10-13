@@ -1,0 +1,93 @@
+# v19 local ablations (13-14 Oct 2026). eval.py, 2 seeds, all 9 maps, both sides; 36 games per opponent unless noted.
+# a_base = v18 + CFG_BUILD 3 (all-strength). Variants = a_base + one switch. SE ~8% at n=36.
+
+== eval_v19a
+beast vs beast_v18     :  16/36  ( 44.4%)  gemdiff/game  -120.1
+beast vs beast_v14     :  19/36  ( 52.8%)  gemdiff/game   -15.9
+per map: collision:3/8  corners:2/8  elkring:4/8  expanse:4/8  interlock:4/8  lanes:3/8  monolith:1/8  packs:6/8  rows:8/8
+TOTAL 35/72 (48.6%)  K/D 614/946  avg win round 635  CRASHES 0
+
+== eval_kite
+x_kite vs beast_v18     :  15/36  ( 41.7%)  gemdiff/game   -77.0
+per map: collision:1/4  corners:0/4  elkring:2/4  expanse:2/4  interlock:3/4  lanes:0/4  monolith:2/4  packs:3/4  rows:2/4
+TOTAL 15/36 (41.7%)  K/D 297/453  avg win round 584  CRASHES 0
+
+== eval_build
+x_build vs beast_v18     :  20/36  ( 55.6%)  gemdiff/game   +16.2
+per map: collision:1/4  corners:2/4  elkring:4/4  expanse:2/4  interlock:2/4  lanes:1/4  monolith:2/4  packs:2/4  rows:4/4
+TOTAL 20/36 (55.6%)  K/D 370/501  avg win round 624  CRASHES 0
+
+== eval_v19b
+beast vs beast_v18     :   9/36  ( 25.0%)  gemdiff/game  -240.5
+beast vs beast_v14     :  18/36  ( 50.0%)  gemdiff/game   -24.2
+beast vs beast_v16     :   8/36  ( 22.2%)  gemdiff/game  -244.6
+per map: collision:4/12  corners:1/12  elkring:3/12  expanse:3/12  interlock:4/12  lanes:4/12  monolith:2/12  packs:5/12  rows:9/12
+TOTAL 35/108 (32.4%)  K/D 788/1488  avg win round 656  CRASHES 0
+
+== a_kite
+a_kite vs a_base        :  16/36  ( 44.4%)  gemdiff/game   -94.8
+per map: collision:3/4  corners:0/4  elkring:2/4  expanse:1/4  interlock:2/4  lanes:1/4  monolith:3/4  packs:3/4  rows:1/4
+TOTAL 16/36 (44.4%)  K/D 324/512  avg win round 691  CRASHES 0
+
+== a_kite1
+a_kite1 vs a_base        :  14/36  ( 38.9%)  gemdiff/game   -89.3
+per map: collision:2/4  corners:1/4  elkring:2/4  expanse:1/4  interlock:1/4  lanes:1/4  monolith:3/4  packs:2/4  rows:1/4
+TOTAL 14/36 (38.9%)  K/D 301/502  avg win round 672  CRASHES 0
+
+== a_kitef
+a_kitef vs a_base        :  15/36  ( 41.7%)  gemdiff/game   -76.6
+per map: collision:0/4  corners:2/4  elkring:3/4  expanse:1/4  interlock:2/4  lanes:0/4  monolith:3/4  packs:3/4  rows:1/4
+TOTAL 15/36 (41.7%)  K/D 303/516  avg win round 621  CRASHES 0
+
+== a_gold
+a_gold vs a_base        :  17/36  ( 47.2%)  gemdiff/game   +77.1
+per map: collision:3/4  corners:2/4  elkring:3/4  expanse:0/4  interlock:2/4  lanes:1/4  monolith:3/4  packs:2/4  rows:1/4
+TOTAL 17/36 (47.2%)  K/D 347/452  avg win round 665  CRASHES 0
+
+== a_home
+a_home vs a_base        :  17/36  ( 47.2%)  gemdiff/game    -6.2
+per map: collision:3/4  corners:1/4  elkring:4/4  expanse:1/4  interlock:1/4  lanes:1/4  monolith:3/4  packs:2/4  rows:1/4
+TOTAL 17/36 (47.2%)  K/D 340/445  avg win round 644  CRASHES 0
+
+== a_heal
+a_heal vs a_base        :  14/36  ( 38.9%)  gemdiff/game   -53.5
+per map: collision:1/4  corners:1/4  elkring:3/4  expanse:1/4  interlock:2/4  lanes:2/4  monolith:2/4  packs:1/4  rows:1/4
+TOTAL 14/36 (38.9%)  K/D 350/495  avg win round 675  CRASHES 0
+
+== a_pin2
+a_pin2 vs a_base        :  20/36  ( 55.6%)  gemdiff/game  +118.4
+per map: collision:4/4  corners:3/4  elkring:4/4  expanse:1/4  interlock:3/4  lanes:1/4  monolith:2/4  packs:1/4  rows:1/4
+TOTAL 20/36 (55.6%)  K/D 348/444  avg win round 666  CRASHES 0
+
+== a_pin0
+a_pin0 vs a_base        :  19/36  ( 52.8%)  gemdiff/game  +139.2
+per map: collision:4/4  corners:3/4  elkring:3/4  expanse:1/4  interlock:2/4  lanes:2/4  monolith:3/4  packs:0/4  rows:1/4
+TOTAL 19/36 (52.8%)  K/D 362/423  avg win round 645  CRASHES 0
+
+== a_ret2
+a_ret2 vs a_base        :  15/36  ( 41.7%)  gemdiff/game   +31.4
+per map: collision:2/4  corners:0/4  elkring:3/4  expanse:1/4  interlock:4/4  lanes:0/4  monolith:2/4  packs:2/4  rows:1/4
+TOTAL 15/36 (41.7%)  K/D 355/499  avg win round 611  CRASHES 0
+
+== a_base
+a_base vs beast_v18     :  20/36  ( 55.6%)  gemdiff/game   +16.2
+per map: collision:1/4  corners:2/4  elkring:4/4  expanse:2/4  interlock:2/4  lanes:1/4  monolith:2/4  packs:2/4  rows:4/4
+TOTAL 20/36 (55.6%)  K/D 370/501  avg win round 624  CRASHES 0
+
+== w_test
+w_test vs a_base        :   8/24  ( 33.3%)  gemdiff/game  -168.9
+per map: corners:2/4  elkring:2/4  lanes:0/4  monolith:1/4  interlock:0/4  rows:3/4
+TOTAL 8/24 (33.3%)  K/D 228/370  avg win round 542  CRASHES 0
+
+== c_full
+c_full vs beast_v18     :  19/36  ( 52.8%)  gemdiff/game   -19.9
+c_full vs a_base        :  17/36  ( 47.2%)  gemdiff/game   +22.4
+per map: collision:1/8  corners:5/8  elkring:5/8  expanse:1/8  interlock:6/8  lanes:5/8  monolith:4/8  packs:4/8  rows:5/8
+TOTAL 36/72 (50.0%)  K/D 614/750  avg win round 622  CRASHES 0
+
+== c_safe
+c_safe vs beast_v18     :  18/36  ( 50.0%)  gemdiff/game   -11.4
+c_safe vs a_base        :  20/36  ( 55.6%)  gemdiff/game  +118.4
+per map: collision:6/8  corners:5/8  elkring:7/8  expanse:3/8  interlock:5/8  lanes:1/8  monolith:4/8  packs:2/8  rows:5/8
+TOTAL 38/72 (52.8%)  K/D 682/918  avg win round 648  CRASHES 0
+
