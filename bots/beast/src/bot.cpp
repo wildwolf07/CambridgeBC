@@ -591,7 +591,10 @@ bool Bot::combat() {
         if (mates == 0 && hp < 0.7f * max_hp) isolated_prey = false;
     }
     if (CFG_SIM && best && !killable) {
-        const float v = sim_fight();
+        if (CFG_TEAMFIGHT) build_cluster();
+        float v = sim_fight();
+        // Retreating is not free: allies already caught in melee die if the rest walk away.
+        if (CFG_TEAMFIGHT) v -= flee_cost();
         float margin = P_SIM_MARGIN + (rich ? 0.5f : 0.f) + (low ? 0.8f : 0.f);
         if (call) margin -= P_CALL_BONUS;
         if (isolated_prey) margin -= 0.6f;
@@ -650,6 +653,69 @@ bool Bot::combat() {
     return false;
 }
 
+void Bot::build_cluster() {
+    // Union-find over every visible unit; all allies compute the same components from shared team vision,
+    // so the whole cluster reaches the same fight-or-flee verdict.
+    const int na = static_cast<int>(allies.size()), ne = static_cast<int>(enemies.size());
+    const int n = 1 + na + ne;
+    int par[24];
+    vec2 p[24];
+    bool en[24];
+    for (int i = 0; i < n && i < 24; ++i) par[i] = i;
+    p[0] = pos;
+    en[0] = false;
+    for (int i = 0; i < na && 1 + i < 24; ++i) {
+        p[1 + i] = allies[i].pos;
+        en[1 + i] = false;
+    }
+    for (int i = 0; i < ne && 1 + na + i < 24; ++i) {
+        p[1 + na + i] = enemies[i].pos;
+        en[1 + na + i] = true;
+    }
+    auto find = [&](int x) {
+        while (par[x] != x) x = par[x] = par[par[x]];
+        return x;
+    };
+    const int m = std::min(n, 24);
+    for (int i = 0; i < m; ++i) {
+        if (en[i] && world.enemy_spawn.is_set(p[i])) continue;
+        for (int j = i + 1; j < m; ++j) {
+            if (en[j] && world.enemy_spawn.is_set(p[j])) continue;
+            const int lim = (en[i] != en[j]) ? P_CL_AE : P_CL_AA;
+            if (cheb(p[i], p[j]) <= lim) par[find(i)] = find(j);
+        }
+    }
+    const int me = find(0);
+    cl_a.clear();
+    cl_e.clear();
+    for (int i = 0; i < na && 1 + i < m; ++i)
+        if (find(1 + i) == me) cl_a.push_back(i);
+    for (int i = 0; i < ne && 1 + na + i < m; ++i)
+        if (!world.enemy_spawn.is_set(enemies[i].pos) && find(1 + na + i) == me) cl_e.push_back(i);
+}
+
+float Bot::flee_cost() const {
+    // Value of allies (C&I count double) that cannot outrun the enemies already on them.
+    auto pinned = [&](vec2 q, float h) {
+        float thr = 0;
+        for (int ei : cl_e) {
+            const auto& e = enemies[ei];
+            if (!(!e.stunned && !(e.state & (ST_RECALL | ST_SUBMIT | ST_TELE)))) continue;
+            const int d = cheb(q, e.pos);
+            if (d <= std::max(2, e.range)) thr += dps_of(e.type, e.str, e.focus);
+        }
+        return thr > 0 && h < P_PIN_K * thr;
+    };
+    auto val = [](int t) {
+        return (t == static_cast<int>(bc::champion_type::cassi) || t == static_cast<int>(bc::champion_type::issac)) ? 2.f : 1.f;
+    };
+    float c = 0;
+    if (pinned(pos, hp)) c += val(type);
+    for (int ai : cl_a)
+        if (pinned(allies[ai].pos, allies[ai].hp)) c += val(allies[ai].type);
+    return c;
+}
+
 float Bot::sim_fight() const {
     struct U {
         float hp, dps, val;
@@ -661,12 +727,19 @@ float Bot::sim_fight() const {
     U A[8], E[8];
     int na = 0, ne = 0;
     A[na++] = {hp, dps_of(type, str, focus), is_ci(type) ? 2.f : 1.f, true};
+    if (CFG_TEAMFIGHT) {
+        for (int ai : cl_a)
+            if (na < 8) A[na++] = {allies[ai].hp, dps_of(allies[ai].type, allies[ai].str, allies[ai].focus), is_ci(allies[ai].type) ? 2.f : 1.f, false};
+        for (int ei : cl_e)
+            if (ne < 8) E[ne++] = {enemies[ei].hp, dps_of(enemies[ei].type, enemies[ei].str, enemies[ei].focus), is_ci(enemies[ei].type) ? 2.f : 1.f, false};
+    } else {
     for (auto& a : allies)
         if (na < 8 && cheb(a.pos, pos) <= 7) A[na++] = {a.hp, dps_of(a.type, a.str, a.focus), is_ci(a.type) ? 2.f : 1.f, false};
     for (auto& e : enemies) {
         const int d = cheb(pos, e.pos);
         if (ne >= 8 || d > 8 || (world.enemy_spawn.is_set(e.pos) && d > e.range + 1)) continue;
         E[ne++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci(e.type) ? 2.f : 1.f, false};
+    }
     }
     if (ne == 0) return 1.f;
     float a_start = 0, e_start = 0;
@@ -811,6 +884,30 @@ void Bot::engage_inner(const UnitView& e) {
 
 void Bot::retreat() {
     const auto& sf = world.spawn_f();
+    if (CFG_HITRUN && (st & ST_ATTACK)) {
+        // Melee attacks do not consume movement: strike whoever is in reach before stepping away.
+        // Ranged attacks do: a ranged unit that cannot outrun its chaser shoots back instead of fleeing.
+        const UnitView* tgt = nullptr;
+        for (auto& e : enemies)
+            if (cheb(pos, e.pos) <= range && !world.enemy_spawn.is_set(e.pos) && (!tgt || e.hp < tgt->hp)) tgt = &e;
+        if (tgt) {
+            if (kit.melee) {
+                attack_unit_handle(tgt->h, true);
+            } else {
+                bool chased = false;
+                for (auto& e : enemies)
+                    if (enemy_can_act(e) && cheb(pos, e.pos) <= (e.range <= 1 ? 2 : e.range + 1)) chased = true;
+                const int sd = sf.get(pos);
+                const bool dash_ok = kit.dash >= 0 && (st & ST_CAST) && cooldown(kit.dash) == 0;
+                if (chased && sd > 4 && !dash_ok) {
+                    if ((st & ST_CAST) && kit.cc.slot >= 0 && cooldown(kit.cc.slot) == 0 && cheb(pos, tgt->pos) <= static_cast<int>(kit.cc.range))
+                        if (raw_cast(kit.cc.slot, 1, tgt->h, {-1, -1}) == 1) st &= ~ST_CAST;
+                    attack_unit_handle(tgt->h, true);
+                    return;
+                }
+            }
+        }
+    }
     // A stun on the closest threat buys a turn.
     if ((st & ST_CAST) && kit.cc.slot >= 0 && !kit.cc.excl) {
         for (auto& e : enemies)

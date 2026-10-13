@@ -165,3 +165,18 @@
 #ifndef P_BALL_AREA
 #define P_BALL_AREA 1000
 #endif
+#ifndef CFG_TEAMFIGHT
+#define CFG_TEAMFIGHT 0
+#endif
+#ifndef P_CL_AE
+#define P_CL_AE 6
+#endif
+#ifndef P_CL_AA
+#define P_CL_AA 5
+#endif
+#ifndef P_PIN_K
+#define P_PIN_K 3.f
+#endif
+#ifndef CFG_HITRUN
+#define CFG_HITRUN 1
+#endif

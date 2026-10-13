@@ -73,6 +73,10 @@ private:
     void engage_inner(const UnitView& e);
     void retreat();
     float sim_fight() const;
+    // Engagement cluster (CFG_TEAMFIGHT): indices into allies / enemies sharing one connected fight.
+    std::vector<int> cl_a, cl_e;
+    void build_cluster();
+    float flee_cost() const;
     bool answer_rally();
     bool shop_trip();
     bool follow_partner();

@@ -4,3 +4,5 @@ matches/
 replays/
 bots/*/build/
 bots/*/target/
+tools/__pycache__/
+bots/*/compile_commands.json

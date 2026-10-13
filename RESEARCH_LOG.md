@@ -62,3 +62,39 @@ closed unless a fundamentally different mechanism is found (logged so it isn't r
 Re-challenge the same teams (WHIM, Emperor Tung, SSSA, Cabbage, Nameless, BitShift, KratosMessi, MirukuDragon)
 with ladder v10 and compare per-map against the v12 table above. Adopt if lanes/expanse/monolith flip without
 fight maps regressing; otherwise revisit contest penalty.
+
+## 13 Oct (cloud session) — verified mechanics, ladder forensics with full replay extraction
+Tooling: `tools/replay_dump.mjs` (headless Chromium + cached visualiser → per-round JSON of every replay),
+`tools/replay_stats.py`, `deaths.py`, `fights.py`, `timebudget.py`, `profile.py`, `waste.py`. Probes: `bots/zdump` (all
+constants/stats/items/camps), `bots/zmap` (ASCII maps). Ladder host is blocked from the cloud sandbox; analysis uses
+`ladder_replays/` (17 of our games, mostly losses, + 5 Nameless vs :3).
+
+Verified engine facts (probe/replay, engine 2.1.4):
+- Win = 1000 submitted gems; tribute takes ceil(0.1*gems) rounds within Chebyshev 1 of an altar; damage cancels it.
+- **Killer takes all of the victim's carried gems** (+50 gold). Respawn 60 rounds. Spawn heals 100%/round. Recall 5.
+- **Capture = one champion stands on the dead camp's tile 5 consecutive rounds and receives the whole reward**
+  (stepping off resets the timer). Camps never regenerate HP. Camp attack range 3.
+- **Team size varies by map** (collision/expanse/packs 3 picks, interlock/rows 4, corners/elkring/lanes/monolith 5).
+  Both teams may draft the same champion.
+- Ranged basic attack consumes the move for that turn; **melee can attack and then move**.
+- Turn order alternates teams by champion index; priority does not change the interleave.
+- Altar lock (10g, blocks enemy tributes at that altar, 3 hits) and wards are used by WHIM/Cabbage/Miru/larp.
+- Camp values: wolf 22 gems/90 gold (1350hp, respawn 40), elk 36/160 (2400hp, 60), gem cluster 24 (500hp, 50),
+  gold cluster 35 gold.
+
+Ladder forensics (17 games): deaths 154 us vs 36 opp; gems lost on death 1516 vs 164; dead champion-rounds 8766 vs 2030.
+Gap ≈ 412 gems/game ≈ 89 transferred + 132 dead-time farming + 234 lower gems per alive round.
+- Fight episodes (tools/fights.py, 267): we commit 0.99 attackers/episode vs 1.40. Outnumbered: 74 deaths vs 7.
+  Equal attackers: 37 vs 5. We never hit back in 82 episodes (22 deaths, 0 kills).
+- 70/154 deaths are C&I (linked pair). 93 deaths in our own half; 71 with no ally within 4.
+- et2_corners: our 5 reach the centre together, Issac is focused, Cassi/Vendetta/Ryth step back while he dies, then
+  Varg fights 1v4 alone: per-champion fight/flee verdicts disagree (each uses its own radius).
+- Rejected as causes (measured equal): capture delay (median 6 both), idle turns (9.6% vs 8.0%), locked-altar stalls
+  (8 rounds total), HP profile (mean 0.80 vs 0.81), co-farming (1.26 vs 1.24 attackers per camp-round), camp damage
+  per alive round (16.0 vs 16.2), damage wasted on uncaptured camps (13% vs 6.5%), interrupted tributes (5/249).
+
+| Ver | Change | Evidence | Decision |
+|---|---|---|---|
+| v15 | CFG_HITRUN: melee strikes before stepping away; ranged that cannot outrun a chaser shoots back | 58.3% vs v14 (n=108, +105 gems/game; mirror 46.3%, −40); 68.5% vs v13 (n=54) | adopted |
+| — | CFG_TEAMFIGHT: one fight verdict per union-find engagement cluster (+flee cost of pinned allies) | 40.7%/51.9% vs v14 before HITRUN; 46–52% vs v15 | off (neutral locally; aimed at coherent ladder teams) |
+| — | Squad / hunt variants of the bot as benchmark opponents | lose 15–22% to v14 | not representative of ladder packs |
