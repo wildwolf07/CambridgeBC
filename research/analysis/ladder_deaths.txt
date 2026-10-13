@@ -1,0 +1,212 @@
+== c3_collision (us=T1)
+  R  68 us  cassi     @(19,18) enemy gems=  0 hp6ago= 320/700 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'issac': 5, 'issac*': 1, 'cassi*': 1}
+  R  68 us  issac     @(19,23) own   gems= 22 hp6ago= 470/900 allies4=1 enemies4=0 awake_camps=1 cause=camp by={}
+  R  77 us  vendetta  @(23,20) enemy gems= 22 hp6ago= 800/800 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'issac*': 2, 'cassi': 6, 'cassi*': 2, 'issac': 6, 'vendetta*': 2, 'vendetta': 4}
+  R 134 us  varg      @(26,21) enemy gems=  0 hp6ago= 264/1000 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'issac': 7, 'cassi*': 2, 'cassi': 3, 'issac*': 1}
+  R 169 us  cassi     @(22,25) own   gems=  0 hp6ago= 400/700 allies4=0 enemies4=0 awake_camps=1 cause=camp by={}
+  R 169 us  issac     @(16,14) enemy gems=  0 hp6ago= 361/900 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'ryth': 5, 'ryth*': 2}
+  R 223 us  vendetta  @(12,27) own   gems=  0 hp6ago= 261/800 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'cassi': 1, 'cassi*': 1}
+  R 269 us  cassi     @(17,35) own   gems=  0 hp6ago= 130/700 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 269 us  issac     @(22,29) own   gems=  0 hp6ago= 760/900 allies4=0 enemies4=2 awake_camps=1 cause=champ+camp by={'vendetta*': 3, 'vendetta': 5, 'cassi': 1}
+  R 297 us  varg      @(15,12) enemy gems= 22 hp6ago= 672/1100 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'issac': 6, 'ryth*': 2, 'vendetta': 4, 'ryth': 3, 'vendetta*': 1}
+  R 416 us  cassi     @(23,18) enemy gems=  0 hp6ago= 315/700 allies4=2 enemies4=3 awake_camps=1 cause=champ+camp by={'ryth*': 1, 'ryth': 4, 'vendetta': 1, 'vendetta*': 2}
+  R 416 us  issac     @(23,19) enemy gems=  0 hp6ago= 700/900 allies4=2 enemies4=3 awake_camps=1 cause=champ+camp by={'ryth': 3, 'vendetta': 1, 'vendetta*': 2}
+  R 419 us  vendetta  @(25,19) enemy gems=  0 hp6ago= 705/1200 allies4=0 enemies4=3 awake_camps=1 cause=champ+camp by={'ryth': 1, 'vendetta': 3, 'vendetta*': 2, 'cassi*': 1, 'cassi': 1}
+  R 543 us  cassi     @(31,40) own   gems=  0 hp6ago= 280/700 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 543 us  issac     @(18,34) own   gems= 36 hp6ago= 575/995 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'cassi*': 2, 'cassi': 1, 'vendetta*': 1}
+  R 551 us  vendetta  @(18,39) own   gems= 44 hp6ago=1076/1300 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 5, 'vendetta*': 1, 'cassi': 3, 'cassi*': 1}
+  R 567 us  varg      @(22,19) enemy gems=  0 hp6ago= 850/1500 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'issac*': 2, 'issac': 4, 'cassi*': 2, 'vendetta': 2, 'vendetta*': 1}
+== c3_corners (us=T1)
+  R  53 us  tavi      @(34,35) enemy gems=  0 hp6ago= 650/750 allies4=2 enemies4=3 awake_camps=2 cause=champ+camp by={'marcella*': 1, 'stellar*': 2, 'cassi*': 2, 'marcella': 1, 'stellar': 1}
+  R  99 us  vendetta  @(51,39) own   gems=  0 hp6ago= 130/800 allies4=2 enemies4=1 awake_camps=0 cause=champ by={'issac': 4}
+  R 125 opp marcella  @(42,40) enemy gems=  0 hp6ago= 230/1200 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'issac': 3}
+  R 161 us  ryth      @(34,28) enemy gems=  0 hp6ago= 155/1200 allies4=1 enemies4=1 awake_camps=1 cause=champ+camp by={'cassi*': 1}
+  R 180 opp cassi     @(25,45) own   gems=  0 hp6ago= 771/771 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 180 opp issac     @(26,30) own   gems=  0 hp6ago=  15/995 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'varg*': 1, 'tavi*': 1}
+  R 188 opp vendetta  @(24,26) own   gems= 22 hp6ago= 460/800 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'tavi': 4, 'varg': 3, 'varg*': 2, 'tavi*': 1}
+  R 243 us  cassi     @(44,33) own   gems=  0 hp6ago= 280/700 allies4=2 enemies4=2 awake_camps=0 cause=champ by={'marcella*': 1, 'stellar*': 1}
+  R 243 us  issac     @(45,31) own   gems=  0 hp6ago= 580/900 allies4=2 enemies4=1 awake_camps=0 cause=champ by={'stellar*': 1}
+  R 274 us  ryth      @(31,16) enemy gems=  0 hp6ago= 430/1200 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'marcella': 2, 'stellar*': 2}
+  R 308 us  tavi      @(47,29) own   gems= 22 hp6ago= 100/750 allies4=2 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 2}
+  R 377 us  vendetta  @(45,31) own   gems=  0 hp6ago= 430/800 allies4=2 enemies4=3 awake_camps=0 cause=champ by={'ryth*': 1, 'stellar*': 2, 'issac*': 1}
+  R 397 us  varg      @(38,28) own   gems= 80 hp6ago= 838/1100 allies4=2 enemies4=3 awake_camps=1 cause=champ+camp by={'ryth': 6, 'stellar': 6, 'stellar*': 2, 'marcella*': 1, 'cassi*': 2, 'cassi': 1, 'ryth*': 1}
+  R 417 opp cassi     @(41,30) enemy gems=  0 hp6ago= 561/771 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'cassi*': 2, 'issac': 3, 'tavi*': 1, 'issac*': 1, 'cassi': 1}
+  R 417 opp issac     @(34,33) own   gems= 48 hp6ago= 855/995 allies4=1 enemies4=0 awake_camps=1 cause=camp by={}
+  R 423 us  cassi     @(41,29) own   gems= 48 hp6ago= 700/700 allies4=2 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 423 us  issac     @(38,32) own   gems=  0 hp6ago= 550/1090 allies4=2 enemies4=2 awake_camps=0 cause=champ by={'ryth*': 1, 'stellar*': 2, 'stellar': 2}
+  R 449 opp ryth      @(42,32) enemy gems=  0 hp6ago= 397/1700 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 3, 'vendetta*': 1, 'tavi*': 1}
+  R 512 us  cassi     @(38,29) own   gems=  0 hp6ago= 700/700 allies4=3 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 4, 'stellar*': 1}
+  R 512 us  issac     @(37,31) own   gems=  0 hp6ago= 838/1090 allies4=3 enemies4=3 awake_camps=0 cause=champ by={'vendetta': 4, 'stellar*': 2}
+  R 520 us  tavi      @(38,34) own   gems=  0 hp6ago= 498/750 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'stellar*': 2, 'stellar': 1}
+  R 541 us  ryth      @(34,33) enemy gems= 36 hp6ago=1200/1200 allies4=2 enemies4=5 awake_camps=1 cause=champ+camp by={'stellar*': 2, 'marcella*': 1, 'cassi*': 2, 'ryth*': 1, 'cassi': 2, 'vendetta': 2, 'vendetta*': 1, 'stellar': 1}
+  R 548 us  varg      @(39,27) own   gems=  0 hp6ago= 581/1500 allies4=1 enemies4=5 awake_camps=0 cause=champ by={'vendetta*': 2, 'cassi': 2, 'cassi*': 2, 'ryth*': 1, 'vendetta': 3, 'stellar*': 1}
+== c3b_collision (us=T1)
+  R  45 opp vendetta  @(18,16) own   gems=  0 hp6ago= 500/800 allies4=1 enemies4=3 awake_camps=0 cause=champ by={'issac*': 2, 'issac': 4, 'cassi*': 2, 'cassi': 2, 'vendetta': 2, 'vendetta*': 2}
+  R  54 us  vendetta  @(21,18) enemy gems= 22 hp6ago= 160/800 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'cassi*': 1}
+  R  75 us  varg      @(28,20) enemy gems=  0 hp6ago= 360/1000 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'cassi': 2, 'ryth*': 1, 'cassi*': 1}
+  R 129 us  cassi     @(20,20) enemy gems=  0 hp6ago= 200/700 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'ryth': 3, 'ryth*': 2}
+  R 129 us  issac     @(17,25) own   gems= 44 hp6ago= 340/900 allies4=1 enemies4=0 awake_camps=1 cause=camp by={}
+  R 160 us  vendetta  @(16,26) own   gems= 22 hp6ago= 306/800 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 1, 'issac': 4, 'issac*': 2, 'ryth*': 1}
+  R 191 us  varg      @(15,27) own   gems=  0 hp6ago= 257/1000 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'ryth': 3, 'ryth*': 2}
+  R 302 us  varg      @(21,23) own   gems=  0 hp6ago= 410/1000 allies4=3 enemies4=3 awake_camps=1 cause=champ+camp by={'ryth': 3, 'cassi*': 2, 'cassi': 2}
+  R 303 opp ryth      @(23,21) enemy gems=  0 hp6ago= 414/1700 allies4=2 enemies4=3 awake_camps=1 cause=champ+camp by={'varg': 2, 'vendetta': 3, 'vendetta*': 2}
+  R 311 opp cassi     @(18,14) own   gems=  0 hp6ago= 442/1056 allies4=2 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 2, 'vendetta*': 1}
+  R 311 opp issac     @(16,12) own   gems=  0 hp6ago=1235/1375 allies4=2 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 1, 'vendetta*': 1}
+  R 366 us  cassi     @(23,23) own   gems=  0 hp6ago= 520/700 allies4=1 enemies4=1 awake_camps=1 cause=champ+camp by={'vendetta': 6, 'vendetta*': 1}
+  R 366 us  issac     @(19,27) own   gems=  0 hp6ago=1151/1375 allies4=1 enemies4=0 awake_camps=1 cause=camp by={}
+  R 429 opp vendetta  @( 5,36) enemy gems=  0 hp6ago= 785/1300 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'varg': 5, 'varg*': 1, 'cassi*': 2, 'cassi': 2, 'issac*': 2, 'issac': 3}
+  R 509 us  cassi     @(23,20) enemy gems=  0 hp6ago= 620/700 allies4=3 enemies4=1 awake_camps=0 cause=champ by={'issac': 4, 'cassi*': 2}
+  R 509 us  issac     @(21,18) enemy gems= 36 hp6ago= 771/1375 allies4=3 enemies4=3 awake_camps=1 cause=champ+camp by={'issac': 4, 'cassi*': 2}
+  R 517 us  varg      @(20,22) own   gems= 22 hp6ago= 230/1000 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'cassi': 5, 'cassi*': 2}
+  R 630 us  vendetta  @(25,25) own   gems=166 hp6ago= 577/1800 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'ryth': 3, 'ryth*': 2}
+  R 676 us  varg      @( 0, 1) enemy gems=  0 hp6ago= 335/1100 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'vendetta': 2, 'vendetta*': 1, 'cassi*': 1}
+== cab_lanes (us=T0)
+  R  48 us  cassi     @(39,29) own   gems=  0 hp6ago= 660/700 allies4=0 enemies4=0 awake_camps=2 cause=camp by={}
+  R  48 us  issac     @(49,21) enemy gems=  0 hp6ago= 580/900 allies4=3 enemies4=3 awake_camps=1 cause=champ+camp by={'stellar': 4, 'tavi': 4, 'vendetta': 2, 'vendetta*': 1, 'tavi*': 1, 'stellar*': 1}
+  R  66 us  varg      @(51,23) enemy gems=  0 hp6ago= 620/1000 allies4=0 enemies4=2 awake_camps=2 cause=champ+camp by={'tavi': 2, 'stellar': 2, 'stellar*': 2, 'tavi*': 1}
+  R 268 us  ryth      @(40, 2) own   gems=  0 hp6ago= 523/1300 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 3}
+== et2_corners (us=T0)
+  R  30 us  cassi     @(31,33) own   gems=  0 hp6ago= 700/700 allies4=3 enemies4=0 awake_camps=3 cause=camp by={}
+  R  30 us  issac     @(35,36) enemy gems=  0 hp6ago= 765/900 allies4=4 enemies4=4 awake_camps=2 cause=champ+camp by={'varg': 3, 'ryth': 4, 'issac': 3, 'ryth*': 1, 'tavi': 2, 'cassi*': 1, 'cassi': 1}
+  R  34 us  varg      @(37,34) enemy gems=  0 hp6ago=1000/1000 allies4=0 enemies4=5 awake_camps=6 cause=champ+camp by={'varg': 5, 'ryth': 5, 'varg*': 1, 'issac*': 2, 'issac': 6, 'ryth*': 1, 'tavi': 4, 'cassi*': 2, 'cassi': 4, 'tavi*': 2}
+  R 122 us  vendetta  @(44,37) enemy gems=  0 hp6ago= 320/800 allies4=1 enemies4=3 awake_camps=0 cause=champ by={'tavi*': 1, 'tavi': 2, 'issac': 1, 'vendetta': 1}
+  R 135 us  cassi     @(36,38) enemy gems=  0 hp6ago= 490/700 allies4=2 enemies4=1 awake_camps=0 cause=champ by={'cassi*': 1}
+  R 135 us  issac     @(36,35) enemy gems=  0 hp6ago= 120/900 allies4=2 enemies4=1 awake_camps=0 cause=champ by={'tavi': 2, 'cassi*': 1}
+  R 178 us  tavi      @(39,31) enemy gems= 22 hp6ago= 665/750 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 6, 'vendetta*': 1, 'issac*': 2, 'issac': 3}
+  R 207 us  ryth      @(39,29) enemy gems=  0 hp6ago= 330/1200 allies4=1 enemies4=3 awake_camps=0 cause=champ by={'issac*': 1, 'issac': 1, 'tavi': 1}
+  R 241 us  vendetta  @(33,37) own   gems= 22 hp6ago= 520/800 allies4=0 enemies4=3 awake_camps=1 cause=champ+camp by={'cassi*': 1, 'vendetta*': 2, 'vendetta': 5, 'cassi': 4, 'tavi': 3, 'tavi*': 1}
+  R 264 us  cassi     @(30,39) own   gems=  0 hp6ago= 500/700 allies4=2 enemies4=2 awake_camps=0 cause=champ by={'cassi*': 2, 'cassi': 3, 'tavi*': 1, 'issac': 1, 'issac*': 1}
+  R 264 us  issac     @(27,38) own   gems=  0 hp6ago= 900/900 allies4=2 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 272 us  tavi      @(24,35) own   gems=  0 hp6ago= 750/750 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'issac': 6, 'tavi*': 1, 'tavi': 3, 'issac*': 1}
+  R 328 us  varg      @(51,39) enemy gems=  0 hp6ago= 180/1000 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'varg': 7, 'cassi*': 1, 'varg*': 1, 'cassi': 3}
+  R 336 us  ryth      @(35,35) enemy gems=  0 hp6ago= 840/1200 allies4=0 enemies4=1 awake_camps=5 cause=champ+camp by={'ryth': 6, 'ryth*': 1}
+  R 347 us  vendetta  @(31,36) own   gems= 22 hp6ago= 540/800 allies4=2 enemies4=2 awake_camps=2 cause=champ+camp by={'ryth*': 2, 'tavi*': 1, 'ryth': 4, 'tavi': 3}
+  R 356 us  cassi     @(27,33) own   gems=  0 hp6ago= 600/700 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'tavi*': 1, 'ryth*': 2, 'tavi': 2, 'ryth': 2}
+  R 356 us  issac     @(25,35) own   gems=  0 hp6ago= 160/900 allies4=2 enemies4=1 awake_camps=0 cause=champ by={'tavi*': 1, 'ryth*': 1, 'tavi': 2, 'ryth': 2}
+== et4_collision (us=T1)
+  R  39 opp vendetta  @(24,19) enemy gems=  0 hp6ago= 420/800 allies4=2 enemies4=3 awake_camps=1 cause=champ+camp by={'cassi*': 2, 'cassi': 2, 'issac': 3, 'issac*': 1}
+  R  57 us  vendetta  @(20,12) enemy gems= 22 hp6ago= 220/800 allies4=2 enemies4=2 awake_camps=0 cause=champ by={'cassi': 5, 'cassi*': 1, 'issac': 1, 'issac*': 1}
+  R  69 us  cassi     @(19, 8) enemy gems=  0 hp6ago= 470/700 allies4=1 enemies4=0 awake_camps=0 cause=champ by={'cassi*': 1, 'issac': 2}
+  R  69 us  issac     @(15, 6) enemy gems= 22 hp6ago= 210/900 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'issac': 4, 'cassi*': 1, 'varg*': 1, 'varg': 1}
+  R 113 us  varg      @(26,18) enemy gems=  0 hp6ago= 335/1000 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'varg': 7, 'varg*': 2}
+  R 178 us  cassi     @(18,12) enemy gems=  0 hp6ago= 700/700 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 178 us  issac     @(13, 6) enemy gems=  0 hp6ago= 513/900 allies4=0 enemies4=3 awake_camps=1 cause=champ+camp by={'issac': 5, 'varg*': 2, 'varg': 2, 'vendetta': 1, 'vendetta*': 2}
+  R 235 us  vendetta  @(21,14) enemy gems=  0 hp6ago= 779/1200 allies4=0 enemies4=2 awake_camps=1 cause=champ+camp by={'varg': 6, 'issac': 5, 'issac*': 1}
+  R 253 us  varg      @(25,20) enemy gems=  0 hp6ago= 132/1000 allies4=0 enemies4=1 awake_camps=1 cause=champ+camp by={'issac': 5, 'issac*': 1}
+  R 271 us  cassi     @(12,34) own   gems=  0 hp6ago= 360/700 allies4=0 enemies4=0 awake_camps=1 cause=camp by={}
+  R 271 us  issac     @(19,24) own   gems=  0 hp6ago= 310/900 allies4=0 enemies4=1 awake_camps=1 cause=champ+camp by={'varg': 1, 'varg*': 1}
+  R 453 us  cassi     @(25,22) enemy gems=  0 hp6ago= 340/700 allies4=1 enemies4=2 awake_camps=1 cause=champ+camp by={'vendetta': 3, 'vendetta*': 2}
+  R 453 us  issac     @( 9,36) own   gems=  0 hp6ago= 995/995 allies4=0 enemies4=0 awake_camps=1 cause=camp by={}
+  R 561 us  cassi     @(25,22) enemy gems= 22 hp6ago= 580/700 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 4, 'vendetta*': 2}
+  R 561 us  issac     @(30,38) own   gems= 22 hp6ago= 755/995 allies4=2 enemies4=0 awake_camps=0 cause=unseen by={}
+== et_vs_us_interlock (us=T1)
+  R  41 us  vendetta  @(15,19) enemy gems=  0 hp6ago= 800/800 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'ryth': 7, 'ryth*': 2, 'vendetta': 5, 'vendetta*': 1}
+  R  84 us  ryth      @(13,15) enemy gems=  0 hp6ago= 400/1200 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'varg': 7, 'varg*': 2, 'issac': 3, 'issac*': 1}
+  R  90 us  varg      @(13,15) enemy gems=  0 hp6ago= 430/1000 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'varg': 6, 'issac': 6, 'varg*': 1, 'issac*': 2}
+  R 115 opp cassi     @(29,24) enemy gems=  0 hp6ago= 240/700 allies4=1 enemies4=3 awake_camps=3 cause=champ+camp by={'cassi*': 1, 'cassi': 3, 'issac': 1, 'vendetta*': 1}
+  R 115 opp issac     @(26,21) enemy gems=  0 hp6ago= 445/995 allies4=1 enemies4=0 awake_camps=3 cause=camp by={}
+  R 171 us  vendetta  @(16,21) enemy gems=  0 hp6ago= 480/800 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'ryth*': 1}
+  R 204 us  cassi     @(24,22) own   gems= 22 hp6ago= 470/700 allies4=1 enemies4=2 awake_camps=1 cause=champ+camp by={'issac': 5, 'cassi': 1, 'cassi*': 1}
+  R 204 us  issac     @(27,27) own   gems=  0 hp6ago= 258/1090 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 212 us  varg      @(27,20) own   gems= 22 hp6ago= 633/1000 allies4=0 enemies4=2 awake_camps=2 cause=champ+camp by={'cassi': 6, 'issac': 6, 'cassi*': 1}
+  R 242 us  ryth      @(25,20) own   gems= 44 hp6ago= 260/1200 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'issac': 4, 'issac*': 1, 'cassi*': 1, 'cassi': 1}
+  R 253 us  vendetta  @(33,26) own   gems=  0 hp6ago= 349/800 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'cassi*': 1, 'issac': 4, 'cassi': 2}
+  R 300 us  cassi     @(14,19) enemy gems=  0 hp6ago= 590/700 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'varg*': 1, 'varg': 5, 'vendetta*': 2, 'vendetta': 3}
+  R 300 us  issac     @(31,22) own   gems= 22 hp6ago= 770/1090 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 329 us  varg      @(23,22) own   gems= 22 hp6ago= 700/1100 allies4=1 enemies4=3 awake_camps=0 cause=champ by={'cassi*': 2, 'ryth*': 1, 'ryth': 6}
+  R 340 us  ryth      @(26,20) own   gems=  0 hp6ago=1050/1600 allies4=1 enemies4=3 awake_camps=1 cause=champ+camp by={'cassi': 5, 'ryth': 5, 'issac': 4, 'issac*': 1, 'cassi*': 1}
+  R 384 us  vendetta  @(21,25) own   gems=  0 hp6ago= 418/800 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'issac*': 1, 'issac': 2}
+  R 423 us  varg      @(27,21) own   gems= 72 hp6ago=1140/1400 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'cassi*': 2, 'cassi': 6, 'issac': 6, 'ryth': 5}
+  R 426 us  cassi     @(39,38) own   gems= 22 hp6ago= 260/771 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 426 us  issac     @(28,28) own   gems=  0 hp6ago=  18/1375 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'issac*': 1, 'ryth*': 1}
+  R 431 us  ryth      @(28,25) own   gems=  0 hp6ago=1370/1600 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'cassi*': 2, 'issac': 6, 'issac*': 1, 'ryth*': 1, 'ryth': 6}
+  R 474 us  vendetta  @(18,23) own   gems=  0 hp6ago= 303/800 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'issac': 2}
+== kr_interlock (us=T0)
+  R  49 opp vendetta  @(16,21) enemy gems=  0 hp6ago= 190/800 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'cassi*': 2, 'cassi': 2}
+  R  76 us  cassi     @(23,21) enemy gems=  0 hp6ago= 610/700 allies4=1 enemies4=3 awake_camps=0 cause=champ by={'varg': 6, 'varg*': 2, 'cassi*': 1, 'ryth*': 2, 'cassi': 2, 'ryth': 1}
+  R  76 us  issac     @(21,16) own   gems=  0 hp6ago= 270/900 allies4=1 enemies4=1 awake_camps=0 cause=unseen by={}
+  R 117 us  varg      @(30,28) enemy gems=  0 hp6ago= 410/1000 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'cassi*': 1, 'cassi': 4, 'ryth*': 1, 'vendetta': 1, 'vendetta*': 2}
+  R 204 us  cassi     @( 8,17) own   gems=  0 hp6ago= 540/700 allies4=1 enemies4=0 awake_camps=1 cause=camp by={}
+  R 204 us  issac     @(25,21) enemy gems= 22 hp6ago= 177/900 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'issac': 3, 'vendetta': 1, 'vendetta*': 2}
+  R 212 us  ryth      @(26,23) enemy gems=  0 hp6ago=1125/1200 allies4=0 enemies4=3 awake_camps=3 cause=champ+camp by={'varg*': 2, 'issac': 5, 'issac*': 1, 'vendetta': 5, 'varg': 6, 'cassi*': 2, 'cassi': 1}
+  R 256 us  varg      @(25,31) enemy gems=  0 hp6ago= 250/1000 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'issac': 3, 'issac*': 1}
+  R 300 opp vendetta  @(25,24) own   gems=  0 hp6ago= 237/900 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 3}
+  R 310 opp varg      @(20,29) own   gems=  0 hp6ago= 220/1000 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta*': 2, 'vendetta': 3, 'cassi*': 1}
+  R 335 us  ryth      @(27,22) enemy gems=  0 hp6ago= 749/1200 allies4=0 enemies4=3 awake_camps=3 cause=champ+camp by={'issac': 6, 'cassi*': 2, 'ryth*': 1}
+  R 376 us  vendetta  @(26,23) enemy gems=  0 hp6ago= 578/1600 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'ryth*': 2, 'vendetta': 2, 'vendetta*': 2, 'ryth': 2, 'issac': 2, 'issac*': 1}
+  R 422 us  varg      @(15,16) own   gems= 44 hp6ago= 135/1000 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'varg': 6, 'varg*': 1}
+  R 469 us  ryth      @(15,19) own   gems= 22 hp6ago= 260/1300 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'cassi*': 2}
+== kr_packs (us=T0)
+  R 137 us  cassi     @(11,17) own   gems=  0 hp6ago= 700/700 allies4=1 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 137 us  issac     @(15,13) own   gems=  0 hp6ago= 415/900 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'varg': 6, 'cassi*': 1, 'cassi': 2, 'varg*': 1}
+  R 252 us  vendetta  @(21,15) enemy gems=  0 hp6ago= 273/800 allies4=1 enemies4=2 awake_camps=1 cause=champ+camp by={'issac': 4, 'varg': 2, 'varg*': 2}
+  R 283 us  varg      @(26,26) enemy gems= 44 hp6ago= 644/1800 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'varg': 3, 'issac': 5, 'issac*': 1}
+  R 368 us  cassi     @(15, 9) own   gems=  0 hp6ago= 700/700 allies4=2 enemies4=1 awake_camps=0 cause=unseen by={}
+  R 368 us  issac     @(17,13) own   gems=  0 hp6ago= 480/900 allies4=2 enemies4=2 awake_camps=0 cause=champ by={'varg': 5, 'varg*': 1}
+== larp_packs (us=T1)
+  R  97 opp vendetta  @( 0,19) own   gems=  0 hp6ago= 300/800 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 4, 'vendetta*': 1}
+  R 176 us  cassi     @(14,15) enemy gems=  0 hp6ago= 520/700 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'varg': 6, 'varg*': 1}
+  R 176 us  issac     @(12,17) enemy gems=  0 hp6ago= 900/900 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'varg': 6}
+  R 215 us  varg      @(15, 3) enemy gems=  0 hp6ago=1005/1300 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'tavi*': 2, 'tavi': 7, 'vendetta': 2}
+  R 259 us  cassi     @(14,14) enemy gems=  0 hp6ago= 700/700 allies4=1 enemies4=2 awake_camps=2 cause=champ+camp by={'vendetta*': 2, 'vendetta': 7, 'varg': 2, 'varg*': 1}
+  R 259 us  issac     @(16,16) own   gems=  0 hp6ago= 830/900 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 7, 'varg': 2}
+  R 340 us  cassi     @(15,15) own   gems=  0 hp6ago= 700/700 allies4=1 enemies4=1 awake_camps=2 cause=champ+camp by={'varg': 2}
+  R 340 us  issac     @(13,13) enemy gems=  0 hp6ago= 900/900 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'varg': 6, 'varg*': 1}
+  R 347 us  varg      @(19, 8) enemy gems=  0 hp6ago= 950/1300 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 3}
+  R 418 us  cassi     @(16,17) own   gems=  0 hp6ago= 700/700 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'varg': 3, 'varg*': 1}
+  R 418 us  issac     @(16,16) own   gems=  0 hp6ago= 900/900 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'varg': 3, 'varg*': 1}
+  R 445 us  varg      @(21,15) own   gems=  0 hp6ago=1300/1300 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'varg': 3}
+== sssa_elk (us=T0)
+  R  60 us  varg      @(20, 6) own   gems= 36 hp6ago= 860/1100 allies4=2 enemies4=5 awake_camps=0 cause=champ by={'stellar*': 1, 'stellar': 5, 'tavi': 5, 'issac': 3, 'issac*': 2, 'vendetta': 3, 'vendetta*': 1}
+  R  66 opp tavi      @(16, 2) enemy gems=  0 hp6ago= 380/750 allies4=2 enemies4=2 awake_camps=1 cause=champ+camp by={'tavi*': 1, 'tavi': 2}
+  R  67 us  tavi      @(13, 4) own   gems=  0 hp6ago= 610/750 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'tavi*': 1, 'stellar*': 1, 'vendetta*': 3, 'vendetta': 4}
+  R  68 opp stellar   @(19, 4) enemy gems= 36 hp6ago= 320/750 allies4=0 enemies4=0 awake_camps=2 cause=camp by={}
+  R  75 us  ryth      @(13, 6) own   gems=  0 hp6ago= 680/1200 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 6, 'ryth': 4, 'ryth*': 2, 'vendetta*': 1}
+  R 120 us  cassi     @( 5,17) own   gems= 18 hp6ago= 280/700 allies4=1 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 120 us  issac     @( 6,14) own   gems= 18 hp6ago= 360/900 allies4=1 enemies4=0 awake_camps=2 cause=camp by={}
+  R 149 opp vendetta  @(25,10) own   gems=  0 hp6ago= 230/800 allies4=4 enemies4=0 awake_camps=2 cause=camp by={}
+  R 154 us  varg      @(21, 7) own   gems=  0 hp6ago= 580/1100 allies4=1 enemies4=4 awake_camps=0 cause=champ by={'cassi': 5, 'stellar*': 1, 'stellar': 3, 'cassi*': 2, 'issac': 4, 'issac*': 1, 'tavi*': 1}
+  R 156 us  tavi      @(21, 5) own   gems=  0 hp6ago= 720/750 allies4=0 enemies4=3 awake_camps=2 cause=champ+camp by={'cassi': 4, 'issac': 5, 'issac*': 1, 'stellar': 2, 'cassi*': 1, 'tavi*': 1, 'stellar*': 1}
+  R 162 us  ryth      @(15, 5) own   gems=  0 hp6ago=1200/1200 allies4=0 enemies4=5 awake_camps=0 cause=champ by={'tavi': 4, 'cassi': 2, 'issac': 4, 'stellar': 1, 'stellar*': 1, 'cassi*': 2, 'issac*': 1, 'tavi*': 1}
+  R 240 us  varg      @(18,10) own   gems=  0 hp6ago=1100/1100 allies4=2 enemies4=4 awake_camps=0 cause=champ by={'tavi*': 1, 'tavi': 6, 'cassi*': 2, 'cassi': 4, 'ryth': 4, 'ryth*': 2}
+  R 250 us  vendetta  @(14,10) own   gems= 36 hp6ago=1070/1700 allies4=1 enemies4=4 awake_camps=0 cause=champ by={'ryth*': 2, 'ryth': 3, 'stellar*': 2, 'cassi*': 1}
+  R 272 us  tavi      @( 7, 7) own   gems=  0 hp6ago= 340/750 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'issac': 4, 'issac*': 1}
+  R 296 us  cassi     @(19, 6) own   gems= 18 hp6ago= 520/700 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 4, 'vendetta*': 1}
+  R 296 us  issac     @( 0, 2) own   gems= 54 hp6ago=1375/1375 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'issac': 2, 'issac*': 1}
+  R 318 us  varg      @( 9, 5) own   gems=  0 hp6ago=1100/1100 allies4=2 enemies4=3 awake_camps=0 cause=champ by={'ryth': 4, 'ryth*': 2, 'stellar*': 2, 'tavi*': 1, 'tavi': 2}
+  R 320 opp ryth      @(10, 4) enemy gems=  0 hp6ago=1006/1700 allies4=2 enemies4=2 awake_camps=0 cause=champ by={'ryth': 5, 'ryth*': 2, 'vendetta': 6, 'vendetta*': 2}
+  R 322 opp tavi      @(12, 5) enemy gems=  0 hp6ago= 470/750 allies4=1 enemies4=2 awake_camps=0 cause=champ by={'vendetta': 8, 'ryth*': 1, 'ryth': 3, 'vendetta*': 2}
+  R 328 us  ryth      @(17, 7) own   gems=  0 hp6ago= 580/1200 allies4=1 enemies4=3 awake_camps=0 cause=champ by={'cassi': 2, 'stellar*': 1, 'cassi*': 1}
+  R 337 us  vendetta  @(11, 0) own   gems=  0 hp6ago= 812/1900 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'stellar*': 1, 'stellar': 1, 'vendetta': 3, 'vendetta*': 1}
+  R 349 us  tavi      @( 9,11) own   gems=  0 hp6ago= 750/750 allies4=0 enemies4=2 awake_camps=0 cause=champ by={'vendetta*': 3, 'vendetta': 4, 'stellar*': 1}
+  R 417 us  cassi     @( 5,12) own   gems= 54 hp6ago= 771/771 allies4=1 enemies4=4 awake_camps=0 cause=champ by={'cassi*': 1, 'stellar*': 2, 'stellar': 1}
+  R 417 us  issac     @( 0,17) own   gems= 54 hp6ago= 787/1375 allies4=1 enemies4=2 awake_camps=1 cause=camp by={}
+  R 420 us  ryth      @( 5,16) own   gems=  0 hp6ago=1200/1200 allies4=0 enemies4=5 awake_camps=0 cause=champ by={'cassi*': 1, 'tavi*': 2, 'tavi': 4, 'ryth': 4, 'ryth*': 2, 'stellar': 3, 'issac': 2, 'issac*': 1}
+  R 426 us  tavi      @(11,11) own   gems=  0 hp6ago= 750/750 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'stellar*': 2, 'tavi*': 1, 'tavi': 1}
+  R 438 us  vendetta  @( 0,19) own   gems=  0 hp6ago=1737/2200 allies4=0 enemies4=5 awake_camps=0 cause=champ by={'tavi*': 1, 'vendetta': 5, 'vendetta*': 1, 'issac': 5, 'tavi': 3, 'ryth': 2, 'ryth*': 1, 'stellar*': 1, 'issac*': 1}
+  R 477 us  varg      @(16, 1) own   gems= 36 hp6ago= 925/1500 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 3, 'vendetta*': 1}
+  R 537 opp cassi     @( 7, 4) enemy gems=  0 hp6ago= 745/985 allies4=1 enemies4=2 awake_camps=2 cause=champ+camp by={'tavi*': 1}
+  R 537 opp issac     @(24,14) own   gems=  0 hp6ago=3106/3560 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 543 opp vendetta  @( 5,20) enemy gems=  0 hp6ago= 984/2800 allies4=0 enemies4=3 awake_camps=0 cause=champ by={'vendetta': 4, 'vendetta*': 2, 'cassi*': 2, 'cassi': 1, 'issac*': 1, 'issac': 1}
+  R 552 opp ryth      @( 7,14) enemy gems=  0 hp6ago= 639/1700 allies4=0 enemies4=4 awake_camps=0 cause=champ by={'tavi': 2, 'tavi*': 1, 'issac*': 2, 'issac': 3, 'ryth': 2, 'ryth*': 1, 'vendetta*': 1}
+  R 590 opp stellar   @(29,19) own   gems=  0 hp6ago=1032/1200 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 3, 'vendetta*': 1}
+  R 601 opp tavi      @(27, 1) enemy gems=  0 hp6ago= 120/1125 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'varg': 2, 'varg*': 1}
+  R 668 us  varg      @(21,17) enemy gems= 36 hp6ago=1340/2200 allies4=1 enemies4=3 awake_camps=0 cause=champ by={'issac': 6, 'issac*': 1, 'stellar*': 2, 'ryth*': 1, 'ryth': 1}
+  R 672 us  ryth      @( 8,13) own   gems=  0 hp6ago= 420/1200 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'cassi*': 1}
+  R 691 opp cassi     @(16,29) own   gems=  0 hp6ago=1044/1128 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'issac*': 2, 'issac': 3}
+  R 691 opp issac     @(29,19) own   gems=  0 hp6ago=4130/4130 allies4=0 enemies4=0 awake_camps=0 cause=unseen by={}
+  R 698 opp ryth      @(12, 1) enemy gems=  0 hp6ago=1052/1700 allies4=1 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 6}
+== whim_lanes (us=T0)
+  R 103 opp ren       @(53,21) own   gems= 22 hp6ago= 100/900 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'vendetta': 2}
+  R 129 opp ryth      @(55, 8) own   gems= 36 hp6ago= 320/1200 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'tavi': 3, 'tavi*': 2}
+  R 179 opp marcella  @(54,21) own   gems=  0 hp6ago= 340/1300 allies4=0 enemies4=1 awake_camps=0 cause=champ by={'tavi*': 1}
+
+us: 154 deaths, gems carried 1516 (9.8/death)
+  cause: champ=98, champ+camp=32, camp=11, unseen=13
+  half: own=93 enemy=61   alone=71 with_ally=83
+  ctx: outnumbered=60 even=38 ahead=56
+
+opp: 36 deaths, gems carried 164 (4.6/death)
+  cause: champ=24, champ+camp=5, camp=4, unseen=3
+  half: own=18 enemy=18   alone=19 with_ally=17
+  ctx: outnumbered=9 even=15 ahead=12

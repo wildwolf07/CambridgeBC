@@ -1,0 +1,127 @@
+capture_time=5 camp_sleep=2 respawn=60 recall=5
+submit mult=0.100 base=0 min=1 range=1
+max_rounds=2000 winning_gems=1000 kill_gold=50 assist_gold=0 passive_gold=0 spawn_heal=1.000
+wards active=1 shared_mem=8 draft_mem=1024 reveal=1 ward_cd=1 ward_life=-1 ward_vis=6.00 ward_place=2.00 altar_lock_hits=3 tp_crystal_time=3
+team_size=5 map 90x30
+CHAMP 0 ryth passive=5 vis=8 move=1 range=1 hp=1200+100.0 str=50.0+5.00 foc=100.0+10.00 campmult=1.00
+slot0: aoe cd=8 targets=19 excl_move=1 range=4.00 mod=1.000 radius=1.00 dur=1
+slot1: attack_reset cd=8 targets=8 excl_move=0 enhanced=0
+CHAMP 1 vesper_vale passive=1 vis=8 move=1 range=3 hp=900+100.0 str=45.0+5.00 foc=100.0+10.00 campmult=1.00
+slot0: attack_reset cd=8 targets=8 excl_move=0 enhanced=0
+slot1: dash cd=8 targets=16 excl_move=0 range=2.00
+CHAMP 2 vendetta passive=6 vis=8 move=1 range=1 hp=800+100.0 str=70.0+5.00 foc=100.0+10.00 campmult=1.00
+slot0: attack_reset cd=8 targets=8 excl_move=0 enhanced=0
+slot1: dash cd=8 targets=16 excl_move=0 range=2.00
+CHAMP 3 cassi passive=0 vis=8 move=1 range=3 hp=700+71.2 str=30.0+3.50 foc=70.0+15.00 campmult=1.00
+slot0: damage cd=8 targets=3 excl_move=1 range=4.00 mod=2.000
+slot1: cc cd=8 targets=3 excl_move=0 range=4.00 mod=0.000 dur=1
+CHAMP 4 issac passive=0 vis=8 move=1 range=1 hp=900+95.0 str=40.0+4.75 foc=100.0+10.00 campmult=1.00
+slot0: attack_reset cd=8 targets=8 excl_move=0 enhanced=0
+slot1: dash cd=8 targets=16 excl_move=0 range=2.00
+CHAMP 5 stellar passive=0 vis=8 move=1 range=3 hp=750+75.0 str=35.0+3.50 foc=100.0+10.00 campmult=1.00
+slot0: damage cd=8 targets=3 excl_move=1 range=4.00 mod=2.000
+slot1: aoe cd=8 targets=19 excl_move=1 range=4.00 mod=1.400 radius=1.00 dur=0
+CHAMP 6 prism passive=3 vis=8 move=1 range=3 hp=700+75.0 str=35.0+3.50 foc=80.0+10.00 campmult=1.00
+slot0: cc cd=8 targets=3 excl_move=1 range=4.00 mod=1.500 dur=1
+slot1: aoe cd=8 targets=19 excl_move=1 range=4.00 mod=1.000 radius=1.00 dur=0
+CHAMP 7 marcella passive=8 vis=8 move=1 range=1 hp=1200+100.0 str=45.0+5.00 foc=50.0+10.00 campmult=1.00
+slot0: attack_reset cd=8 targets=8 excl_move=0 enhanced=1
+slot1: damage cd=8 targets=3 excl_move=1 range=4.00 mod=2.000
+CHAMP 8 willow passive=0 vis=8 move=1 range=3 hp=700+50.0 str=45.0+3.00 foc=105.0+5.00 campmult=1.00
+slot0: heal cd=8 targets=4 excl_move=0 range=4.00 mod=3.000
+slot1: attack_reset cd=8 targets=8 excl_move=0 enhanced=0
+CHAMP 9 ren passive=7 vis=8 move=1 range=1 hp=900+100.0 str=40.0+5.00 foc=100.0+10.00 campmult=1.00
+slot0: cc cd=8 targets=3 excl_move=1 range=4.00 mod=1.250 dur=1
+slot1: dash cd=8 targets=16 excl_move=0 range=2.00
+CHAMP 10 varg passive=4 vis=8 move=1 range=1 hp=1000+100.0 str=50.0+5.00 foc=100.0+10.00 campmult=1.00
+slot0: attack_reset cd=8 targets=8 excl_move=0 enhanced=0
+slot1: shield cd=8 targets=8 excl_move=0 range=4.00 mod=2.500 dur=5
+CHAMP 11 tavi passive=2 vis=8 move=1 range=3 hp=750+75.0 str=35.0+5.00 foc=100.0+10.00 campmult=1.00
+slot0: attack_reset cd=8 targets=8 excl_move=0 enhanced=0
+slot1: cc cd=8 targets=3 excl_move=1 range=4.00 mod=2.200 dur=1
+ITEM 0 monster_shard_of_strength cost=30 comb=5 hp=0 str=1 foc=0 passive=0 mag=0.000 buy=1
+ITEM 1 monster_emblem_of_strength cost=150 comb=0 hp=0 str=5 foc=0 passive=1 mag=0.100 buy=0
+ITEM 2 monster_shard_of_focus cost=30 comb=5 hp=0 str=0 foc=1 passive=0 mag=0.000 buy=1
+ITEM 3 monster_emblem_of_focus cost=150 comb=0 hp=0 str=0 foc=5 passive=1 mag=0.100 buy=0
+ITEM 4 monster_shard_of_health cost=30 comb=5 hp=1 str=0 foc=0 passive=0 mag=0.000 buy=1
+ITEM 5 monster_emblem_of_health cost=150 comb=0 hp=5 str=0 foc=0 passive=1 mag=0.100 buy=0
+ITEM 6 power_shard_of_strength cost=30 comb=5 hp=0 str=1 foc=0 passive=0 mag=0.000 buy=1
+ITEM 7 power_emblem_of_strength cost=150 comb=0 hp=0 str=6 foc=0 passive=0 mag=0.000 buy=0
+ITEM 8 power_shard_of_focus cost=30 comb=5 hp=0 str=0 foc=1 passive=0 mag=0.000 buy=1
+ITEM 9 power_emblem_of_focus cost=150 comb=0 hp=0 str=0 foc=6 passive=0 mag=0.000 buy=0
+ITEM 10 power_shard_of_health cost=30 comb=5 hp=1 str=0 foc=0 passive=0 mag=0.000 buy=1
+ITEM 11 power_emblem_of_health cost=150 comb=0 hp=6 str=0 foc=0 passive=0 mag=0.000 buy=0
+ITEM 12 durability_shard_of_strength cost=30 comb=5 hp=0 str=1 foc=0 passive=0 mag=0.000 buy=1
+ITEM 13 durability_emblem_of_strength cost=150 comb=0 hp=0 str=5 foc=0 passive=2 mag=0.100 buy=0
+ITEM 14 durability_shard_of_focus cost=30 comb=5 hp=0 str=0 foc=1 passive=0 mag=0.000 buy=1
+ITEM 15 durability_emblem_of_focus cost=150 comb=0 hp=0 str=0 foc=5 passive=2 mag=0.100 buy=0
+ITEM 16 durability_shard_of_health cost=30 comb=5 hp=1 str=0 foc=0 passive=0 mag=0.000 buy=1
+ITEM 17 durability_emblem_of_health cost=150 comb=0 hp=5 str=0 foc=0 passive=2 mag=0.100 buy=0
+ITEM 18 treasure_shard_of_strength cost=30 comb=5 hp=0 str=1 foc=0 passive=0 mag=0.000 buy=1
+ITEM 19 treasure_emblem_of_strength cost=150 comb=0 hp=0 str=5 foc=0 passive=3 mag=0.200 buy=0
+ITEM 20 treasure_shard_of_focus cost=30 comb=5 hp=0 str=0 foc=1 passive=0 mag=0.000 buy=1
+ITEM 21 treasure_emblem_of_focus cost=150 comb=0 hp=0 str=0 foc=5 passive=3 mag=0.200 buy=0
+ITEM 22 treasure_shard_of_health cost=30 comb=5 hp=1 str=0 foc=0 passive=0 mag=0.000 buy=1
+ITEM 23 treasure_emblem_of_health cost=150 comb=0 hp=5 str=0 foc=0 passive=3 mag=0.200 buy=0
+ITEM 24 jungle_shard_of_strength cost=30 comb=5 hp=0 str=1 foc=0 passive=0 mag=0.000 buy=1
+ITEM 25 jungle_emblem_of_strength cost=150 comb=0 hp=0 str=5 foc=0 passive=4 mag=0.300 buy=0
+ITEM 26 jungle_shard_of_focus cost=30 comb=5 hp=0 str=0 foc=1 passive=0 mag=0.000 buy=1
+ITEM 27 jungle_emblem_of_focus cost=150 comb=0 hp=0 str=0 foc=5 passive=4 mag=0.300 buy=0
+ITEM 28 jungle_shard_of_health cost=30 comb=5 hp=1 str=0 foc=0 passive=0 mag=0.000 buy=1
+ITEM 29 jungle_emblem_of_health cost=150 comb=0 hp=5 str=0 foc=0 passive=4 mag=0.300 buy=0
+ITEM 30 home_shard_of_strength cost=30 comb=5 hp=0 str=1 foc=0 passive=0 mag=0.000 buy=1
+ITEM 31 home_emblem_of_strength cost=150 comb=0 hp=0 str=5 foc=0 passive=5 mag=0.500 buy=0
+ITEM 32 home_shard_of_focus cost=30 comb=5 hp=0 str=0 foc=1 passive=0 mag=0.000 buy=1
+ITEM 33 home_emblem_of_focus cost=150 comb=0 hp=0 str=0 foc=5 passive=5 mag=0.500 buy=0
+ITEM 34 home_shard_of_health cost=30 comb=5 hp=1 str=0 foc=0 passive=0 mag=0.000 buy=1
+ITEM 35 home_emblem_of_health cost=150 comb=0 hp=5 str=0 foc=0 passive=5 mag=0.500 buy=0
+ITEM 36 bruiser_shard_of_strength cost=30 comb=5 hp=0 str=1 foc=0 passive=0 mag=0.000 buy=1
+ITEM 37 bruiser_emblem_of_strength cost=150 comb=0 hp=1 str=5 foc=1 passive=0 mag=0.000 buy=0
+ITEM 38 bruiser_shard_of_focus cost=30 comb=5 hp=0 str=0 foc=1 passive=0 mag=0.000 buy=1
+ITEM 39 bruiser_emblem_of_focus cost=150 comb=0 hp=1 str=1 foc=5 passive=0 mag=0.000 buy=0
+ITEM 40 bruiser_shard_of_health cost=30 comb=5 hp=1 str=0 foc=0 passive=0 mag=0.000 buy=1
+ITEM 41 bruiser_emblem_of_health cost=150 comb=0 hp=5 str=1 foc=1 passive=0 mag=0.000 buy=0
+CONS tp_crystal cost=10 carry=1
+CONS altar_lock cost=10 carry=1
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(43,15) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(46,15) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(43,13) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(46,13) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(43,11) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(46,11) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=36 gold=160 maxresp=60 n=1: [elk@(39,13) hp=2400 str=60 rng=3 vis=8.0]
+GROUP gems=36 gold=160 maxresp=60 n=1: [elk@(50,13) hp=2400 str=60 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(36,15) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(53,15) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(36,13) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(53,13) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(36,11) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(53,11) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=0 gold=35 maxresp=50 n=1: [gold_cluster@(36,27) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=0 gold=35 maxresp=50 n=1: [gold_cluster@(53,27) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=0 gold=35 maxresp=50 n=1: [gold_cluster@(36,25) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=0 gold=35 maxresp=50 n=1: [gold_cluster@(53,25) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=0 gold=35 maxresp=50 n=1: [gold_cluster@(36,23) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=0 gold=35 maxresp=50 n=1: [gold_cluster@(53,23) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=36 gold=160 maxresp=60 n=1: [elk@(39,25) hp=2400 str=60 rng=3 vis=8.0]
+GROUP gems=36 gold=160 maxresp=60 n=1: [elk@(50,25) hp=2400 str=60 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(42,27) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(47,27) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(42,25) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(47,25) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(42,23) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(47,23) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(43,2) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(46,2) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(43,4) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(46,4) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(43,6) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=22 gold=90 maxresp=40 n=1: [wolf@(46,6) hp=1350 str=20 rng=3 vis=8.0]
+GROUP gems=36 gold=160 maxresp=60 n=1: [elk@(39,4) hp=2400 str=60 rng=3 vis=8.0]
+GROUP gems=36 gold=160 maxresp=60 n=1: [elk@(50,4) hp=2400 str=60 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(36,6) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(53,6) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(36,4) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(53,4) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(36,2) hp=500 str=0 rng=3 vis=8.0]
+GROUP gems=24 gold=0 maxresp=50 n=1: [gem_cluster@(53,2) hp=500 str=0 rng=3 vis=8.0]

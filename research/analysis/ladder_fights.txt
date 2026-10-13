@@ -1,0 +1,5 @@
+episodes=267 avg attackers us=0.99 op=1.40 deaths us=149 op=31
+  us0 n=  82 our deaths=  22 their deaths=   0
+  us> n=  66 our deaths=  16 their deaths=  19
+  us= n=  60 our deaths=  37 their deaths=   5
+  us< n=  59 our deaths=  74 their deaths=   7

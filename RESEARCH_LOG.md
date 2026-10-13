@@ -155,3 +155,8 @@ margin of 0 is well placed. Ward vision is personal (not shared with teammates; 
 | — | 5th pick Marcella | 46.9% vs 46.9% control (n=64), gemdiff worse | rejected |
 | — | CFG_HUNT (isolated prey) on v18 | pool 49.5% vs 53.2% | rejected |
 | — | Endgame tribute race | only 11/40 losses within 100 gems | not a lever |
+
+## LADDER RESULT: v18 lost ~30 ladder games badly (owner report). Self-play gains of v15–v18 did not transfer.
+Recommended fallback: beast_v13 (site v10) or beast_v14 (site v11). Full handoff, analyses and post-mortem:
+`research/README.md`. Top-team decision rules extracted with tools/policy.py (research/analysis/ladder_policy.txt):
+:3 approaches 50% on contact when ahead and retreats 62% when behind; our old bot was not numbers-aware.

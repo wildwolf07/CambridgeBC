@@ -1,0 +1,55 @@
+game                         side draft                            near alone enemyH | gems: gem wolf elk gold other own enemy | sub avg
+c3_collision                 opp  C&I ryth vendetta                0.56  0.58  0.12 |    0  806  260    0    0  898  168 |  26  38.5
+c3_collision                 us   C&I vendetta varg                0.47  0.67  0.10 |    0  264  108    0    0  372    0 |   4  56.5
+c3_corners                   opp  C&I ryth vendetta stellar marcella 1.07  0.43  0.34 |  980  110   36    0   22  646  480 |  26  41.5
+c3_corners                   us   C&I vendetta varg ryth tavi      1.01  0.43  0.16 |   96   44  144    0   70  236   48 |   5  40.8
+c3b_collision                opp  C&I ryth vendetta                0.54  0.59  0.15 |    0  638  252  246   22  882  254 |  22  45.7
+c3b_collision                us   C&I vendetta varg                0.50  0.68  0.10 |  216  220  108    0    0  544    0 |   6  32.7
+cab_expanse                  us   C&I vendetta varg                0.19  0.87  0.00 |  624  242   36    0    0  902    0 |  31  29.1
+cab_expanse                  opp  C&I vendetta ryth                0.36  0.70  0.00 |  720  242   72    0    0 1034    0 |  26  39.8
+cab_lanes                    us   C&I vendetta varg ryth tavi      0.63  0.58  0.13 |  240  396    0    0    0  548   88 |  21  29.1
+cab_lanes                    opp  C&I vendetta ryth stellar tavi   1.05  0.44  0.22 |  504  330  180    0    0  692  322 |  34  30.5
+cab_rows                     opp  C&I vendetta ryth stellar        1.42  0.26  0.00 |    0 1122    0    0    0 1122    0 |  16  66.0
+cab_rows                     us   C&I vendetta varg ryth           1.10  0.41  0.00 |    0  990    0    0    0  990    0 |  13  71.1
+et2_corners                  us   C&I vendetta varg ryth tavi      1.05  0.40  0.26 |    0   88    0    0    0   88    0 |   1  22.0
+et2_corners                  opp  vendetta varg C&I ryth tavi      1.01  0.39  0.13 |  882   44  228    0    0  774  380 |  22  47.0
+et3                          T0   C&I vendetta ryth stellar tavi   0.61  0.58  0.04 |  144  154    0    0    0  202   96 |   6  22.7
+et3                          T1   vendetta varg C&I ryth tavi      0.93  0.36  0.17 |  694   22  336    0   22  694  358 |  22  46.6
+et4_collision                opp  vendetta varg C&I                0.62  0.53  0.01 |   54  440  486   44    0  958   66 |  19  52.7
+et4_collision                us   C&I vendetta varg                0.49  0.62  0.09 |  216  286  108    0    0  610    0 |   9  54.0
+et_vs_il_collision           T0   vendetta varg C&I                0.56  0.59  0.04 |    0  558  612    0    0 1072   98 |  23  58.9
+et_vs_il_collision           T1   C&I vendetta ryth                0.54  0.56  0.06 |  162   66  162    0    0  390    0 |   6  43.3
+et_vs_il_corners             T0   vendetta varg C&I ryth tavi      1.19  0.39  0.34 |  864  110  108    0    0  698  384 |  24  45.1
+et_vs_il_corners             T1   C&I vendetta ryth stellar ren    1.30  0.38  0.06 |  288    0    0    0    0  144  144 |  11  28.4
+et_vs_us_interlock           opp  vendetta varg C&I ryth           0.56  0.58  0.17 |  492  462   72    0   22  700  326 |  25  40.2
+et_vs_us_interlock           us   C&I vendetta varg ryth           0.53  0.63  0.11 |  216  264    0    0    0  480    0 |   7  39.4
+kr_interlock                 us   C&I vendetta varg ryth           0.41  0.69  0.17 |  504  286    0    0    0  790    0 |  12  56.7
+kr_interlock                 opp  varg C&I vendetta ryth           0.74  0.48  0.09 |  498  418  108    0   22  944   80 |  30  36.8
+kr_packs                     us   C&I vendetta varg                0.26  0.79  0.17 |   72  528    0   72    0  648   24 |  17  36.9
+kr_packs                     opp  varg C&I vendetta                0.47  0.59  0.10 |  264  704    0   72    0  944   96 |  32  32.5
+larp_packs                   opp  varg tavi vendetta               0.25  0.79  0.12 |  240  660    0  144    0  948   96 |  22  45.5
+larp_packs                   us   C&I vendetta varg                0.21  0.82  0.28 |   72  572    0   24    0  620   48 |  16  41.8
+miru_expanse                 opp  C&I vendetta varg                0.20  0.84  0.00 |  672  242  108    0    0 1022    0 |  20  50.0
+miru_expanse                 us   C&I vendetta varg                0.15  0.87  0.00 |  720  242   36    0    0  998    0 |  32  30.5
+nameless_vs_colon3_12b43d0b- T0   vendetta willow ryth varg vesper 0.80  0.43  0.01 |  192   22    0    0    0  214    0 |   6  27.7
+nameless_vs_colon3_12b43d0b- T1   C&I ryth vendetta stellar marcella 0.73  0.54  0.18 |  984   66    0    0    0 1050    0 |  29  34.6
+nameless_vs_colon3_194e76a9- T0   vendetta willow ryth varg vesper 0.36  0.72  0.15 |    0  418   36    0    0  454    0 |   8  50.2
+nameless_vs_colon3_194e76a9- T1   C&I ryth vendetta stellar marcella 0.50  0.62  0.12 |    0  902  144    0    0 1046    0 |  29  35.3
+nameless_vs_colon3_23b8453e- T0   vendetta willow ryth varg vesper 1.36  0.32  0.00 |    0   88   36    0    0  124    0 |   0   0.0
+nameless_vs_colon3_23b8453e- T1   C&I ryth vendetta stellar marcella 1.58  0.30  0.35 |  816  198   36    0    0  618  432 |  33  30.7
+nameless_vs_colon3_8cc60201- T0   vendetta willow ryth             0.61  0.51  0.08 |    0  264    0   96    0  360    0 |  13  27.7
+nameless_vs_colon3_8cc60201- T1   C&I ryth vendetta                0.87  0.39  0.50 |  512  176    0  400    0  504  584 |  37  32.2
+nameless_vs_colon3_ef8222f0- T0   vendetta willow ryth             0.39  0.73  0.00 |  288  154    0    0    0  442    0 |  10  42.0
+nameless_vs_colon3_ef8222f0- T1   C&I ryth vendetta                0.35  0.70  0.00 |  816  176   36    0    0 1028    0 |  23  44.7
+sssa_elk                     us   C&I vendetta varg ryth tavi      0.88  0.49  0.09 |    0    0  360  468    0  720  108 |  15  28.8
+sssa_elk                     opp  C&I vendetta ryth stellar tavi   1.66  0.27  0.33 |    0    0  612  396   36  720  288 |  24  42.0
+whim_lanes                   us   C&I vendetta varg ryth tavi      0.66  0.52  0.13 |  348  308  180   22    0  652  206 |  29  28.3
+whim_lanes                   opp  varg ryth vendetta ren marcella  0.75  0.51  0.13 |  432  506  252    0    0  942  248 |  24  45.2
+whim_mono                    us   C&I vendetta varg ryth tavi      0.55  0.65  0.12 |    0  528   72    0    0  600    0 |  14  47.0
+whim_mono                    opp  varg ryth vendetta ren marcella  0.40  0.67  0.10 |    0 1012   36    0    0  872  176 |  23  45.6
+whim_rows                    us   C&I vendetta varg ryth           0.91  0.45  0.00 |    0  924    0    0    0  924    0 |  17  54.4
+whim_rows                    opp  varg ryth vendetta ren           0.72  0.40  0.00 |    0 1122    0    0    0 1122    0 |  14  75.4
+
+TOTAL us: near=0.63 alone=0.60 enemy_half=0.11 gems gem/wolf/elk/other=3324/6182/1152/70 own/enemy=10722/522 subs=249 avg_sub=38.7
+
+TOTAL opp: near=0.80 alone=0.51 enemy_half=0.14 gems gem/wolf/elk/other=5738/8858/2702/124 own/enemy=15220/2980 subs=405 avg_sub=43.4

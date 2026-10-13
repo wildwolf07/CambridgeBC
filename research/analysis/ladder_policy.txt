@@ -1,0 +1,72 @@
+
+=== US(old)  (champion-rounds 31156)
+  recall HP median 0.33 (n=201) | tribute gems median 33 mean 39 (n=249) | carried mean 10.5
+  allies within 5 mean 0.79 | time in enemy half 0.11 | C&I dist median 4
+  low HP (<35%): heading home 0.68, enemy within 3 0.25 | chase weak enemy: approach 0.11 retreat 0.63 (n=285)
+  contact reaction (approach/retreat):  all=0.37/0.40(n=624)  up_hp>60=0.35/0.42(n=266)  even_hp>60=0.42/0.38(n=254)  down_hp>60=0.45/0.35(n=20)  up_hp<=60=0.30/0.38(n=50)  even_hp<=60=0.25/0.44(n=32)  down_hp<=60=0.50/0.50(n=2)
+
+=== :3  (champion-rounds 22077)
+  recall HP median 0.35 (n=110) | tribute gems median 36 mean 37 (n=225) | carried mean 9.0
+  allies within 5 mean 0.95 | time in enemy half 0.24 | C&I dist median 7
+  low HP (<35%): heading home 0.83, enemy within 3 0.36 | chase weak enemy: approach 0.08 retreat 0.56 (n=348)
+  contact reaction (approach/retreat):  all=0.41/0.33(n=471)  up_hp>60=0.50/0.26(n=263)  even_hp>60=0.30/0.38(n=93)  down_hp>60=0.19/0.62(n=16)  up_hp<=60=0.43/0.29(n=56)  even_hp<=60=0.11/0.58(n=36)  down_hp<=60=0.14/0.71(n=7)
+
+=== Cabbage  (champion-rounds 5870)
+  recall HP median 0.65 (n=42) | tribute gems median 44 mean 41 (n=76) | carried mean 7.8
+  allies within 5 mean 1.21 | time in enemy half 0.09 | C&I dist median 8
+  low HP (<35%): heading home 0.55, enemy within 3 0.13 | chase weak enemy: approach 0.17 retreat 0.67 (n=12)
+  contact reaction (approach/retreat):  all=0.32/0.47(n=34)  up_hp>60=0.60/0.30(n=10)  even_hp>60=0.19/0.50(n=16)  up_hp<=60=0.25/0.75(n=4)  even_hp<=60=0.25/0.50(n=4)
+
+=== EmperorTung  (champion-rounds 12911)
+  recall HP median 0.33 (n=144) | tribute gems median 44 mean 48 (n=135) | carried mean 12.3
+  allies within 5 mean 0.97 | time in enemy half 0.14 | C&I dist median 5
+  low HP (<35%): heading home 0.50, enemy within 3 0.28 | chase weak enemy: approach 0.14 retreat 0.59 (n=199)
+  contact reaction (approach/retreat):  all=0.52/0.31(n=258)  up_hp>60=0.57/0.27(n=164)  even_hp>60=0.50/0.31(n=54)  down_hp>60=0.50/0.33(n=6)  up_hp<=60=0.29/0.54(n=24)  even_hp<=60=0.33/0.22(n=9)  down_hp<=60=0.00/1.00(n=1)
+
+=== KratosMessi  (champion-rounds 4472)
+  recall HP median 0.31 (n=35) | tribute gems median 24 mean 35 (n=62) | carried mean 7.6
+  allies within 5 mean 0.80 | time in enemy half 0.08 | C&I dist median 9
+  low HP (<35%): heading home 0.69, enemy within 3 0.29 | chase weak enemy: approach 0.10 retreat 0.70 (n=89)
+  contact reaction (approach/retreat):  all=0.45/0.40(n=141)  up_hp>60=0.47/0.33(n=66)  even_hp>60=0.46/0.48(n=52)  down_hp>60=0.50/0.25(n=4)  up_hp<=60=0.22/0.56(n=9)  even_hp<=60=0.56/0.33(n=9)  down_hp<=60=0.00/1.00(n=1)
+
+=== MirukuDragon  (champion-rounds 1392)
+  recall HP median 0.64 (n=7) | tribute gems median 48 mean 50 (n=20) | carried mean 8.1
+  allies within 5 mean 0.30 | time in enemy half 0.00 | C&I dist median 16
+  low HP (<35%): heading home 0.00, enemy within 3 0.00 | chase weak enemy: approach 0.00 retreat 0.00 (n=0)
+  contact reaction (approach/retreat):
+
+=== Nameless  (champion-rounds 12275)
+  recall HP median 0.34 (n=99) | tribute gems median 24 mean 36 (n=37) | carried mean 7.3
+  allies within 5 mean 0.79 | time in enemy half 0.07 | C&I dist median nan
+  low HP (<35%): heading home 0.81, enemy within 3 0.33 | chase weak enemy: approach 0.09 retreat 0.70 (n=98)
+  contact reaction (approach/retreat):  all=0.48/0.36(n=189)  up_hp>60=0.46/0.43(n=108)  even_hp>60=0.50/0.27(n=62)  down_hp>60=0.45/0.27(n=11)  up_hp<=60=0.50/0.33(n=6)  even_hp<=60=0.50/0.00(n=2)
+
+=== SSSA  (champion-rounds 3290)
+  recall HP median 0.40 (n=25) | tribute gems median 36 mean 42 (n=24) | carried mean 5.4
+  allies within 5 mean 1.96 | time in enemy half 0.34 | C&I dist median 6
+  low HP (<35%): heading home 0.55, enemy within 3 0.33 | chase weak enemy: approach 0.26 retreat 0.47 (n=34)
+  contact reaction (approach/retreat):  all=0.51/0.38(n=74)  up_hp>60=0.50/0.41(n=56)  even_hp>60=0.50/0.30(n=10)  down_hp>60=0.00/0.67(n=3)  up_hp<=60=1.00/0.00(n=3)  even_hp<=60=1.00/0.00(n=2)
+
+=== WHIM  (champion-rounds 5173)
+  recall HP median 0.60 (n=50) | tribute gems median 44 mean 52 (n=61) | carried mean 14.6
+  allies within 5 mean 0.77 | time in enemy half 0.08 | C&I dist median nan
+  low HP (<35%): heading home 0.54, enemy within 3 0.16 | chase weak enemy: approach 0.11 retreat 0.83 (n=18)
+  contact reaction (approach/retreat):  all=0.35/0.33(n=43)  up_hp>60=0.26/0.30(n=27)  even_hp>60=0.50/0.33(n=12)  even_hp<=60=0.50/0.50(n=4)
+
+=== il  (champion-rounds 2696)
+  recall HP median 0.23 (n=19) | tribute gems median 24 mean 34 (n=17) | carried mean 3.6
+  allies within 5 mean 0.99 | time in enemy half 0.06 | C&I dist median 4
+  low HP (<35%): heading home 0.80, enemy within 3 0.51 | chase weak enemy: approach 0.00 retreat 0.93 (n=41)
+  contact reaction (approach/retreat):  all=0.59/0.34(n=79)  up_hp>60=0.46/0.51(n=41)  even_hp>60=0.73/0.17(n=30)  down_hp>60=1.00/0.00(n=3)  up_hp<=60=0.60/0.20(n=5)
+
+=== larp  (champion-rounds 1221)
+  recall HP median 0.55 (n=16) | tribute gems median 44 mean 45 (n=22) | carried mean 8.7
+  allies within 5 mean 0.34 | time in enemy half 0.10 | C&I dist median nan
+  low HP (<35%): heading home 0.50, enemy within 3 0.11 | chase weak enemy: approach 0.10 retreat 0.70 (n=10)
+  contact reaction (approach/retreat):  all=0.59/0.14(n=29)  up_hp>60=0.43/0.29(n=7)  even_hp>60=0.72/0.11(n=18)  even_hp<=60=0.25/0.00(n=4)
+
+=== other  (champion-rounds 1382)
+  recall HP median 0.26 (n=10) | tribute gems median 48 mean 39 (n=6) | carried mean 3.8
+  allies within 5 mean 0.74 | time in enemy half 0.04 | C&I dist median 8
+  low HP (<35%): heading home 0.63, enemy within 3 0.59 | chase weak enemy: approach 0.00 retreat 0.86 (n=7)
+  contact reaction (approach/retreat):  all=0.60/0.23(n=30)  up_hp>60=0.54/0.25(n=24)  even_hp>60=0.75/0.25(n=4)  up_hp<=60=1.00/0.00(n=1)  even_hp<=60=1.00/0.00(n=1)

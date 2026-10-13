@@ -1,0 +1,21 @@
+c3_collision.json              us: idle=0.11 idleG=46 lockG=0 kills=17 unc=2 stolen=0 | opp: idle=0.10 idleG=54 lockG=0 kills=39 unc=3 stolen=0
+c3_corners.json                us: idle=0.07 idleG=27 lockG=0 kills=14 unc=4 stolen=4 | opp: idle=0.09 idleG=6 lockG=0 kills=39 unc=19 stolen=1
+c3b_collision.json             us: idle=0.08 idleG=66 lockG=0 kills=26 unc=10 stolen=1 | opp: idle=0.09 idleG=76 lockG=0 kills=37 unc=8 stolen=1
+cab_expanse.json               us: idle=0.13 idleG=2 lockG=0 kills=40 unc=9 stolen=0 | opp: idle=0.12 idleG=13 lockG=0 kills=45 unc=17 stolen=0
+cab_lanes.json                 us: idle=0.08 idleG=38 lockG=4 kills=29 unc=1 stolen=0 | opp: idle=0.14 idleG=65 lockG=0 kills=40 unc=1 stolen=0
+cab_rows.json                  us: idle=0.08 idleG=63 lockG=0 kills=46 unc=25 stolen=0 | opp: idle=0.09 idleG=0 lockG=0 kills=50 unc=33 stolen=0
+et2_corners.json               us: idle=0.09 idleG=8 lockG=0 kills=5 unc=0 stolen=1 | opp: idle=0.01 idleG=4 lockG=0 kills=42 unc=21 stolen=0
+et4_collision.json             us: idle=0.08 idleG=32 lockG=0 kills=30 unc=12 stolen=0 | opp: idle=0.01 idleG=7 lockG=0 kills=36 unc=11 stolen=0
+et_vs_us_interlock.json        us: idle=0.13 idleG=43 lockG=0 kills=23 unc=8 stolen=0 | opp: idle=0.01 idleG=5 lockG=0 kills=35 unc=6 stolen=0
+kr_interlock.json              us: idle=0.13 idleG=33 lockG=0 kills=34 unc=13 stolen=1 | opp: idle=0.08 idleG=39 lockG=0 kills=41 unc=12 stolen=1
+kr_packs.json                  us: idle=0.10 idleG=1 lockG=0 kills=52 unc=35 stolen=3 | opp: idle=0.08 idleG=4 lockG=0 kills=46 unc=18 stolen=0
+larp_packs.json                us: idle=0.08 idleG=2 lockG=0 kills=41 unc=23 stolen=2 | opp: idle=0.08 idleG=0 lockG=0 kills=55 unc=35 stolen=0
+miru_expanse.json              us: idle=0.13 idleG=12 lockG=0 kills=42 unc=8 stolen=0 | opp: idle=0.18 idleG=24 lockG=0 kills=46 unc=20 stolen=0
+sssa_elk.json                  us: idle=0.09 idleG=54 lockG=0 kills=43 unc=18 stolen=0 | opp: idle=0.04 idleG=14 lockG=0 kills=41 unc=21 stolen=1
+whim_lanes.json                us: idle=0.09 idleG=35 lockG=0 kills=38 unc=6 stolen=0 | opp: idle=0.12 idleG=96 lockG=0 kills=49 unc=1 stolen=0
+whim_mono.json                 us: idle=0.11 idleG=113 lockG=4 kills=30 unc=6 stolen=2 | opp: idle=0.09 idleG=46 lockG=0 kills=46 unc=17 stolen=0
+whim_rows.json                 us: idle=0.08 idleG=18 lockG=0 kills=45 unc=27 stolen=0 | opp: idle=0.13 idleG=69 lockG=0 kills=54 unc=32 stolen=0
+
+TOTAL us: idle_frac=0.096 idle_with_gems=593 near_enemy_lock_with_gems=8 kills=555 uncaptured60=207 stolen=14 capture_delay mean=8.8 median=6 p90=13 n=334
+
+TOTAL opp: idle_frac=0.080 idle_with_gems=522 near_enemy_lock_with_gems=0 kills=741 uncaptured60=275 stolen=4 capture_delay mean=9.3 median=6 p90=17 n=462

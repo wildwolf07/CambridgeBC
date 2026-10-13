@@ -1,0 +1,34 @@
+c3_collision.json us: recall=0.04 submit=0.02 spawn=0.01 fight=0.15 camp=0.20 capture=0.06 travel=0.47 idle=0.06 | opp: recall=0.05 submit=0.05 spawn=0.00 fight=0.09 camp=0.19 capture=0.10 travel=0.48 idle=0.04
+c3_corners.json us: recall=0.02 submit=0.01 spawn=0.02 fight=0.13 camp=0.07 capture=0.03 travel=0.68 idle=0.04 | opp: recall=0.03 submit=0.04 spawn=0.00 fight=0.11 camp=0.11 capture=0.06 travel=0.60 idle=0.06
+c3b_collision.json us: recall=0.01 submit=0.01 spawn=0.00 fight=0.14 camp=0.18 capture=0.06 travel=0.56 idle=0.05 | opp: recall=0.03 submit=0.04 spawn=0.00 fight=0.10 camp=0.16 capture=0.08 travel=0.54 idle=0.04
+cab_expanse.json us: recall=0.02 submit=0.07 spawn=0.01 fight=0.06 camp=0.25 capture=0.10 travel=0.44 idle=0.05 | opp: recall=0.02 submit=0.07 spawn=0.00 fight=0.09 camp=0.27 capture=0.10 travel=0.42 idle=0.02
+cab_lanes.json us: recall=0.04 submit=0.03 spawn=0.01 fight=0.07 camp=0.16 capture=0.06 travel=0.60 idle=0.03 | opp: recall=0.03 submit=0.04 spawn=0.00 fight=0.08 camp=0.13 capture=0.09 travel=0.55 idle=0.07
+cab_rows.json us: recall=0.05 submit=0.04 spawn=0.01 fight=0.06 camp=0.23 capture=0.06 travel=0.52 idle=0.04 | opp: recall=0.04 submit=0.05 spawn=0.00 fight=0.05 camp=0.23 capture=0.05 travel=0.52 idle=0.05
+et2_corners.json us: recall=0.02 submit=0.00 spawn=0.01 fight=0.12 camp=0.05 capture=0.02 travel=0.71 idle=0.08 | opp: recall=0.04 submit=0.05 spawn=0.00 fight=0.13 camp=0.15 capture=0.06 travel=0.51 idle=0.06
+et4_collision.json us: recall=0.01 submit=0.04 spawn=0.00 fight=0.13 camp=0.24 capture=0.07 travel=0.47 idle=0.03 | opp: recall=0.04 submit=0.05 spawn=0.00 fight=0.11 camp=0.18 capture=0.07 travel=0.50 idle=0.05
+et_vs_us_interlock.json us: recall=0.03 submit=0.02 spawn=0.01 fight=0.14 camp=0.22 capture=0.06 travel=0.42 idle=0.09 | opp: recall=0.04 submit=0.05 spawn=0.00 fight=0.14 camp=0.14 capture=0.19 travel=0.37 idle=0.07
+kr_interlock.json us: recall=0.02 submit=0.03 spawn=0.01 fight=0.12 camp=0.16 capture=0.06 travel=0.52 idle=0.09 | opp: recall=0.03 submit=0.05 spawn=0.00 fight=0.13 camp=0.18 capture=0.07 travel=0.51 idle=0.04
+kr_packs.json us: recall=0.02 submit=0.04 spawn=0.01 fight=0.12 camp=0.21 capture=0.09 travel=0.47 idle=0.05 | opp: recall=0.04 submit=0.05 spawn=0.00 fight=0.12 camp=0.19 capture=0.08 travel=0.49 idle=0.04
+larp_packs.json us: recall=0.02 submit=0.06 spawn=0.00 fight=0.11 camp=0.25 capture=0.06 travel=0.47 idle=0.03 | opp: recall=0.05 submit=0.07 spawn=0.00 fight=0.11 camp=0.19 capture=0.11 travel=0.43 idle=0.03
+miru_expanse.json us: recall=0.01 submit=0.07 spawn=0.00 fight=0.06 camp=0.24 capture=0.11 travel=0.44 idle=0.05 | opp: recall=0.02 submit=0.07 spawn=0.01 fight=0.06 camp=0.29 capture=0.09 travel=0.34 idle=0.12
+sssa_elk.json us: recall=0.02 submit=0.02 spawn=0.01 fight=0.10 camp=0.18 capture=0.07 travel=0.56 idle=0.04 | opp: recall=0.03 submit=0.03 spawn=0.00 fight=0.10 camp=0.15 capture=0.05 travel=0.62 idle=0.02
+whim_lanes.json us: recall=0.04 submit=0.04 spawn=0.01 fight=0.08 camp=0.18 capture=0.07 travel=0.55 idle=0.05 | opp: recall=0.04 submit=0.05 spawn=0.00 fight=0.09 camp=0.21 capture=0.12 travel=0.47 idle=0.02
+whim_mono.json us: recall=0.03 submit=0.03 spawn=0.01 fight=0.06 camp=0.21 capture=0.06 travel=0.54 idle=0.07 | opp: recall=0.04 submit=0.06 spawn=0.00 fight=0.08 camp=0.26 capture=0.09 travel=0.45 idle=0.02
+whim_rows.json us: recall=0.05 submit=0.04 spawn=0.00 fight=0.05 camp=0.23 capture=0.05 travel=0.52 idle=0.04 | opp: recall=0.05 submit=0.06 spawn=0.00 fight=0.06 camp=0.26 capture=0.07 travel=0.42 idle=0.08
+us  n= 33386 recall=0.027 submit=0.032 spawn=0.007 fight=0.098 camp=0.188 capture=0.063 travel=0.535 idle=0.050
+opp n= 38349 recall=0.036 submit=0.050 spawn=0.001 fight=0.100 camp=0.185 capture=0.084 travel=0.497 idle=0.047
+  us  cassi     n= 6563 recall=0.01 submit=0.01 spawn=0.01 fight=0.05 camp=0.24 capture=0.04 travel=0.58 idle=0.06
+  us  issac     n= 6559 recall=0.03 submit=0.04 spawn=0.01 fight=0.14 camp=0.19 capture=0.08 travel=0.46 idle=0.06
+  us  ryth      n= 3891 recall=0.03 submit=0.03 spawn=0.01 fight=0.05 camp=0.15 capture=0.05 travel=0.63 idle=0.04
+  us  tavi      n= 2356 recall=0.03 submit=0.02 spawn=0.01 fight=0.07 camp=0.15 capture=0.04 travel=0.65 idle=0.03
+  us  varg      n= 6799 recall=0.02 submit=0.04 spawn=0.00 fight=0.10 camp=0.18 capture=0.08 travel=0.54 idle=0.04
+  us  vendetta  n= 7218 recall=0.04 submit=0.04 spawn=0.01 fight=0.14 camp=0.19 capture=0.06 travel=0.47 idle=0.05
+  opp cassi     n= 6488 recall=0.02 submit=0.03 spawn=0.00 fight=0.05 camp=0.26 capture=0.06 travel=0.51 idle=0.06
+  opp issac     n= 6487 recall=0.05 submit=0.05 spawn=0.00 fight=0.14 camp=0.17 capture=0.08 travel=0.46 idle=0.06
+  opp marcella  n= 1275 recall=0.03 submit=0.05 spawn=0.00 fight=0.07 camp=0.16 capture=0.09 travel=0.59 idle=0.01
+  opp ren       n= 1224 recall=0.05 submit=0.05 spawn=0.00 fight=0.07 camp=0.31 capture=0.09 travel=0.38 idle=0.05
+  opp ryth      n= 6262 recall=0.03 submit=0.05 spawn=0.00 fight=0.08 camp=0.16 capture=0.08 travel=0.55 idle=0.04
+  opp stellar   n= 2049 recall=0.03 submit=0.04 spawn=0.00 fight=0.06 camp=0.12 capture=0.05 travel=0.64 idle=0.05
+  opp tavi      n= 1850 recall=0.01 submit=0.05 spawn=0.00 fight=0.08 camp=0.14 capture=0.07 travel=0.61 idle=0.03
+  opp varg      n= 4679 recall=0.03 submit=0.06 spawn=0.00 fight=0.12 camp=0.16 capture=0.14 travel=0.44 idle=0.05
+  opp vendetta  n= 8035 recall=0.05 submit=0.06 spawn=0.00 fight=0.13 camp=0.18 capture=0.09 travel=0.45 idle=0.04

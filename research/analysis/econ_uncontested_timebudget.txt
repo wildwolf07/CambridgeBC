@@ -1,0 +1,14 @@
+us  n= 17575 recall=0.032 submit=0.059 spawn=0.006 fight=0.060 camp=0.276 capture=0.087 travel=0.426 idle=0.056
+opp n= 16622 recall=0.000 submit=0.000 spawn=1.000 fight=0.000 camp=0.000 capture=0.000 travel=0.000 idle=0.000
+  us  cassi     n= 3384 recall=0.02 submit=0.02 spawn=0.01 fight=0.00 camp=0.38 capture=0.04 travel=0.46 idle=0.06
+  us  issac     n= 3384 recall=0.04 submit=0.07 spawn=0.01 fight=0.09 camp=0.25 capture=0.10 travel=0.37 idle=0.07
+  us  ryth      n= 2287 recall=0.03 submit=0.06 spawn=0.00 fight=0.04 camp=0.23 capture=0.10 travel=0.48 idle=0.04
+  us  tavi      n= 1464 recall=0.02 submit=0.04 spawn=0.01 fight=0.04 camp=0.27 capture=0.06 travel=0.51 idle=0.04
+  us  varg      n= 3528 recall=0.03 submit=0.07 spawn=0.00 fight=0.07 camp=0.24 capture=0.11 travel=0.44 idle=0.04
+  us  vendetta  n= 3528 recall=0.05 submit=0.07 spawn=0.01 fight=0.09 camp=0.27 capture=0.09 travel=0.36 idle=0.07
+  opp cassi     n= 2287 recall=0.00 submit=0.00 spawn=1.00 fight=0.00 camp=0.00 capture=0.00 travel=0.00 idle=0.00
+  opp issac     n= 2287 recall=0.00 submit=0.00 spawn=1.00 fight=0.00 camp=0.00 capture=0.00 travel=0.00 idle=0.00
+  opp ryth      n= 3528 recall=0.00 submit=0.00 spawn=1.00 fight=0.00 camp=0.00 capture=0.00 travel=0.00 idle=0.00
+  opp stellar   n= 1464 recall=0.00 submit=0.00 spawn=1.00 fight=0.00 camp=0.00 capture=0.00 travel=0.00 idle=0.00
+  opp vendetta  n= 3528 recall=0.00 submit=0.00 spawn=1.00 fight=0.00 camp=0.00 capture=0.00 travel=0.00 idle=0.00
+  opp vesper    n= 3528 recall=0.00 submit=0.00 spawn=1.00 fight=0.00 camp=0.00 capture=0.00 travel=0.00 idle=0.00

@@ -1,0 +1,393 @@
+
+== c3_collision  R580  sub 876/226  LOSS  us=team1
+  T0  [C&I ryth vendetta] gained=1066 lost@death=0 deaths=0 dead_rounds=0 gold=4155 avg_carry=14.2 recall_ch=117 sub_ch=112 ch3=0 locks=0 wardrounds=0 ev(atk=662 cast=198 recall=25 submit=26 buy=43 cons=0)
+  T1* [C&I vendetta varg] gained=372 lost@death=146 deaths=17 dead_rounds=906 gold=1560 avg_carry=13.7 recall_ch=50 sub_ch=24 ch3=0 locks=0 wardrounds=0 ev(atk=487 cast=171 recall=11 submit=4 buy=51 cons=0)
+  milestones: R100:22/0  R200:242/44  R300:330/44  R400:484/44  R500:674/146
+    T0 ryth      gems/100r= 41.5 deaths=0 lost=0 gold=745
+    T0 vendetta  gems/100r= 39.0 deaths=0 lost=0 gold=1100
+    T0 cassi     gems/100r= 51.8 deaths=0 lost=0 gold=1050
+    T0 issac     gems/100r= 51.8 deaths=0 lost=0 gold=1260
+    T1 vendetta  gems/100r= 39.7 deaths=4 lost=66 gold=610
+    T1 cassi     gems/100r=  0.0 deaths=5 lost=0 gold=0
+    T1 issac     gems/100r= 26.8 deaths=5 lost=58 gold=340
+    T1 varg      gems/100r= 32.8 deaths=3 lost=22 gold=610
+
+== c3_corners  R560  sub 982/168  LOSS  us=team1
+  T0  [C&I ryth vendetta stellar marcella] gained=1148 lost@death=70 deaths=7 dead_rounds=424 gold=1260 avg_carry=6.3 recall_ch=85 sub_ch=112 ch3=0 locks=0 wardrounds=0 ev(atk=490 cast=313 recall=17 submit=26 buy=15 cons=0)
+  T1* [C&I vendetta varg ryth tavi] gained=354 lost@death=186 deaths=16 dead_rounds=838 gold=1070 avg_carry=10.3 recall_ch=60 sub_ch=22 ch3=0 locks=0 wardrounds=0 ev(atk=465 cast=258 recall=12 submit=5 buy=34 cons=0)
+  milestones: R100:118/0  R200:250/48  R300:346/132  R400:630/132  R500:924/132
+    T0 ryth      gems/100r= 21.3 deaths=1 lost=0 gold=250
+    T0 vendetta  gems/100r= 32.5 deaths=1 lost=22 gold=230
+    T0 cassi     gems/100r= 52.1 deaths=2 lost=0 gold=100
+    T0 issac     gems/100r= 32.9 deaths=2 lost=48 gold=50
+    T0 stellar   gems/100r= 44.0 deaths=0 lost=0 gold=540
+    T0 marcella  gems/100r= 52.5 deaths=1 lost=0 gold=90
+    T1 ryth      gems/100r=  8.6 deaths=3 lost=36 gold=160
+    T1 vendetta  gems/100r= 21.9 deaths=2 lost=0 gold=0
+    T1 cassi     gems/100r= 12.4 deaths=3 lost=48 gold=50
+    T1 issac     gems/100r=  9.3 deaths=3 lost=0 gold=210
+    T1 varg      gems/100r= 23.9 deaths=2 lost=80 gold=500
+    T1 tavi      gems/100r=  5.5 deaths=3 lost=22 gold=150
+
+== c3b_collision  R714  sub 840/196  LOSS  us=team1
+  T0  [C&I ryth vendetta] gained=1158 lost@death=0 deaths=5 dead_rounds=301 gold=3460 avg_carry=21.6 recall_ch=89 sub_ch=109 ch3=0 locks=0 wardrounds=0 ev(atk=665 cast=215 recall=18 submit=22 buy=40 cons=0)
+  T1* [C&I vendetta varg] gained=544 lost@death=312 deaths=14 dead_rounds=824 gold=1935 avg_carry=25.2 recall_ch=15 sub_ch=24 ch3=0 locks=0 wardrounds=0 ev(atk=605 cast=238 recall=3 submit=6 buy=53 cons=0)
+  milestones: R100:88/22  R200:176/22  R300:330/44  R400:374/66  R500:592/66
+    T0 ryth      gems/100r= 74.4 deaths=1 lost=0 gold=1010
+    T0 vendetta  gems/100r= 26.0 deaths=2 lost=0 gold=680
+    T0 cassi     gems/100r= 33.7 deaths=1 lost=0 gold=970
+    T0 issac     gems/100r= 45.7 deaths=1 lost=0 gold=800
+    T1 vendetta  gems/100r= 39.4 deaths=3 lost=210 gold=690
+    T1 cassi     gems/100r= 10.2 deaths=3 lost=0 gold=115
+    T1 issac     gems/100r= 40.4 deaths=3 lost=80 gold=860
+    T1 varg      gems/100r= 15.2 deaths=5 lost=22 gold=270
+
+== cab_expanse  R375  sub 854/986  LOSS  us=team0
+  T0* [C&I vendetta varg] gained=902 lost@death=0 deaths=0 dead_rounds=0 gold=1150 avg_carry=7.6 recall_ch=25 sub_ch=104 ch3=0 locks=0 wardrounds=0 ev(atk=489 cast=130 recall=5 submit=31 buy=29 cons=0)
+  T1  [C&I vendetta ryth] gained=1034 lost@death=0 deaths=0 dead_rounds=0 gold=1310 avg_carry=10.3 recall_ch=30 sub_ch=111 ch3=0 locks=398 wardrounds=367 ev(atk=527 cast=176 recall=6 submit=26 buy=39 cons=3)
+  milestones: R100:210/188  R200:394/468  R300:666/806
+    T0 vendetta  gems/100r= 46.0 deaths=0 lost=0 gold=520
+    T0 cassi     gems/100r= 44.4 deaths=0 lost=0 gold=90
+    T0 issac     gems/100r= 75.9 deaths=0 lost=0 gold=180
+    T0 varg      gems/100r= 74.9 deaths=0 lost=0 gold=360
+    T1 ryth      gems/100r= 56.1 deaths=0 lost=0 gold=270
+    T1 vendetta  gems/100r= 77.5 deaths=0 lost=0 gold=610
+    T1 cassi     gems/100r= 41.2 deaths=0 lost=0 gold=250
+    T1 issac     gems/100r=101.6 deaths=0 lost=0 gold=180
+
+== cab_lanes  R443  sub 612/990  LOSS  us=team0
+  T0* [C&I vendetta varg ryth tavi] gained=636 lost@death=0 deaths=4 dead_rounds=243 gold=1620 avg_carry=6.6 recall_ch=90 sub_ch=75 ch3=0 locks=0 wardrounds=0 ev(atk=560 cast=200 recall=18 submit=21 buy=54 cons=0)
+  T1  [C&I vendetta ryth stellar tavi] gained=1014 lost@death=0 deaths=0 dead_rounds=0 gold=2300 avg_carry=6.6 recall_ch=82 sub_ch=118 ch3=0 locks=1539 wardrounds=1314 ev(atk=497 cast=257 recall=17 submit=34 buy=83 cons=8)
+  milestones: R100:0/94  R200:112/296  R300:336/456  R400:568/858
+    T0 ryth      gems/100r= 11.5 deaths=1 lost=0 gold=180
+    T0 vendetta  gems/100r= 36.7 deaths=0 lost=0 gold=270
+    T0 cassi     gems/100r=  0.0 deaths=1 lost=0 gold=0
+    T0 issac     gems/100r= 47.8 deaths=1 lost=0 gold=450
+    T0 varg      gems/100r= 23.1 deaths=1 lost=0 gold=360
+    T0 tavi      gems/100r= 36.2 deaths=0 lost=0 gold=360
+    T1 ryth      gems/100r= 50.2 deaths=0 lost=0 gold=430
+    T1 vendetta  gems/100r= 41.2 deaths=0 lost=0 gold=820
+    T1 cassi     gems/100r= 10.9 deaths=0 lost=0 gold=0
+    T1 issac     gems/100r= 55.7 deaths=0 lost=0 gold=430
+    T1 stellar   gems/100r= 29.0 deaths=0 lost=0 gold=390
+    T1 tavi      gems/100r= 42.5 deaths=0 lost=0 gold=230
+
+== cab_rows  R462  sub 990/924  LOSS  us=team1
+  T0  [C&I vendetta ryth stellar] gained=1122 lost@death=0 deaths=0 dead_rounds=0 gold=4590 avg_carry=13.3 recall_ch=93 sub_ch=112 ch3=0 locks=295 wardrounds=0 ev(atk=600 cast=221 recall=19 submit=16 buy=136 cons=1)
+  T1* [C&I vendetta varg ryth] gained=990 lost@death=0 deaths=0 dead_rounds=0 gold=4050 avg_carry=21.1 recall_ch=110 sub_ch=99 ch3=0 locks=0 wardrounds=0 ev(atk=685 cast=192 recall=29 submit=13 buy=125 cons=0)
+  milestones: R100:66/0  R200:330/242  R300:528/528  R400:924/759
+    T0 ryth      gems/100r= 43.0 deaths=0 lost=0 gold=810
+    T0 vendetta  gems/100r= 43.0 deaths=0 lost=0 gold=810
+    T0 cassi     gems/100r= 28.6 deaths=0 lost=0 gold=540
+    T0 issac     gems/100r= 71.6 deaths=0 lost=0 gold=1350
+    T0 stellar   gems/100r= 57.3 deaths=0 lost=0 gold=1080
+    T1 ryth      gems/100r= 69.2 deaths=0 lost=0 gold=1305
+    T1 vendetta  gems/100r= 14.3 deaths=0 lost=0 gold=270
+    T1 cassi     gems/100r=  0.0 deaths=0 lost=0 gold=0
+    T1 issac     gems/100r= 47.7 deaths=0 lost=0 gold=900
+    T1 varg      gems/100r= 83.5 deaths=0 lost=0 gold=1575
+
+== et2_corners  R393  sub 22/964  LOSS  us=team0
+  T0* [C&I vendetta varg ryth tavi] gained=88 lost@death=66 deaths=17 dead_rounds=969 gold=360 avg_carry=3.6 recall_ch=30 sub_ch=3 ch3=0 locks=0 wardrounds=0 ev(atk=205 cast=108 recall=7 submit=1 buy=12 cons=0)
+  T1  [vendetta varg C&I ryth tavi] gained=1154 lost@death=0 deaths=0 dead_rounds=0 gold=1950 avg_carry=11.5 recall_ch=94 sub_ch=107 ch3=0 locks=0 wardrounds=0 ev(atk=668 cast=259 recall=21 submit=22 buy=51 cons=0)
+  milestones: R100:0/214  R200:0/498  R300:22/784
+    T0 ryth      gems/100r=  0.0 deaths=2 lost=0 gold=0
+    T0 vendetta  gems/100r= 19.6 deaths=3 lost=44 gold=180
+    T0 cassi     gems/100r=  0.0 deaths=4 lost=0 gold=0
+    T0 issac     gems/100r=  0.0 deaths=4 lost=0 gold=0
+    T0 varg      gems/100r=  8.1 deaths=2 lost=0 gold=90
+    T0 tavi      gems/100r=  8.1 deaths=2 lost=22 gold=90
+    T1 ryth      gems/100r= 70.4 deaths=0 lost=0 gold=950
+    T1 vendetta  gems/100r= 66.8 deaths=0 lost=0 gold=90
+    T1 cassi     gems/100r= 36.2 deaths=0 lost=0 gold=420
+    T1 issac     gems/100r= 41.8 deaths=0 lost=0 gold=240
+    T1 varg      gems/100r= 55.1 deaths=0 lost=0 gold=50
+    T1 tavi      gems/100r= 24.0 deaths=0 lost=0 gold=200
+
+== et3  R410  sub 232/978    us=teamNone
+  T0  [C&I vendetta ryth stellar tavi] gained=298 lost@death=44 deaths=17 dead_rounds=990 gold=730 avg_carry=4.5 recall_ch=44 sub_ch=26 ch3=0 locks=81 wardrounds=0 ev(atk=374 cast=134 recall=10 submit=6 buy=24 cons=2)
+  T1  [vendetta varg C&I ryth tavi] gained=1074 lost@death=0 deaths=2 dead_rounds=109 gold=2070 avg_carry=9.0 recall_ch=145 sub_ch=108 ch3=0 locks=0 wardrounds=0 ev(atk=614 cast=235 recall=31 submit=22 buy=65 cons=0)
+  milestones: R100:22/214  R200:44/298  R300:136/596  R400:232/978
+    T0 ryth      gems/100r= 39.1 deaths=1 lost=22 gold=360
+    T0 vendetta  gems/100r= 51.8 deaths=3 lost=0 gold=90
+    T0 cassi     gems/100r=  0.0 deaths=3 lost=0 gold=0
+    T0 issac     gems/100r=  0.0 deaths=3 lost=0 gold=0
+    T0 stellar   gems/100r=  0.0 deaths=4 lost=0 gold=100
+    T0 tavi      gems/100r= 17.9 deaths=3 lost=22 gold=180
+    T1 ryth      gems/100r= 64.1 deaths=0 lost=0 gold=670
+    T1 vendetta  gems/100r= 33.9 deaths=1 lost=0 gold=250
+    T1 cassi     gems/100r= 11.7 deaths=0 lost=0 gold=0
+    T1 issac     gems/100r= 46.9 deaths=0 lost=0 gold=480
+    T1 varg      gems/100r= 93.9 deaths=0 lost=0 gold=520
+    T1 tavi      gems/100r= 19.4 deaths=1 lost=0 gold=150
+
+== et4_collision  R572  sub 894/486  LOSS  us=team1
+  T0  [vendetta varg C&I] gained=1024 lost@death=0 deaths=1 dead_rounds=60 gold=3190 avg_carry=20.3 recall_ch=96 sub_ch=109 ch3=0 locks=0 wardrounds=0 ev(atk=632 cast=264 recall=20 submit=19 buy=93 cons=0)
+  T1* [C&I vendetta varg] gained=610 lost@death=88 deaths=14 dead_rounds=751 gold=1970 avg_carry=16.5 recall_ch=21 sub_ch=54 ch3=0 locks=0 wardrounds=0 ev(atk=595 cast=186 recall=5 submit=9 buy=49 cons=0)
+  milestones: R100:66/22  R200:154/22  R300:342/110  R400:538/176  R500:726/306
+    T0 vendetta  gems/100r= 71.6 deaths=1 lost=0 gold=1070
+    T0 cassi     gems/100r=  7.7 deaths=0 lost=0 gold=180
+    T0 issac     gems/100r= 46.6 deaths=0 lost=0 gold=970
+    T0 varg      gems/100r= 60.9 deaths=0 lost=0 gold=970
+    T1 vendetta  gems/100r= 80.4 deaths=2 lost=22 gold=930
+    T1 cassi     gems/100r=  7.0 deaths=5 lost=22 gold=90
+    T1 issac     gems/100r= 20.8 deaths=5 lost=44 gold=270
+    T1 varg      gems/100r= 35.6 deaths=2 lost=0 gold=680
+
+== et_vs_il_collision  R592  sub 986/206    us=teamNone
+  T0  [vendetta varg C&I] gained=1170 lost@death=0 deaths=0 dead_rounds=0 gold=3620 avg_carry=21.3 recall_ch=124 sub_ch=137 ch3=0 locks=0 wardrounds=0 ev(atk=759 cast=282 recall=27 submit=23 buy=106 cons=0)
+  T1  [C&I vendetta ryth] gained=390 lost@death=184 deaths=17 dead_rounds=934 gold=750 avg_carry=7.2 recall_ch=55 sub_ch=27 ch3=0 locks=5 wardrounds=0 ev(atk=377 cast=84 recall=11 submit=6 buy=14 cons=1)
+  milestones: R100:0/54  R200:164/54  R300:316/162  R400:570/184  R500:736/206
+    T0 vendetta  gems/100r= 80.5 deaths=0 lost=0 gold=1380
+    T0 cassi     gems/100r= 11.2 deaths=0 lost=0 gold=320
+    T0 issac     gems/100r= 30.8 deaths=0 lost=0 gold=770
+    T0 varg      gems/100r= 75.5 deaths=0 lost=0 gold=1150
+    T1 ryth      gems/100r= 33.8 deaths=3 lost=54 gold=340
+    T1 vendetta  gems/100r= 21.6 deaths=6 lost=0 gold=80
+    T1 cassi     gems/100r= 44.4 deaths=4 lost=108 gold=240
+    T1 issac     gems/100r=  6.0 deaths=4 lost=22 gold=90
+
+== et_vs_il_corners  R476  sub 986/288    us=teamNone
+  T0  [vendetta varg C&I ryth tavi] gained=1082 lost@death=0 deaths=2 dead_rounds=120 gold=1980 avg_carry=11.6 recall_ch=117 sub_ch=107 ch3=0 locks=0 wardrounds=0 ev(atk=738 cast=299 recall=24 submit=24 buy=59 cons=0)
+  T1  [C&I vendetta ryth stellar ren] gained=288 lost@death=0 deaths=26 dead_rounds=1433 gold=100 avg_carry=1.4 recall_ch=34 sub_ch=35 ch3=0 locks=0 wardrounds=0 ev(atk=284 cast=87 recall=8 submit=11 buy=4 cons=0)
+  milestones: R100:190/0  R200:284/96  R300:594/144  R400:854/288
+    T0 ryth      gems/100r= 26.0 deaths=1 lost=0 gold=310
+    T0 vendetta  gems/100r= 52.6 deaths=0 lost=0 gold=400
+    T0 cassi     gems/100r= 20.2 deaths=0 lost=0 gold=200
+    T0 issac     gems/100r= 42.1 deaths=0 lost=0 gold=540
+    T0 varg      gems/100r= 39.6 deaths=0 lost=0 gold=330
+    T0 tavi      gems/100r= 57.8 deaths=1 lost=0 gold=200
+    T1 ryth      gems/100r= 28.5 deaths=3 lost=0 gold=50
+    T1 vendetta  gems/100r= 35.0 deaths=5 lost=0 gold=0
+    T1 cassi     gems/100r=  0.0 deaths=5 lost=0 gold=0
+    T1 issac     gems/100r= 41.9 deaths=5 lost=0 gold=0
+    T1 stellar   gems/100r=  9.8 deaths=4 lost=0 gold=50
+    T1 ren       gems/100r=  8.5 deaths=4 lost=0 gold=0
+
+== et_vs_us_interlock  R487  sub 982/254  LOSS  us=team1
+  T0  [vendetta varg C&I ryth] gained=1048 lost@death=0 deaths=2 dead_rounds=120 gold=3010 avg_carry=13.2 recall_ch=92 sub_ch=112 ch3=0 locks=0 wardrounds=0 ev(atk=661 cast=246 recall=21 submit=25 buy=85 cons=0)
+  T1* [C&I vendetta varg ryth] gained=480 lost@death=226 deaths=19 dead_rounds=1099 gold=1130 avg_carry=9.3 recall_ch=41 sub_ch=32 ch3=0 locks=0 wardrounds=0 ev(atk=496 cast=151 recall=17 submit=7 buy=37 cons=0)
+  milestones: R100:116/116  R200:298/232  R300:590/232  R400:786/232
+    T0 ryth      gems/100r= 48.1 deaths=0 lost=0 gold=880
+    T0 vendetta  gems/100r= 58.4 deaths=0 lost=0 gold=1040
+    T0 cassi     gems/100r= 44.6 deaths=1 lost=0 gold=470
+    T0 issac     gems/100r= 57.7 deaths=1 lost=0 gold=520
+    T0 varg      gems/100r= 19.3 deaths=0 lost=0 gold=100
+    T1 ryth      gems/100r= 26.5 deaths=4 lost=44 gold=270
+    T1 vendetta  gems/100r= 31.6 deaths=5 lost=0 gold=0
+    T1 cassi     gems/100r= 37.9 deaths=3 lost=44 gold=180
+    T1 issac     gems/100r= 28.9 deaths=3 lost=22 gold=410
+    T1 varg      gems/100r= 56.6 deaths=4 lost=116 gold=270
+
+== kr_interlock  R569  sub 680/980  LOSS  us=team0
+  T0* [C&I vendetta varg ryth] gained=790 lost@death=88 deaths=11 dead_rounds=665 gold=1320 avg_carry=10.4 recall_ch=39 sub_ch=75 ch3=0 locks=0 wardrounds=0 ev(atk=592 cast=224 recall=8 submit=12 buy=40 cons=0)
+  T1  [varg C&I vendetta ryth] gained=1046 lost@death=0 deaths=3 dead_rounds=180 gold=2640 avg_carry=11.6 recall_ch=80 sub_ch=123 ch3=0 locks=0 wardrounds=0 ev(atk=791 cast=293 recall=17 submit=30 buy=31 cons=0)
+  milestones: R100:94/66  R200:232/254  R300:348/436  R400:514/588  R500:550/828
+    T0 ryth      gems/100r= 59.8 deaths=3 lost=22 gold=360
+    T0 vendetta  gems/100r= 21.7 deaths=1 lost=0 gold=550
+    T0 cassi     gems/100r=  8.1 deaths=2 lost=0 gold=50
+    T0 issac     gems/100r= 66.4 deaths=2 lost=22 gold=180
+    T0 varg      gems/100r= 29.9 deaths=3 lost=44 gold=180
+    T1 ryth      gems/100r= 49.6 deaths=0 lost=0 gold=690
+    T1 vendetta  gems/100r= 30.8 deaths=2 lost=0 gold=440
+    T1 cassi     gems/100r= 23.2 deaths=0 lost=0 gold=550
+    T1 issac     gems/100r= 39.8 deaths=0 lost=0 gold=730
+    T1 varg      gems/100r= 52.8 deaths=1 lost=0 gold=230
+
+== kr_packs  R559  sub 628/996  LOSS  us=team0
+  T0* [C&I vendetta varg] gained=672 lost@death=44 deaths=6 dead_rounds=361 gold=2370 avg_carry=6.1 recall_ch=35 sub_ch=71 ch3=0 locks=0 wardrounds=0 ev(atk=613 cast=198 recall=7 submit=17 buy=75 cons=0)
+  T1  [varg C&I vendetta] gained=1040 lost@death=0 deaths=0 dead_rounds=0 gold=3390 avg_carry=6.1 recall_ch=84 sub_ch=118 ch3=0 locks=0 wardrounds=0 ev(atk=668 cast=221 recall=18 submit=32 buy=32 cons=0)
+  milestones: R100:88/88  R200:180/228  R300:224/404  R400:316/608  R500:492/860
+    T0 vendetta  gems/100r= 36.1 deaths=1 lost=0 gold=610
+    T0 cassi     gems/100r= 15.6 deaths=2 lost=0 gold=215
+    T0 issac     gems/100r= 26.5 deaths=2 lost=0 gold=285
+    T0 varg      gems/100r= 61.8 deaths=1 lost=44 gold=1260
+    T1 vendetta  gems/100r= 53.0 deaths=0 lost=0 gold=895
+    T1 cassi     gems/100r= 36.2 deaths=0 lost=0 gold=700
+    T1 issac     gems/100r= 35.5 deaths=0 lost=0 gold=680
+    T1 varg      gems/100r= 61.6 deaths=0 lost=0 gold=1115
+
+== larp_packs  R489  sub 956/668  LOSS  us=team1
+  T0  [varg tavi vendetta] gained=1044 lost@death=0 deaths=1 dead_rounds=60 gold=3984 avg_carry=12.3 recall_ch=72 sub_ch=105 ch3=0 locks=391 wardrounds=1452 ev(atk=426 cast=156 recall=16 submit=22 buy=34 cons=2)
+  T1* [C&I vendetta varg] gained=668 lost@death=0 deaths=11 dead_rounds=647 gold=2530 avg_carry=8.1 recall_ch=25 sub_ch=76 ch3=0 locks=0 wardrounds=0 ev(atk=470 cast=134 recall=5 submit=16 buy=77 cons=0)
+  milestones: R100:88/140  R200:180/272  R300:408/404  R400:684/536
+    T0 vendetta  gems/100r= 43.0 deaths=1 lost=0 gold=600
+    T0 varg      gems/100r= 94.3 deaths=0 lost=0 gold=1630
+    T0 tavi      gems/100r= 82.0 deaths=0 lost=0 gold=1754
+    T1 vendetta  gems/100r=108.2 deaths=0 lost=0 gold=2210
+    T1 cassi     gems/100r=  9.7 deaths=4 lost=0 gold=35
+    T1 issac     gems/100r=  9.7 deaths=4 lost=0 gold=35
+    T1 varg      gems/100r= 28.5 deaths=3 lost=0 gold=250
+
+== miru_expanse  R386  sub 952/976  WIN   us=team1
+  T0  [C&I vendetta varg] gained=1022 lost@death=0 deaths=0 dead_rounds=0 gold=1150 avg_carry=11.2 recall_ch=35 sub_ch=104 ch3=0 locks=508 wardrounds=1528 ev(atk=566 cast=132 recall=7 submit=20 buy=38 cons=3)
+  T1* [C&I vendetta varg] gained=998 lost@death=0 deaths=0 dead_rounds=0 gold=1150 avg_carry=8.4 recall_ch=15 sub_ch=113 ch3=0 locks=0 wardrounds=0 ev(atk=483 cast=135 recall=3 submit=32 buy=27 cons=0)
+  milestones: R100:188/188  R200:420/398  R300:678/726
+    T0 vendetta  gems/100r= 87.3 deaths=0 lost=0 gold=700
+    T0 cassi     gems/100r= 49.9 deaths=0 lost=0 gold=0
+    T0 issac     gems/100r= 55.6 deaths=0 lost=0 gold=90
+    T0 varg      gems/100r= 72.7 deaths=0 lost=0 gold=360
+    T1 vendetta  gems/100r= 71.7 deaths=0 lost=0 gold=540
+    T1 cassi     gems/100r= 43.6 deaths=0 lost=0 gold=0
+    T1 issac     gems/100r= 74.3 deaths=0 lost=0 gold=90
+    T1 varg      gems/100r= 69.6 deaths=0 lost=0 gold=520
+
+== nameless_vs_colon3_12b43d0b-7f42-4088-bdbc-50f650e06661  R573  sub 166/978    us=teamNone
+  T0  [vendetta willow ryth varg vesper] gained=214 lost@death=0 deaths=0 dead_rounds=0 gold=209 avg_carry=4.5 recall_ch=34 sub_ch=18 ch3=0 locks=0 wardrounds=2849 ev(atk=185 cast=16 recall=11 submit=6 buy=2 cons=0)
+  T1  [C&I ryth vendetta stellar marcella] gained=1050 lost@death=0 deaths=0 dead_rounds=0 gold=270 avg_carry=9.8 recall_ch=0 sub_ch=111 ch3=0 locks=0 wardrounds=0 ev(atk=447 cast=135 recall=0 submit=29 buy=0 cons=0)
+  milestones: R100:0/116  R200:48/354  R300:48/474  R400:118/666  R500:166/858
+    T0 ryth      gems/100r=  0.0 deaths=0 lost=0 gold=0
+    T0 vesper    gems/100r=  0.0 deaths=0 lost=0 gold=84
+    T0 vendetta  gems/100r= 16.8 deaths=0 lost=0 gold=0
+    T0 willow    gems/100r= 16.8 deaths=0 lost=0 gold=0
+    T0 varg      gems/100r=  3.8 deaths=0 lost=0 gold=125
+    T1 ryth      gems/100r= 37.4 deaths=0 lost=0 gold=90
+    T1 vendetta  gems/100r= 16.4 deaths=0 lost=0 gold=90
+    T1 cassi     gems/100r= 50.3 deaths=0 lost=0 gold=0
+    T1 issac     gems/100r= 50.3 deaths=0 lost=0 gold=0
+    T1 stellar   gems/100r=  0.0 deaths=0 lost=0 gold=0
+    T1 marcella  gems/100r= 29.0 deaths=0 lost=0 gold=90
+
+== nameless_vs_colon3_194e76a9-8b60-469b-a401-c08bf89aa506  R819  sub 322/980    us=teamNone
+  T0  [vendetta willow ryth varg vesper] gained=454 lost@death=0 deaths=2 dead_rounds=122 gold=2260 avg_carry=12.5 recall_ch=114 sub_ch=42 ch3=0 locks=0 wardrounds=4083 ev(atk=558 cast=73 recall=28 submit=8 buy=21 cons=0)
+  T1  [C&I ryth vendetta stellar marcella] gained=1046 lost@death=0 deaths=5 dead_rounds=304 gold=5025 avg_carry=9.7 recall_ch=111 sub_ch=119 ch3=0 locks=0 wardrounds=0 ev(atk=860 cast=312 recall=24 submit=29 buy=53 cons=0)
+  milestones: R100:0/66  R200:66/110  R300:66/220  R400:198/286  R500:198/344
+    T0 ryth      gems/100r= 28.0 deaths=1 lost=0 gold=965
+    T0 vesper    gems/100r= 13.4 deaths=0 lost=0 gold=600
+    T0 vendetta  gems/100r=  2.9 deaths=1 lost=0 gold=140
+    T0 willow    gems/100r=  8.1 deaths=0 lost=0 gold=270
+    T0 varg      gems/100r=  5.4 deaths=0 lost=0 gold=285
+    T1 ryth      gems/100r= 31.3 deaths=0 lost=0 gold=1110
+    T1 vendetta  gems/100r= 35.7 deaths=0 lost=0 gold=1360
+    T1 cassi     gems/100r= 12.6 deaths=2 lost=0 gold=605
+    T1 issac     gems/100r= 12.6 deaths=2 lost=0 gold=465
+    T1 stellar   gems/100r= 17.4 deaths=1 lost=0 gold=660
+    T1 marcella  gems/100r= 23.2 deaths=0 lost=0 gold=825
+
+== nameless_vs_colon3_23b8453e-c3cd-47fc-a17a-c6de6e2f73ec  R379  sub 0/968    us=teamNone
+  T0  [vendetta willow ryth varg vesper] gained=124 lost@death=0 deaths=0 dead_rounds=0 gold=570 avg_carry=11.3 recall_ch=137 sub_ch=0 ch3=0 locks=0 wardrounds=1868 ev(atk=197 cast=22 recall=29 submit=0 buy=7 cons=0)
+  T1  [C&I ryth vendetta stellar marcella] gained=1050 lost@death=0 deaths=1 dead_rounds=24 gold=970 avg_carry=7.6 recall_ch=29 sub_ch=117 ch3=0 locks=0 wardrounds=0 ev(atk=462 cast=206 recall=6 submit=33 buy=8 cons=0)
+  milestones: R100:0/214  R200:0/522  R300:0/756
+    T0 ryth      gems/100r= 15.3 deaths=0 lost=0 gold=250
+    T0 vesper    gems/100r=  0.0 deaths=0 lost=0 gold=0
+    T0 vendetta  gems/100r= 11.6 deaths=0 lost=0 gold=230
+    T0 willow    gems/100r=  5.8 deaths=0 lost=0 gold=90
+    T0 varg      gems/100r=  0.0 deaths=0 lost=0 gold=0
+    T1 ryth      gems/100r= 69.3 deaths=0 lost=0 gold=90
+    T1 vendetta  gems/100r= 43.4 deaths=0 lost=0 gold=180
+    T1 cassi     gems/100r= 25.4 deaths=0 lost=0 gold=0
+    T1 issac     gems/100r= 63.5 deaths=0 lost=0 gold=0
+    T1 stellar   gems/100r= 33.9 deaths=1 lost=0 gold=0
+    T1 marcella  gems/100r= 44.4 deaths=0 lost=0 gold=700
+
+== nameless_vs_colon3_8cc60201-054d-4664-bb27-2252d80f59d9  R1004  sub 360/996    us=teamNone
+  T0  [vendetta willow ryth] gained=360 lost@death=0 deaths=4 dead_rounds=241 gold=1370 avg_carry=1.8 recall_ch=108 sub_ch=40 ch3=0 locks=0 wardrounds=3006 ev(atk=579 cast=68 recall=25 submit=13 buy=18 cons=0)
+  T1  [C&I ryth vendetta] gained=1088 lost@death=0 deaths=6 dead_rounds=363 gold=2250 avg_carry=6.1 recall_ch=83 sub_ch=124 ch3=0 locks=0 wardrounds=0 ev(atk=671 cast=331 recall=17 submit=37 buy=25 cons=0)
+  milestones: R100:44/96  R200:44/168  R300:88/288  R400:136/336  R500:180/428
+    T0 ryth      gems/100r=  7.0 deaths=0 lost=0 gold=260
+    T0 vendetta  gems/100r= 16.5 deaths=3 lost=0 gold=480
+    T0 willow    gems/100r= 16.3 deaths=1 lost=0 gold=630
+    T1 ryth      gems/100r= 42.3 deaths=0 lost=0 gold=1131
+    T1 vendetta  gems/100r= 22.3 deaths=0 lost=0 gold=376
+    T1 cassi     gems/100r= 21.4 deaths=3 lost=0 gold=308
+    T1 issac     gems/100r= 32.2 deaths=3 lost=0 gold=435
+
+== nameless_vs_colon3_ef8222f0-79ac-4719-8f78-fc4255d0e867  R471  sub 376/992    us=teamNone
+  T0  [vendetta willow ryth] gained=442 lost@death=0 deaths=0 dead_rounds=0 gold=630 avg_carry=8.1 recall_ch=29 sub_ch=40 ch3=0 locks=0 wardrounds=1398 ev(atk=269 cast=20 recall=6 submit=10 buy=5 cons=0)
+  T1  [C&I ryth vendetta] gained=1028 lost@death=0 deaths=0 dead_rounds=0 gold=880 avg_carry=10.7 recall_ch=14 sub_ch=108 ch3=0 locks=0 wardrounds=0 ev(atk=473 cast=100 recall=3 submit=23 buy=7 cons=0)
+  milestones: R100:0/140  R200:118/354  R300:280/520  R400:376/804
+    T0 ryth      gems/100r= 49.8 deaths=0 lost=0 gold=270
+    T0 vendetta  gems/100r= 24.7 deaths=0 lost=0 gold=180
+    T0 willow    gems/100r= 19.6 deaths=0 lost=0 gold=180
+    T1 ryth      gems/100r= 60.9 deaths=0 lost=0 gold=790
+    T1 vendetta  gems/100r= 50.6 deaths=0 lost=0 gold=90
+    T1 cassi     gems/100r= 46.0 deaths=0 lost=0 gold=0
+    T1 issac     gems/100r= 61.3 deaths=0 lost=0 gold=0
+
+== sssa_elk  R705  sub 432/972  LOSS  us=team0
+  T0* [C&I vendetta varg ryth tavi] gained=828 lost@death=360 deaths=25 dead_rounds=1463 gold=4935 avg_carry=8.7 recall_ch=60 sub_ch=45 ch3=0 locks=0 wardrounds=0 ev(atk=809 cast=304 recall=16 submit=15 buy=146 cons=0)
+  T1  [C&I vendetta ryth stellar tavi] gained=1044 lost@death=36 deaths=14 dead_rounds=703 gold=4950 avg_carry=6.7 recall_ch=115 sub_ch=110 ch3=0 locks=0 wardrounds=0 ev(atk=801 cast=361 recall=25 submit=24 buy=56 cons=0)
+  milestones: R100:36/108  R200:108/216  R300:108/360  R400:108/468  R500:144/828
+    T0 ryth      gems/100r=  8.4 deaths=5 lost=0 gold=195
+    T0 vendetta  gems/100r= 34.4 deaths=3 lost=36 gold=1225
+    T0 cassi     gems/100r= 34.5 deaths=3 lost=90 gold=979
+    T0 issac     gems/100r= 48.4 deaths=3 lost=126 gold=1461
+    T0 varg      gems/100r= 49.7 deaths=6 lost=108 gold=1025
+    T0 tavi      gems/100r=  0.0 deaths=5 lost=0 gold=50
+    T1 ryth      gems/100r= 12.5 deaths=3 lost=0 gold=390
+    T1 vendetta  gems/100r= 55.7 deaths=2 lost=0 gold=1470
+    T1 cassi     gems/100r= 17.2 deaths=2 lost=0 gold=540
+    T1 issac     gems/100r= 45.9 deaths=2 lost=0 gold=1660
+    T1 stellar   gems/100r= 37.0 deaths=2 lost=36 gold=545
+    T1 tavi      gems/100r=  6.9 deaths=3 lost=0 gold=345
+
+== whim_lanes  R463  sub 822/982  LOSS  us=team0
+  T0* [C&I vendetta varg ryth tavi] gained=858 lost@death=0 deaths=0 dead_rounds=0 gold=2245 avg_carry=6.4 recall_ch=98 sub_ch=100 ch3=0 locks=0 wardrounds=0 ev(atk=731 cast=240 recall=20 submit=29 buy=67 cons=0)
+  T1  [varg ryth vendetta ren marcella] gained=1190 lost@death=58 deaths=3 dead_rounds=182 gold=3190 avg_carry=13.9 recall_ch=80 sub_ch=117 ch3=0 locks=690 wardrounds=0 ev(atk=643 cast=219 recall=19 submit=24 buy=98 cons=4)
+  milestones: R100:0/22  R200:170/204  R300:372/486  R400:670/890
+    T0 ryth      gems/100r= 29.9 deaths=0 lost=0 gold=590
+    T0 vendetta  gems/100r= 19.0 deaths=0 lost=0 gold=320
+    T0 cassi     gems/100r= 13.0 deaths=0 lost=0 gold=160
+    T0 issac     gems/100r= 61.9 deaths=0 lost=0 gold=125
+    T0 varg      gems/100r= 25.1 deaths=0 lost=0 gold=500
+    T0 tavi      gems/100r= 36.8 deaths=0 lost=0 gold=550
+    T1 ryth      gems/100r= 51.9 deaths=1 lost=36 gold=680
+    T1 vendetta  gems/100r= 86.1 deaths=0 lost=0 gold=770
+    T1 marcella  gems/100r= 49.4 deaths=1 lost=0 gold=430
+    T1 ren       gems/100r= 54.2 deaths=1 lost=22 gold=610
+    T1 varg      gems/100r= 36.4 deaths=0 lost=0 gold=700
+
+== whim_mono  R373  sub 556/960  LOSS  us=team0
+  T0* [C&I vendetta varg ryth tavi] gained=600 lost@death=0 deaths=0 dead_rounds=0 gold=2480 avg_carry=18.7 recall_ch=68 sub_ch=64 ch3=0 locks=0 wardrounds=0 ev(atk=617 cast=181 recall=14 submit=14 buy=70 cons=0)
+  T1  [varg ryth vendetta ren marcella] gained=1048 lost@death=0 deaths=0 dead_rounds=0 gold=4300 avg_carry=17.4 recall_ch=69 sub_ch=116 ch3=0 locks=14 wardrounds=0 ev(atk=645 cast=215 recall=14 submit=23 buy=114 cons=1)
+  milestones: R100:102/44  R200:124/374  R300:424/682
+    T0 ryth      gems/100r= 51.1 deaths=0 lost=0 gold=790
+    T0 vendetta  gems/100r= 41.4 deaths=0 lost=0 gold=630
+    T0 cassi     gems/100r=  5.9 deaths=0 lost=0 gold=90
+    T0 issac     gems/100r= 23.7 deaths=0 lost=0 gold=360
+    T0 varg      gems/100r= 21.5 deaths=0 lost=0 gold=340
+    T0 tavi      gems/100r= 17.7 deaths=0 lost=0 gold=270
+    T1 ryth      gems/100r= 53.2 deaths=0 lost=0 gold=810
+    T1 vendetta  gems/100r= 62.9 deaths=0 lost=0 gold=970
+    T1 marcella  gems/100r= 47.3 deaths=0 lost=0 gold=720
+    T1 ren       gems/100r= 59.1 deaths=0 lost=0 gold=900
+    T1 varg      gems/100r= 59.1 deaths=0 lost=0 gold=900
+
+== whim_rows  R448  sub 924/957  LOSS  us=team0
+  T0* [C&I vendetta varg ryth] gained=924 lost@death=0 deaths=0 dead_rounds=0 gold=3780 avg_carry=14.6 recall_ch=105 sub_ch=98 ch3=0 locks=0 wardrounds=0 ev(atk=646 cast=185 recall=21 submit=17 buy=124 cons=0)
+  T1  [varg ryth vendetta ren] gained=1122 lost@death=0 deaths=0 dead_rounds=0 gold=4590 avg_carry=22.6 recall_ch=85 sub_ch=109 ch3=0 locks=339 wardrounds=0 ev(atk=584 cast=176 recall=17 submit=14 buy=132 cons=1)
+  milestones: R100:99/66  R200:330/297  R300:462/561  R400:726/792
+    T0 ryth      gems/100r= 36.9 deaths=0 lost=0 gold=675
+    T0 vendetta  gems/100r= 44.3 deaths=0 lost=0 gold=810
+    T0 cassi     gems/100r= 22.1 deaths=0 lost=0 gold=405
+    T0 issac     gems/100r= 22.1 deaths=0 lost=0 gold=405
+    T0 varg      gems/100r= 81.2 deaths=0 lost=0 gold=1485
+    T1 ryth      gems/100r= 73.8 deaths=0 lost=0 gold=1350
+    T1 vendetta  gems/100r= 81.2 deaths=0 lost=0 gold=1485
+    T1 ren       gems/100r= 51.7 deaths=0 lost=0 gold=945
+    T1 varg      gems/100r= 44.3 deaths=0 lost=0 gold=810
+
+### OUR GAMES: 1/17 won
+  gems_gained          us   11314  opp   18324
+  gems_lost_on_death   us    1516  opp     164
+  deaths               us     154  opp      36
+  dead_rounds          us    8766  opp    2030
+  gold_earned          us   35655  opp   53419
+  chan_1               us     887  opp    1398
+  chan_2               us    1079  opp    1904
+  per champion (gems per 100 alive rounds, deaths/game):
+    us  cassi     n=17 gems/100r= 16.2 deaths/g=2.06 lost/g=12 gold/100r=38
+    us  issac     n=17 gems/100r= 40.0 deaths/g=2.06 lost/g=21 gold/100r=100
+    us  vendetta  n=17 gems/100r= 42.3 deaths/g=1.41 lost/g=22 gold/100r=144
+    us  varg      n=17 gems/100r= 43.1 deaths/g=1.88 lost/g=26 gold/100r=152
+    us  ryth      n=10 gems/100r= 31.6 deaths/g=1.80 lost/g=10 gold/100r=117
+    us  tavi      n= 6 gems/100r= 18.7 deaths/g=1.67 lost/g=7 gold/100r=63
+    opp vendetta  n=17 gems/100r= 54.8 deaths/g=0.53 lost/g=1 gold/100r=172
+    opp cassi     n=13 gems/100r= 32.3 deaths/g=0.46 lost/g=0 gold/100r=89
+    opp issac     n=13 gems/100r= 51.0 deaths/g=0.46 lost/g=4 gold/100r=138
+    opp ryth      n=13 gems/100r= 49.0 deaths/g=0.46 lost/g=3 gold/100r=148
+    opp varg      n=10 gems/100r= 55.6 deaths/g=0.10 lost/g=0 gold/100r=147
+    opp stellar   n= 4 gems/100r= 41.8 deaths/g=0.50 lost/g=9 gold/100r=125
+    opp tavi      n= 4 gems/100r= 38.9 deaths/g=0.75 lost/g=0 gold/100r=137
+    opp marcella  n= 3 gems/100r= 50.0 deaths/g=0.67 lost/g=0 gold/100r=97
+    opp ren       n= 3 gems/100r= 54.8 deaths/g=0.33 lost/g=7 gold/100r=201

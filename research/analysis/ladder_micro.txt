@@ -1,0 +1,2 @@
+us  n=  3085 hit_champ=0.247 cast_champ=0.009 hit_camp=0.112 approach=0.111 retreat=0.298 sidestep=0.082 idle=0.126 channel=0.015 meanhp=0.65
+opp n=  3224 hit_champ=0.349 cast_champ=0.019 hit_camp=0.088 approach=0.198 retreat=0.180 sidestep=0.058 idle=0.082 channel=0.026 meanhp=0.72
