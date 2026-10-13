@@ -16,8 +16,9 @@
 | `beast_v19s.zip` | v18 + all-strength build + pin rule 2 ("safe": both changes positive in self-play) | see same file |
 
 ## Suggested procedure
-1. Upload `beast_v19s` and challenge Mite, KratosMessi, WHIM 2× each (≈10 distinct maps each). Note per-map gems.
-2. Upload `beast_v19` and do the same.
+1. Upload `beast_v19` (recommended: same self-play strength as v18 with 18% fewer deaths, every change
+   targets a measured ladder failure) and challenge Mite, KratosMessi, WHIM 2× each (≈8 distinct maps each).
+2. Upload `beast_v19s` and do the same.
 3. Keep whichever beats the v18 baseline on more maps / by more gems against those three; if both are worse,
    fall back to v14 (`submissions/` older zips) and report back.
 4. Instant comparison: `python3 tools/compare_baseline.py <upload time ISO> --refresh` prints every new
