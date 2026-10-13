@@ -50,12 +50,13 @@ const server = http.createServer((req, res) => {
 await new Promise(r => server.listen(0, '127.0.0.1', r));
 const port = server.address().port;
 
-const browser = await chromium.launch({ args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader'] });
+const browser = await chromium.launch({ args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--disable-gpu-vsync'] });
 
 for (const rep of reps) {
     current = path.resolve(rep);
     const name = path.basename(rep).replace(/\.(zip|repl26a)$/, '').replace(/[^A-Za-z0-9_.-]+/g, '_');
-    const page = await browser.newPage();
+    if (fs.existsSync(path.join(outDir, name + '.json'))) continue;
+    const page = await browser.newPage({ viewport: { width: 64, height: 64 } });
     try {
         await page.goto(`http://127.0.0.1:${port}/?replay=replay.zip`);
         await page.waitForFunction(() => {
@@ -91,6 +92,8 @@ for (const rep of reps) {
             }
             return !!window.__game;
         }, null, { timeout: 90000, polling: 500 });
+        // Stop the visualiser's render loop: extraction only needs the engine, and software WebGL eats the CPU.
+        await page.evaluate(() => { window.requestAnimationFrame = () => 0; });
         const data = await page.evaluate(() => {
             const g = window.__game, tl = g.mainTimeline;
             const N = g.timelineInfo(tl).size;
@@ -100,8 +103,15 @@ for (const rep of reps) {
             const num = v => (typeof v === 'bigint' ? Number(v) : v);
             for (let p = 0; p < N; p++) {
                 g.seek(tl, p);
-                const s = g.snapshot();
-                const st = s.step;
+                // timelineState() is ~13x cheaper than snapshot(); take a full snapshot only when the round changes.
+                const ts = g.timelineState();
+                const st = ts.step;
+                const s = (ts.round !== last || !types || !camps) ? g.snapshot() : null;
+                if (!s) {
+                    if (st.kind !== 3 && st.kind !== 19 && st.kind !== 0)
+                        ev.push([st.round, st.kind, st.actor.index, st.from.x, st.from.y, st.to.x, st.to.y, st.abilitySlot === undefined ? -1 : st.abilitySlot, st.actor.kind]);
+                    continue;
+                }
                 if (!types && s.champions.length) {
                     types = s.champions.map(c => c.type);
                     teams = s.champions.map(c => c.team);

@@ -16,7 +16,13 @@ def cheb(a, b):
     return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
 
 
-def labels(name, js):
+def labels(name, js, path=None):
+    if path:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import ladder_labels
+        n = ladder_labels.names(path)
+        if n:
+            return n
     us_draft = [3, 2, 9, 0, 10]
     d = [[x for x in js["drafts"][t] if x >= 0] for t in (0, 1)]
     ours = [t for t in (0, 1) if d[t] == us_draft[:len(d[t])]]
@@ -43,7 +49,7 @@ def main():
     for path in sorted(glob.glob(os.path.join(d, "*.json"))):
         name = os.path.basename(path)[:-5]
         js = json.load(open(path))
-        lab = labels(name, js)
+        lab = labels(name, js, path)
         R = {int(k): v for k, v in js["rounds"].items()}
         T, TM = js["types"], js["teams"]
         n = len(T)
@@ -124,7 +130,7 @@ def main():
     order = sorted(S, key=lambda L: (L != "US(old)", L))
     for L in order:
         s = S[L]
-        if len(s["n"]) < 500:
+        if len(s["n"]) < int(os.environ.get('POLICY_MIN', 500)):
             continue
         print(f"\n=== {L}  (champion-rounds {len(s['n'])})")
         print(f"  recall HP median {med(s['recall_hp']):.2f} (n={len(s['recall_hp'])}) | tribute gems median {med(s['tribute_gems'])} mean {sum(s['tribute_gems'])/max(1,len(s['tribute_gems'])):.0f} (n={len(s['tribute_gems'])})"

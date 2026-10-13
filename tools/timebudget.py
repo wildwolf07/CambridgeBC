@@ -5,7 +5,8 @@ Categories (first match wins): recall/submit channel, at spawn, hit champion, hi
 moved (travel), idle.
 usage: python3 tools/timebudget.py DUMP_DIR [--us 3,2,9,0,10]
 """
-import argparse, collections, glob, json, os
+import argparse
+import sys, collections, glob, json, os
 ALIVE, X, Y, HP, MAXHP, GEMS, GOLD, EARNED, K, D, A, CHT, CHTM, STR, FOC = range(15)
 NAMES = ["ryth", "vesper", "vendetta", "cassi", "issac", "stellar", "prism", "marcella", "willow", "ren", "varg", "tavi"]
 CATS = ["recall", "submit", "spawn", "fight", "camp", "capture", "travel", "idle"]
@@ -15,9 +16,13 @@ def cheb(a, b):
     return max(abs(a[0] - b[0]), abs(a[1] - b[1]))
 
 
-def find_us(js, us_draft):
+def find_us(js, us_draft, path=None):
     if os.environ.get('FORCE_US') is not None:
         return int(os.environ['FORCE_US'])
+    if os.environ.get('US_NAME') and path:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import ladder_labels
+        return ladder_labels.team_of(path, os.environ['US_NAME'])
     drafts = js["drafts"]
     c = [t for t in (0, 1) if [x for x in drafts[t] if x >= 0] == us_draft[:len([x for x in drafts[t] if x >= 0])]]
     if len(c) == 1:
@@ -40,7 +45,7 @@ def main():
     per = {s: collections.defaultdict(collections.Counter) for s in ("us", "opp")}
     for path in sorted(glob.glob(os.path.join(a.dir, "*.json"))):
         js = json.load(open(path))
-        us = find_us(js, us_draft)
+        us = find_us(js, us_draft, path)
         if us is None:
             continue
         R = {int(k): v for k, v in js["rounds"].items()}

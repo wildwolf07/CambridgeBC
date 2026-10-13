@@ -23,7 +23,7 @@ def main():
     agg = {s: collections.Counter() for s in ("us", "opp")}
     for path in sorted(glob.glob(os.path.join(a.dir, "*.json"))):
         js = json.load(open(path))
-        us = find_us(js, us_draft)
+        us = find_us(js, us_draft, path)
         if us is None:
             continue
         R = {int(k): v for k, v in js["rounds"].items()}

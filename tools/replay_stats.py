@@ -8,6 +8,8 @@ import collections
 import glob
 import json
 import os
+import sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 NAMES = ["ryth", "vesper", "vendetta", "cassi", "issac", "stellar", "prism", "marcella", "willow", "ren", "varg", "tavi"]
 DRAFT = ["ryth", "vesper", "vendetta", "C&I", "stellar", "prism", "marcella", "willow", "ren", "varg", "tavi"]
@@ -20,17 +22,23 @@ def load(path):
         return json.load(f)
 
 
-def analyse(js, us_draft):
+def analyse(js, us_draft, path=None):
     R = {int(k): v for k, v in js["rounds"].items()}
     rs = sorted(R)
     types, teams = js["types"], js["teams"]
     n = len(types)
     drafts = js["drafts"]
     us = None
-    cands = [t for t in (0, 1) if [x for x in drafts[t] if x >= 0] == us_draft[:len([x for x in drafts[t] if x >= 0])]]
-    if len(cands) == 1:
+    if path and os.environ.get('US_NAME'):
+        import ladder_labels
+        us = ladder_labels.team_of(path, os.environ['US_NAME'])
+        cands = []
+    else:
+      cands = [t for t in (0, 1) if [x for x in drafts[t] if x >= 0] == us_draft[:len([x for x in drafts[t] if x >= 0])]]
+      pass
+    if us is None and len(cands) == 1:
         us = cands[0]
-    elif len(cands) == 2:
+    elif us is None and len(cands) == 2:
         # Mirror draft: we never place altar locks or wards.
         lw = [sum(1 for r in js["rounds"].values() for l in r["locks"] + r["wards"] if l[0] == t) for t in (0, 1)]
         if lw[0] != lw[1]:
@@ -104,7 +112,7 @@ def main():
     for path in sorted(glob.glob(os.path.join(a.dir, "*.json"))):
         name = os.path.basename(path)[:-5]
         js = load(path)
-        res = analyse(js, us_draft)
+        res = analyse(js, us_draft, path)
         us = res["us"]
         d = [" ".join(DRAFT[x] for x in res["drafts"][t] if x >= 0) for t in (0, 1)]
         tag = "" if us is None else ("WIN " if res["winner"] == us else "LOSS")

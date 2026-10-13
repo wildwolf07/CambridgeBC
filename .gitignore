@@ -6,3 +6,6 @@ bots/*/build/
 bots/*/target/
 tools/__pycache__/
 bots/*/compile_commands.json
+ladder_data/json/
+ladder_data/*/groups.json
+ladder_data/*/replays/
