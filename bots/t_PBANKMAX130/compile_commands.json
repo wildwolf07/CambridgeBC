@@ -1,0 +1,26 @@
+[
+  {
+    "command": "/Users/santosh/Library/Caches/cambc/wasi-sdk-33/bin/clang++ --target=wasm32-wasip1 --sysroot=/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot -I/Users/santosh/Work/cambridgeBC/sdk/cpp -isystem /Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/cmake/../../share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1 -O3 -DNDEBUG -std=c++20 -msimd128 -fwasm-exceptions -mllvm -wasm-use-legacy-eh=false -o CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/bot.cpp.obj -c /Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/bot.cpp --sysroot=\"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot\" -isystem \"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1\"",
+    "directory": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/.cambc/build",
+    "file": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/bot.cpp",
+    "output": "CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/bot.cpp.obj"
+  },
+  {
+    "command": "/Users/santosh/Library/Caches/cambc/wasi-sdk-33/bin/clang++ --target=wasm32-wasip1 --sysroot=/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot -I/Users/santosh/Work/cambridgeBC/sdk/cpp -isystem /Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/cmake/../../share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1 -O3 -DNDEBUG -std=c++20 -msimd128 -fwasm-exceptions -mllvm -wasm-use-legacy-eh=false -o CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/draft.cpp.obj -c /Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/draft.cpp --sysroot=\"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot\" -isystem \"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1\"",
+    "directory": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/.cambc/build",
+    "file": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/draft.cpp",
+    "output": "CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/draft.cpp.obj"
+  },
+  {
+    "command": "/Users/santosh/Library/Caches/cambc/wasi-sdk-33/bin/clang++ --target=wasm32-wasip1 --sysroot=/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot -I/Users/santosh/Work/cambridgeBC/sdk/cpp -isystem /Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/cmake/../../share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1 -O3 -DNDEBUG -std=c++20 -msimd128 -fwasm-exceptions -mllvm -wasm-use-legacy-eh=false -o CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/main.cpp.obj -c /Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/main.cpp --sysroot=\"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot\" -isystem \"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1\"",
+    "directory": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/.cambc/build",
+    "file": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/main.cpp",
+    "output": "CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/main.cpp.obj"
+  },
+  {
+    "command": "/Users/santosh/Library/Caches/cambc/wasi-sdk-33/bin/clang++ --target=wasm32-wasip1 --sysroot=/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot -I/Users/santosh/Work/cambridgeBC/sdk/cpp -isystem /Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/cmake/../../share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1 -O3 -DNDEBUG -std=c++20 -msimd128 -fwasm-exceptions -mllvm -wasm-use-legacy-eh=false -o CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/world.cpp.obj -c /Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/world.cpp --sysroot=\"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot\" -isystem \"/Users/santosh/Library/Caches/cambc/wasi-sdk-33/share/wasi-sysroot/include/wasm32-wasip1/eh/c++/v1\"",
+    "directory": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/.cambc/build",
+    "file": "/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/world.cpp",
+    "output": "CMakeFiles/bot.dir/Users/santosh/Work/cambridgeBC/bots/t_PBANKMAX130/src/world.cpp.obj"
+  }
+]

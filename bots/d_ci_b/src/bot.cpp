@@ -1,0 +1,1055 @@
+#include "bot.h"
+#include <cmath>
+
+namespace {
+constexpr std::uint32_t ST_ALIVE = 1u << 0, ST_RECALL = 1u << 1, ST_SUBMIT = 1u << 2, ST_MOVE = 1u << 3,
+                        ST_ATTACK = 1u << 4, ST_CAST = 1u << 11, ST_TELE = 1u << 12;
+
+struct TypeInfo {
+    bool melee;
+    bool reset;
+    float spell_mod;
+};
+constexpr TypeInfo TYPES[12] = {
+    {true, true, 1.0f},    // ryth
+    {false, true, 0.f},    // vesper
+    {true, true, 0.f},     // vendetta
+    {false, false, 2.0f},  // cassi
+    {true, true, 0.f},     // issac
+    {false, false, 2.0f},  // stellar
+    {false, false, 1.5f},  // prism
+    {true, true, 2.0f},    // marcella
+    {false, true, 0.f},    // willow
+    {true, false, 1.25f},  // ren
+    {true, true, 0.f},     // varg
+    {false, true, 2.2f},   // tavi
+};
+
+bool raw_info(std::uint32_t h, bc::detail::champion_info& ci) {
+    return bc::detail::sdk_champion(h, &ci) == 0 && ci.x >= 0 && ci.y >= 0;
+}
+int raw_move(vec2 d) {
+    std::int32_t ok = 0;
+    if (bc::detail::sdk_move_to(d.x, d.y, &ok) != 0) return -1;
+    return ok ? 1 : 0;
+}
+bool raw_attack(bool champ, std::uint32_t h) { return bc::detail::sdk_attack(champ ? 1u : 2u, h) == 0; }
+int raw_cast(int slot, std::uint32_t kind, std::uint32_t h, vec2 d) {
+    std::int32_t ok = 0;
+    if (bc::detail::sdk_cast(static_cast<std::uint32_t>(slot), kind, h, d.x, d.y, &ok) != 0) return -1;
+    return ok ? 1 : 0;
+}
+int cooldown(int slot) {
+    if (slot < 0) return 99;
+    std::int32_t cd = 99;
+    if (bc::detail::sdk_champion_cooldown(world.self_handle, static_cast<std::uint32_t>(slot), &cd) != 0) return 99;
+    return cd;
+}
+bool in_bounds(vec2 p) { return p.x >= 0 && p.y >= 0 && p.x < world.W && p.y < world.H; }
+
+// Shard build orders (item_type enum values). Cycle the tail once exhausted.
+constexpr std::uint32_t P_STR = 6, P_FOC = 8, P_HP = 10, D_HP = 16, J_HP = 28;
+constexpr std::uint32_t BUILD_STR[] = {P_STR, P_STR, P_STR, P_STR, P_STR, J_HP, J_HP, J_HP, J_HP, J_HP,
+                                       P_STR, P_STR, P_STR, P_STR, P_STR, D_HP, D_HP, D_HP, D_HP, D_HP,
+                                       P_STR, P_STR, P_STR, P_STR, P_STR, P_HP, P_HP, P_HP, P_HP, P_HP};
+constexpr std::uint32_t BUILD_TANK[] = {P_HP,  P_HP,  P_HP,  P_HP,  P_HP,  P_STR, P_STR, P_STR, P_STR, P_STR,
+                                        J_HP,  J_HP,  J_HP,  J_HP,  J_HP,  P_STR, P_STR, P_STR, P_STR, P_STR,
+                                        D_HP,  D_HP,  D_HP,  D_HP,  D_HP,  P_HP,  P_HP,  P_HP,  P_HP,  P_HP};
+}  // namespace
+
+// ---------------------------------------------------------------- init / snapshot
+
+void Bot::init() {
+    inited = true;
+    world.init();
+    bc::detail::champion_info ci{};
+    bc::detail::sdk_champion(world.self_handle, &ci);
+    type = ci.type;
+    kit.melee = ci.attack_range <= 1;
+    const auto abs = bc::self().abilities();
+    for (const auto& a : abs) {
+        const auto& inf = a.info();
+        if (!inf) continue;
+        const int slot = static_cast<int>(a.slot());
+        std::visit(
+            [&](const auto& v) {
+                using T = std::decay_t<decltype(v)>;
+                if constexpr (std::is_same_v<T, bc::ability_attack_reset>) kit.reset = slot;
+                else if constexpr (std::is_same_v<T, bc::ability_dash>) kit.dash = slot;
+                else if constexpr (std::is_same_v<T, bc::ability_shield>) kit.shield = slot;
+                else if constexpr (std::is_same_v<T, bc::ability_heal>) kit.heal = slot;
+                else if constexpr (std::is_same_v<T, bc::ability_damage>) {
+                    kit.dmg = {slot, bc::ability_kind::damage, v.range, v.modifier, 0, 0, v.exclusive_with_movement};
+                } else if constexpr (std::is_same_v<T, bc::ability_cc>) {
+                    kit.cc = {slot, bc::ability_kind::cc, v.range, v.modifier, 0, v.duration, v.exclusive_with_movement};
+                } else if constexpr (std::is_same_v<T, bc::ability_aoe_damage>) {
+                    kit.aoe = {slot, bc::ability_kind::aoe_damage, v.range, v.modifier, v.radius, v.duration,
+                               v.exclusive_with_movement};
+                }
+            },
+            *inf);
+    }
+    world.spawn_f();
+    world.altars_f();
+}
+
+void Bot::snapshot() {
+    round = static_cast<int>(bc::round_number());
+    bc::detail::champion_info ci{};
+    bc::detail::sdk_champion(world.self_handle, &ci);
+    st = static_cast<std::uint32_t>(ci.state);
+    pos = {ci.x, ci.y};
+    hp = ci.health;
+    max_hp = ci.max_health > 1 ? ci.max_health : 1;
+    str = ci.strength;
+    focus = ci.focus;
+    range = ci.attack_range;
+    std::uint32_t v = 0;
+    bc::detail::sdk_champion_gems(world.self_handle, &v);
+    gems = static_cast<int>(v);
+    gold = static_cast<int>(bc::self().gold_count());
+    bc::detail::sdk_read_shared_memory(0, shm.data(), 8);
+    moved = false;
+    cast_excl = false;
+    if (!alive_state()) return;
+    n_alive = 0;
+    is_leader = false;
+    for (int i = 0; i < world.team_size; ++i) {
+        std::int32_t a = 0;
+        if (bc::detail::sdk_champion_is_alive(world.ally_handles[i], &a) == 0 && a) {
+            if (n_alive == 0 && i == world.my_slot) is_leader = true;
+            ++n_alive;
+        }
+    }
+
+    vis = bc::vision::visible_tiles();
+    occ = bc::vision::champion_tiles() | bc::vision::camp_tiles() | bc::vision::teleport_tiles();
+    occ.set(pos, false);
+    blocked = world.static_block | occ;
+
+    enemies.clear();
+    allies.clear();
+    for (auto h : world.enemy_handles) {
+        if (!raw_info(h, ci) || !(static_cast<std::uint32_t>(ci.state) & ST_ALIVE)) continue;
+        UnitView u;
+        u.h = h;
+        u.type = ci.type;
+        u.pos = {ci.x, ci.y};
+        u.hp = ci.health;
+        u.max_hp = ci.max_health;
+        u.str = ci.strength;
+        u.focus = ci.focus;
+        u.range = ci.attack_range;
+        u.state = static_cast<std::uint32_t>(ci.state);
+        v = 0;
+        bc::detail::sdk_champion_gems(h, &v);
+        u.gems = static_cast<int>(v);
+        std::uint8_t r = 0;
+        if (bc::detail::sdk_champion_restrictions(h, &r) == 0) u.stunned = (r & 3u) == 3u;
+        enemies.push_back(u);
+        if (auto* m = world.mem_of(h)) {
+            m->pos = u.pos;
+            m->round = round;
+            m->hp = u.hp;
+            m->max_hp = u.max_hp;
+            m->type = u.type;
+            m->gems = u.gems;
+        }
+    }
+    for (auto h : world.ally_handles) {
+        if (h == world.self_handle) continue;
+        if (!raw_info(h, ci) || !(static_cast<std::uint32_t>(ci.state) & ST_ALIVE)) continue;
+        UnitView u;
+        u.h = h;
+        u.type = ci.type;
+        u.pos = {ci.x, ci.y};
+        u.hp = ci.health;
+        u.max_hp = ci.max_health;
+        u.str = ci.strength;
+        u.focus = ci.focus;
+        u.range = ci.attack_range;
+        u.state = static_cast<std::uint32_t>(ci.state);
+        allies.push_back(u);
+    }
+}
+
+void Bot::observe_groups() {
+    for (auto& g : world.groups) {
+        if (cheb(pos, g.center) > 11) continue;
+        bool seen = false;
+        for (auto& c : g.camps)
+            if (vis.is_set(c.pos)) {
+                seen = true;
+                break;
+            }
+        if (!seen) continue;
+        std::uint32_t s = 0;
+        if (bc::detail::sdk_camp_group_state(g.handle, &s) != 0 || s == 0) continue;
+        g.seen_round = round;
+        if (s == 1) {
+            g.state = GState::alive;
+            for (auto& c : g.camps) {
+                if (!vis.is_set(c.pos)) continue;
+                // Camps get fresh handles when a group respawns; resolve by tile.
+                std::uint32_t h = 0;
+                bc::detail::camp_state cs{};
+                if (bc::detail::sdk_camp_at(c.pos.x, c.pos.y, &h) == 0 && bc::detail::sdk_camp(h, &cs) == 0) {
+                    c.handle = h;
+                    c.hp = cs.health;
+                    c.dead = false;
+                } else {
+                    c.dead = true;
+                }
+            }
+        } else if (s == 2) {
+            g.state = GState::reward;
+            for (auto& c : g.camps) c.dead = true;
+        } else if (s == 3) {
+            g.state = GState::respawning;
+            std::int32_t t = 0;
+            bc::detail::sdk_camp_group_cooldown(g.handle, &t);
+            g.respawn_round = round + t;
+            for (auto& c : g.camps) c.dead = true;
+        }
+        for (auto& e : enemies)
+            if (cheb(e.pos, g.center) <= 5) g.enemy_round = round;
+    }
+}
+
+void Bot::predict_groups() {
+    for (auto& g : world.groups) {
+        const bool respawned = g.state == GState::respawning && round >= g.respawn_round;
+        const bool stale_reward = g.state == GState::reward && round - g.seen_round > 45;
+        if (respawned || stale_reward) {
+            g.state = GState::unknown;
+            for (auto& c : g.camps) {
+                c.dead = false;
+                c.hp = c.max_hp;
+            }
+        }
+    }
+}
+
+float Bot::dps_of(int t, float s, float f) const {
+    if (t < 0 || t > 11) return s;
+    const auto& ti = TYPES[t];
+    return s * (ti.reset ? 1.125f : 1.f) + ti.spell_mod * f / 8.f;
+}
+
+float Bot::my_camp_dps() const {
+    float d = dps_of(type, str, focus);
+    if (type == static_cast<int>(bc::champion_type::varg)) d *= 1.3f;
+    return d;
+}
+
+// ---------------------------------------------------------------- shared memory claims
+
+void Bot::claim(int gi) {
+    if (world.my_slot >= 6) return;
+    const std::uint8_t val = gi < 0 ? 0 : static_cast<std::uint8_t>(gi + 1);
+    if (shm[world.my_slot] == val) return;
+    shm[world.my_slot] = val;
+    bc::detail::sdk_write_shared_memory(world.my_slot, &val, 1);
+}
+
+int Bot::claims_on(int gi) const {
+    int n = 0;
+    const int lim = std::min(world.team_size, 6);
+    for (int i = 0; i < lim; ++i)
+        if (i != world.my_slot && shm[i] == gi + 1) ++n;
+    return n;
+}
+
+// ---------------------------------------------------------------- movement
+
+bool Bot::can_walk() const { return (st & ST_MOVE) && !cast_excl; }
+
+bool Bot::step_field(const bc::distance_field& f, bool onto_root) {
+    if (!can_walk()) return false;
+    const int cur = f.get(pos);
+    vec2 cp[8];
+    int cv[8];
+    int n = 0;
+    for (auto d : DIRS) {
+        const vec2 q = pos + d;
+        if (!in_bounds(q) || blocked.is_set(q)) continue;
+        const int v = f.get(q);
+        if (v == UNREACH || (v == 0 && !onto_root)) continue;
+        if (v > cur) continue;
+        int k = n++;
+        while (k > 0 && (cv[k - 1] > v || (cv[k - 1] == v && cp[k - 1] == last_pos))) {
+            cp[k] = cp[k - 1];
+            cv[k] = cv[k - 1];
+            --k;
+        }
+        cp[k] = q;
+        cv[k] = v;
+    }
+    for (int i = 0; i < n; ++i) {
+        if (cv[i] == cur && cp[i] == last_pos) continue;
+        const int r = raw_move(cp[i]);
+        if (r == 1) {
+            last_pos = pos;
+            pos = cp[i];
+            moved = true;
+            st &= ~ST_MOVE;
+            return true;
+        }
+        blocked.set(cp[i]);
+        if (r < 0) break;
+    }
+    return false;
+}
+
+bool Bot::step_towards(vec2 t) {
+    if (!can_walk()) return false;
+    const int cur = cheb(pos, t);
+    vec2 best = pos;
+    long best_score = static_cast<long>(cur) * 1000 + (static_cast<long>(pos.x - t.x) * (pos.x - t.x) + static_cast<long>(pos.y - t.y) * (pos.y - t.y));
+    for (auto d : DIRS) {
+        const vec2 q = pos + d;
+        if (!in_bounds(q) || blocked.is_set(q)) continue;
+        const long sc = static_cast<long>(cheb(q, t)) * 1000 +
+                        (static_cast<long>(q.x - t.x) * (q.x - t.x) + static_cast<long>(q.y - t.y) * (q.y - t.y));
+        if (sc < best_score) {
+            best_score = sc;
+            best = q;
+        }
+    }
+    if (best == pos) return false;
+    if (raw_move(best) == 1) {
+        last_pos = pos;
+        pos = best;
+        moved = true;
+        st &= ~ST_MOVE;
+        return true;
+    }
+    blocked.set(best);
+    return false;
+}
+
+bool Bot::try_dash_field(const bc::distance_field& f) {
+    if (kit.dash < 0 || !(st & ST_CAST) || cooldown(kit.dash) != 0) return false;
+    const int cur = f.get(pos);
+    if (cur == UNREACH || cur < 4) return false;
+    vec2 best = pos;
+    int bv = cur - 1;
+    for (int dx = -2; dx <= 2; ++dx)
+        for (int dy = -2; dy <= 2; ++dy) {
+            if (iabs(dx) < 2 && iabs(dy) < 2) continue;
+            const vec2 q{pos.x + dx, pos.y + dy};
+            if (!in_bounds(q) || blocked.is_set(q)) continue;
+            const int v = f.get(q);
+            if (v < bv) {
+                bv = v;
+                best = q;
+            }
+        }
+    if (best == pos) return false;
+    if (raw_cast(kit.dash, 0, 0, best) == 1) {
+        last_pos = pos;
+        pos = best;
+        st &= ~ST_CAST;
+        return true;
+    }
+    return false;
+}
+
+// ---------------------------------------------------------------- shopping
+
+void Bot::shop() {
+    if (gold < 30) return;
+    const bool tank = type == static_cast<int>(bc::champion_type::ryth);
+    const std::uint32_t* build = tank ? BUILD_TANK : BUILD_STR;
+    constexpr int len = 30;
+    int guard = 0;
+    while (gold >= 30 && guard++ < 12) {
+        int idx = build_step < len ? build_step : 10 + (build_step - len) % (len - 10);
+        if (bc::detail::sdk_buy_item(build[idx], 1) != 0) break;
+        gold -= 30;
+        ++build_step;
+    }
+}
+
+// ---------------------------------------------------------------- attacks
+
+bool Bot::try_reset_attack(std::uint32_t h, bool champ) {
+    if (kit.reset < 0 || !(st & ST_CAST) || cooldown(kit.reset) != 0) return false;
+    if (raw_cast(kit.reset, 0, 0, {-1, -1}) != 1) return false;
+    st &= ~ST_CAST;
+    if (raw_attack(champ, h)) return true;
+    return false;
+}
+
+bool Bot::attack_unit_handle(std::uint32_t h, bool champ) {
+    if (!(st & ST_ATTACK)) return false;
+    if (!raw_attack(champ, h)) return false;
+    st &= ~ST_ATTACK;
+    if (!kit.melee) st &= ~ST_MOVE;
+    // Follow up with an attack reset if the target survived.
+    bool alive_t = false;
+    if (champ) {
+        bc::detail::champion_info ci{};
+        alive_t = raw_info(h, ci) && (static_cast<std::uint32_t>(ci.state) & ST_ALIVE);
+    } else {
+        bc::detail::camp_state cs{};
+        alive_t = bc::detail::sdk_camp(h, &cs) == 0;
+    }
+    if (alive_t) try_reset_attack(h, champ);
+    return true;
+}
+
+bool Bot::cast_on_camp(const Camp& c) {
+    if (!(st & ST_CAST)) return false;
+    const int d = cheb(pos, c.pos);
+    for (const Spell* sp : {&kit.dmg, &kit.cc}) {
+        if (sp->slot < 0 || sp->mod <= 0 || d > static_cast<int>(sp->range) || cooldown(sp->slot) != 0) continue;
+        if (raw_cast(sp->slot, 2, c.handle, {-1, -1}) == 1) {
+            st &= ~ST_CAST;
+            if (sp->excl) cast_excl = true;
+            return true;
+        }
+    }
+    if (kit.aoe.slot >= 0 && d <= static_cast<int>(kit.aoe.range) && cooldown(kit.aoe.slot) == 0) {
+        if (raw_cast(kit.aoe.slot, 0, 0, c.pos) == 1) {
+            st &= ~ST_CAST;
+            if (kit.aoe.excl) cast_excl = true;
+            return true;
+        }
+    }
+    return false;
+}
+
+// ---------------------------------------------------------------- combat vs champions
+
+namespace {
+bool enemy_can_act(const UnitView& e) { return !e.stunned && !(e.state & (ST_RECALL | ST_SUBMIT | ST_TELE)); }
+}  // namespace
+
+float Bot::danger_at(vec2 t) const { return enemy_danger_at(t) + camp_threat_at(t) * 0.5f; }
+
+float Bot::enemy_danger_at(vec2 t) const {
+    float d = 0;
+    for (auto& e : enemies) {
+        if (!enemy_can_act(e)) continue;
+        const int dist = cheb(t, e.pos);
+        const bool emelee = e.range <= 1;
+        const float dps = dps_of(e.type, e.str, e.focus);
+        if (emelee ? dist <= 2 : dist <= e.range) d += dps;
+        else if (dist <= 4 && TYPES[e.type < 0 || e.type > 11 ? 0 : e.type].spell_mod > 0) d += 0.4f * dps;
+    }
+    return d;
+}
+
+bool Bot::combat() {
+    if (enemies.empty()) return false;
+    float e_hp = 0, e_dps = 0;
+    int near = 0;
+    for (auto& e : enemies) {
+        const int d = cheb(pos, e.pos);
+        if (world.enemy_spawn.is_set(e.pos) && d > e.range + 1) continue;
+        if (d > 8) continue;
+        ++near;
+        e_hp += e.hp;
+        if (enemy_can_act(e)) e_dps += dps_of(e.type, e.str, e.focus);
+    }
+    if (near == 0) return false;
+    float a_hp = hp, a_dps = dps_of(type, str, focus);
+    for (auto& a : allies)
+        if (cheb(a.pos, pos) <= 7) {
+            a_hp += a.hp;
+            a_dps += dps_of(a.type, a.str, a.focus);
+        }
+    const float t_we = e_hp / std::max(1.f, a_dps);
+    const float t_they = a_hp / std::max(1.f, e_dps);
+    const float adv = t_they / std::max(0.1f, t_we);
+
+    // Focus target: cheap to kill, carrying loot, or helpless while channeling.
+    const int shared_focus = shm[7] ? shm[7] - 1 : -1;
+    const UnitView* best = nullptr;
+    float best_sc = -1;
+    float burst = str * ((kit.reset >= 0 && cooldown(kit.reset) == 0) ? 2.f : 1.f);
+    if (kit.dmg.slot >= 0 && cooldown(kit.dmg.slot) == 0) burst += kit.dmg.mod * focus;
+    else if (kit.cc.slot >= 0 && kit.cc.mod > 0 && cooldown(kit.cc.slot) == 0) burst += kit.cc.mod * focus;
+    for (auto& e : enemies) {
+        const int d = cheb(pos, e.pos);
+        if (d > 7 || world.enemy_spawn.is_set(e.pos)) continue;
+        const float hits = e.hp / std::max(1.f, str);
+        float sc = (60.f + 2.5f * static_cast<float>(e.gems)) / (hits + 1.5f * static_cast<float>(std::max(0, d - range)));
+        if (!enemy_can_act(e)) sc *= 1.6f;
+        if (e.hp <= burst && d <= range + (kit.melee ? 1 : 0)) sc *= 3.f;
+        int ei = -1;
+        for (int i = 0; i < static_cast<int>(world.enemy_handles.size()); ++i)
+            if (world.enemy_handles[i] == e.h) ei = i;
+        if (ei == shared_focus) sc *= 1.4f;
+        if (sc > best_sc) {
+            best_sc = sc;
+            best = &e;
+        }
+    }
+    bool killable = false, helpless = false;
+    if (best) {
+        const int d = cheb(pos, best->pos);
+        killable = best->hp <= burst && d <= range + (kit.melee ? 1 : 0);
+        helpless = !enemy_can_act(*best) && d <= range + 2;
+    }
+    const bool low = hp < 0.3f * max_hp;
+    const bool rich = gems >= 40;
+    float need = rich ? 1.5f : 1.2f;
+    if (low) need = 2.5f;
+    const bool fight = best && (killable || adv >= need || (helpless && adv >= 0.7f));
+    if (fight) {
+        int ei = -1;
+        for (int i = 0; i < static_cast<int>(world.enemy_handles.size()); ++i)
+            if (world.enemy_handles[i] == best->h) ei = i;
+        if (ei >= 0 && shm[7] != ei + 1) {
+            const std::uint8_t v = static_cast<std::uint8_t>(ei + 1);
+            shm[7] = v;
+            bc::detail::sdk_write_shared_memory(7, &v, 1);
+        }
+        engage(*best);
+        return true;
+    }
+    bool rich_threat = false;
+    for (auto& e : enemies)
+        if (rich && enemy_can_act(e) && cheb(pos, e.pos) <= 5 && !world.enemy_spawn.is_set(e.pos)) rich_threat = true;
+    if (enemy_danger_at(pos) > 0 || rich_threat) {
+        // A same-speed melee chaser gets free hits on a fleeing unit; hit back unless escape is real.
+        const UnitView* pin = nullptr;
+        for (auto& e : enemies)
+            if (enemy_can_act(e) && e.range <= 1 && cheb(pos, e.pos) <= 2 && !world.enemy_spawn.is_set(e.pos)) {
+                if (!pin || e.hp < pin->hp) pin = &e;
+            }
+        const int sd = world.spawn_f().get(pos);
+        const bool can_escape = sd <= 3 || (kit.dash >= 0 && cooldown(kit.dash) == 0 && (st & ST_CAST));
+        if (pin && !can_escape) {
+            const UnitView* tgt = (best && cheb(pos, best->pos) <= range + (kit.melee ? 1 : 0)) ? best : pin;
+            engage(*tgt);
+            return true;
+        }
+        retreat();
+        return true;
+    }
+    return false;
+}
+
+void Bot::engage(const UnitView& e) {
+    int d = cheb(pos, e.pos);
+    const bool e_flee_risk = e.hp < 0.35f * e.max_hp;
+    // Stun first when it stops damage, a channel or an escape.
+    for (const Spell* sp : {&kit.cc, &kit.dmg}) {
+        if (!(st & ST_CAST) || sp->slot < 0 || d > static_cast<int>(sp->range) || cooldown(sp->slot) != 0) continue;
+        if (sp == &kit.cc && e.stunned) continue;
+        const bool need_walk = kit.melee && d > 1;
+        if (sp->excl && need_walk) continue;
+        if (raw_cast(sp->slot, 1, e.h, {-1, -1}) == 1) {
+            st &= ~ST_CAST;
+            if (sp->excl) cast_excl = true;
+        }
+    }
+    if ((st & ST_CAST) && kit.aoe.slot >= 0 && d <= static_cast<int>(kit.aoe.range) && cooldown(kit.aoe.slot) == 0 &&
+        !(kit.aoe.excl && kit.melee && d > 1)) {
+        if (raw_cast(kit.aoe.slot, 0, 0, e.pos) == 1) {
+            st &= ~ST_CAST;
+            if (kit.aoe.excl) cast_excl = true;
+        }
+    }
+    if ((st & ST_CAST) && kit.shield >= 0 && cooldown(kit.shield) == 0 && danger_at(pos) > 0) {
+        if (raw_cast(kit.shield, 0, 0, {-1, -1}) == 1) st &= ~ST_CAST;
+    }
+    if (d <= range && !(kit.melee && false)) {
+        // Melee: reposition to a safer adjacent tile only if it keeps the target in reach.
+        attack_unit_handle(e.h, true);
+        if (kit.melee && can_walk()) {
+            // Stay on target; stepping costs nothing for melee but keep adjacent.
+        }
+        return;
+    }
+    // Ranged with another enemy already in range: shoot it rather than walking in.
+    if (!kit.melee) {
+        for (auto& o : enemies)
+            if (o.h != e.h && cheb(pos, o.pos) <= range && !world.enemy_spawn.is_set(o.pos)) {
+                attack_unit_handle(o.h, true);
+                return;
+            }
+    }
+    if (!can_walk()) return;
+    if (d >= 3 && kit.dash >= 0 && (st & ST_CAST) && cooldown(kit.dash) == 0 && (kit.melee || e_flee_risk)) {
+        vec2 bestp = pos;
+        int bd = d;
+        for (int dx = -2; dx <= 2; ++dx)
+            for (int dy = -2; dy <= 2; ++dy) {
+                const vec2 q{pos.x + dx, pos.y + dy};
+                if (q == pos || !in_bounds(q) || blocked.is_set(q)) continue;
+                const int dq = cheb(q, e.pos);
+                if (dq < bd) {
+                    bd = dq;
+                    bestp = q;
+                }
+            }
+        if (bestp != pos && raw_cast(kit.dash, 0, 0, bestp) == 1) {
+            pos = bestp;
+            st &= ~ST_CAST;
+        }
+    }
+    // Step to the reachable tile closest to the target, breaking ties by danger.
+    vec2 bestq = pos;
+    float best_sc = static_cast<float>(cheb(pos, e.pos)) * 100.f + danger_at(pos);
+    for (auto dd : DIRS) {
+        const vec2 q = pos + dd;
+        if (!in_bounds(q) || blocked.is_set(q)) continue;
+        const float sc = static_cast<float>(cheb(q, e.pos)) * 100.f + danger_at(q);
+        if (sc < best_sc) {
+            best_sc = sc;
+            bestq = q;
+        }
+    }
+    if (bestq != pos && raw_move(bestq) == 1) {
+        last_pos = pos;
+        pos = bestq;
+        moved = true;
+        st &= ~ST_MOVE;
+    }
+    d = cheb(pos, e.pos);
+    if (d <= range && kit.melee) attack_unit_handle(e.h, true);
+}
+
+void Bot::retreat() {
+    const auto& sf = world.spawn_f();
+    // A stun on the closest threat buys a turn.
+    if ((st & ST_CAST) && kit.cc.slot >= 0 && !kit.cc.excl) {
+        for (auto& e : enemies)
+            if (enemy_can_act(e) && cheb(pos, e.pos) <= static_cast<int>(kit.cc.range) && cooldown(kit.cc.slot) == 0) {
+                if (raw_cast(kit.cc.slot, 1, e.h, {-1, -1}) == 1) st &= ~ST_CAST;
+                break;
+            }
+    }
+    if (!can_walk()) return;
+    auto score = [&](vec2 q) {
+        const int sd = sf.get(q);
+        return danger_at(q) * 10.f + static_cast<float>(sd == UNREACH ? 300 : sd) * 0.5f;
+    };
+    if (kit.dash >= 0 && (st & ST_CAST) && cooldown(kit.dash) == 0 && danger_at(pos) > 0) {
+        vec2 bestp = pos;
+        float bs = score(pos);
+        for (int dx = -2; dx <= 2; ++dx)
+            for (int dy = -2; dy <= 2; ++dy) {
+                if (iabs(dx) < 2 && iabs(dy) < 2) continue;
+                const vec2 q{pos.x + dx, pos.y + dy};
+                if (!in_bounds(q) || blocked.is_set(q)) continue;
+                const float sc = score(q);
+                if (sc < bs) {
+                    bs = sc;
+                    bestp = q;
+                }
+            }
+        if (bestp != pos && raw_cast(kit.dash, 0, 0, bestp) == 1) {
+            pos = bestp;
+            st &= ~ST_CAST;
+        }
+    }
+    vec2 best = pos;
+    float best_sc = score(pos);
+    for (auto d : DIRS) {
+        const vec2 q = pos + d;
+        if (!in_bounds(q) || blocked.is_set(q)) continue;
+        const float sc = score(q);
+        if (sc < best_sc) {
+            best_sc = sc;
+            best = q;
+        }
+    }
+    if (best != pos && raw_move(best) == 1) {
+        last_pos = pos;
+        pos = best;
+        moved = true;
+        st &= ~ST_MOVE;
+    }
+    // Ranged units that could not move still shoot back.
+    if (!moved && (st & ST_ATTACK)) {
+        for (auto& e : enemies)
+            if (cheb(pos, e.pos) <= range) {
+                attack_unit_handle(e.h, true);
+                break;
+            }
+    }
+}
+
+// ---------------------------------------------------------------- healing
+
+float Bot::camp_threat_at(vec2 q) const {
+    float t = 0;
+    for (auto& g : world.groups) {
+        if (cheb(g.center, q) > 6 || g.state == GState::respawning || g.state == GState::reward) continue;
+        for (auto& c : g.camps)
+            if (!c.dead && c.str > 0 && c.hp < c.max_hp && cheb(c.pos, q) <= 3) t += c.str;
+    }
+    return t;
+}
+
+void Bot::assess_camps() {
+    camp_in = 0;
+    camp_near = false;
+    for (auto& g : world.groups) {
+        if (cheb(g.center, pos) > 6 || g.state == GState::respawning || g.state == GState::reward) continue;
+        for (auto& c : g.camps) {
+            if (c.dead || c.str <= 0 || cheb(c.pos, pos) > 3) continue;
+            // Untouched camps are asleep and do not attack.
+            if (c.hp >= c.max_hp && g.hp_left() >= g.hp_total) continue;
+            camp_near = true;
+            // Monsters hit the highest-strength champion in their range.
+            bool top = true;
+            for (auto& a : allies)
+                if (a.str > str && cheb(a.pos, c.pos) <= 3) top = false;
+            for (auto& e : enemies)
+                if (e.str > str && cheb(e.pos, c.pos) <= 3) top = false;
+            if (top) camp_in += c.str;
+        }
+    }
+}
+
+bool Bot::need_heal() const {
+    if (healing) return true;
+    if (camp_in > 0 && hp <= camp_in * 2.5f + 20.f) return true;
+    float thr = 0.33f;
+    for (auto& e : enemies)
+        if (cheb(e.pos, pos) <= 6) thr = 0.45f;
+    return hp < thr * max_hp;
+}
+
+void Bot::go_heal() {
+    healing = true;
+    if (world.ally_spawn.is_set(pos)) {
+        if (hp >= 0.95f * max_hp) healing = false;
+        return;
+    }
+    if (st & ST_RECALL) return;
+    const auto& sf = world.spawn_f();
+    const int sd = sf.get(pos);
+    bool danger = false;
+    for (auto& e : enemies)
+        if (cheb(e.pos, pos) <= 5) danger = true;
+    if (camp_near && can_walk()) {
+        // Leave monster range first; recall would be interrupted.
+        vec2 best = pos;
+        float best_sc = camp_threat_at(pos) * 100.f + static_cast<float>(sd);
+        for (auto d : DIRS) {
+            const vec2 q = pos + d;
+            if (!in_bounds(q) || blocked.is_set(q)) continue;
+            const int v = sf.get(q);
+            const float sc = camp_threat_at(q) * 100.f + static_cast<float>(v == UNREACH ? 500 : v);
+            if (sc < best_sc) {
+                best_sc = sc;
+                best = q;
+            }
+        }
+        int rm = best != pos ? raw_move(best) : 9;
+        if (BEAST_LOG && hp < 0.25f * max_hp) LOG("ESC R%d sd=%d best(%d,%d) sc=%.0f rm=%d thr=%.0f\n", round, sd, best.x, best.y, best_sc, rm, camp_threat_at(pos));
+        if (rm == 1) {
+            last_pos = pos;
+            pos = best;
+            moved = true;
+            st &= ~ST_MOVE;
+        }
+        return;
+    }
+    if (!danger && sd > 5) {
+        if (bc::detail::sdk_recall() == 0) return;
+    }
+    try_dash_field(sf);
+    step_field(sf, true);
+}
+
+// ---------------------------------------------------------------- banking
+
+bool Bot::should_bank() {
+    if (gems <= 0) return false;
+    const int team_total = static_cast<int>(bc::global_submitted_gems(team::ally));
+    if (team_total + gems >= 1000) return true;
+    const int da = world.altars_f().get(pos);
+    if (da == UNREACH) return false;
+    if (gems >= 60) return true;
+    if (gems >= 30 && da <= 10) return true;
+    if (da <= 3) return true;
+    bool danger = false;
+    for (auto& e : enemies)
+        if (cheb(e.pos, pos) <= 8) danger = true;
+    if (danger && da <= 12) return true;
+    if (round > 1900) return true;
+    return false;
+}
+
+void Bot::go_bank() {
+    const auto& af = world.altars_f();
+    const int da = af.get(pos);
+    if (da <= 1) {
+        for (auto a : world.altars) {
+            if (cheb(a, pos) > 1) continue;
+            if (bc::detail::sdk_submit_gems(a.x, a.y) == 0) return;
+        }
+    }
+    try_dash_field(af);
+    step_field(af, false);
+}
+
+// ---------------------------------------------------------------- farming
+
+int Bot::choose_group() {
+    bitboard roots;
+    roots.set(pos);
+    bitboard visited;
+    bc::distance_field myf;
+    myf.compute(world.static_block, roots, visited);
+    const auto& sf = world.spawn_f();
+    const float dps = std::max(10.f, my_camp_dps());
+    const int pack_cur = shm[6] ? shm[6] - 1 : -1;
+    int best = -1, pbest = -1;
+    float best_sc = 0, pbest_sc = 0, pcur_sc = 0;
+    bool pcur_valid = pack_cur >= 0 && pack_cur < static_cast<int>(world.groups.size());
+    for (int gi = 0; gi < static_cast<int>(world.groups.size()); ++gi) {
+        auto& g = world.groups[gi];
+        if (g.monolith) continue;
+        int d = UNREACH;
+        for (auto& c : g.camps) {
+            const int v = myf.get(c.pos);
+            if (v < d) d = v;
+            if (g.camps.size() > 3) break;
+        }
+        if (d == UNREACH) {
+            if (gi == pack_cur) pcur_valid = false;
+            continue;
+        }
+        int wait = 0;
+        float hpl = g.hp_left(), strl = g.str_left();
+        if (g.state == GState::respawning) {
+            wait = std::max(0, g.respawn_round - round);
+            hpl = g.hp_total;
+            strl = g.str_total;
+        } else if (g.state == GState::reward) {
+            hpl = 0;
+            strl = 0;
+        }
+        const int helpers = claims_on(gi);
+        if (gi == pack_cur && ((g.state == GState::respawning && wait > 12) || (g.state == GState::reward && helpers > 0)))
+            pcur_valid = false;
+        if (g.state == GState::reward && !g.is_tile(pos) && (ally_capturing(g) || (helpers > 0 && gi != target))) continue;
+        const float gold_w = round < 150 ? 0.3f : (round < 400 ? 0.2f : 0.08f);
+        float value = static_cast<float>(g.gems) + gold_w * static_cast<float>(g.gold);
+        if (round - g.enemy_round < 20) value *= 0.7f;
+        auto score = [&](int h) {
+            const float team_dps = dps * (1.f + 0.85f * static_cast<float>(h));
+            const float kill_t = hpl / team_dps;
+            const float dmg_me = kill_t * strl * 0.6f / (1.f + static_cast<float>(h));
+            float time = static_cast<float>(std::max(d, wait)) + kill_t + 6.f;
+            if (dmg_me > hp * 0.8f) {
+                const int sd = sf.get(g.center);
+                const float trips = std::ceil((dmg_me - hp * 0.8f) / (max_hp * 0.65f));
+                time += trips * (2.f * static_cast<float>(sd == UNREACH ? 50 : sd) + 8.f);
+            }
+            // Score per champion: helpers spend their time here too.
+            float v = value / (1.f + static_cast<float>(h));
+            if (h > 0 && (g.str_total <= 0 || hpl < 1600)) v *= 0.6f;
+            return v / time;
+        };
+        float sc = score(helpers);
+        const bool big = g.str_total > 0 && g.hp_total >= 2000;
+        if (big && n_alive > 1) {
+            const float psc = score(std::max(helpers, n_alive - 1));
+            if (gi == pack_cur) {
+                pcur_sc = psc;
+                sc = std::max(sc, psc);
+            }
+            if (psc > pbest_sc) {
+                pbest_sc = psc;
+                pbest = gi;
+            }
+        }
+        gscore[gi] = sc;
+        if (sc > best_sc) {
+            best_sc = sc;
+            best = gi;
+        }
+    }
+    // The pack target only changes once it is finished or unreachable.
+    if (pbest >= 0 && !pcur_valid) {
+        const std::uint8_t val = static_cast<std::uint8_t>(pbest + 1);
+        if (shm[6] != val) {
+            shm[6] = val;
+            bc::detail::sdk_write_shared_memory(6, &val, 1);
+        }
+        gscore[pbest] = std::max(gscore[pbest], pbest_sc);
+        if (pbest_sc > best_sc) best = pbest;
+    }
+    (void)pcur_sc;
+    return best;
+}
+
+bool Bot::ally_capturing(const Group& g) const {
+    for (auto& a : allies)
+        if (g.is_tile(a.pos)) return true;
+    return false;
+}
+
+bool Bot::target_valid(int gi) const {
+    if (gi < 0) return false;
+    const auto& g = world.groups[gi];
+    if (g.state == GState::respawning) return g.respawn_round - round <= 6;
+    if (g.state == GState::reward || (g.hp_left() <= 0 && g.seen_round == round)) {
+        if (g.is_tile(pos)) return true;
+        return !ally_capturing(g);
+    }
+    return true;
+}
+
+bool Bot::attack_camp(Group& g) {
+    // Prefer dangerous camps, then the weakest.
+    Camp* best = nullptr;
+    float best_sc = 1e18f;
+    for (auto& c : g.camps) {
+        if (c.dead || !vis.is_set(c.pos)) continue;
+        if (cheb(pos, c.pos) > range) continue;
+        const float sc = (c.str > 0 ? 0.f : 1e6f) + c.hp;
+        if (sc < best_sc) {
+            best_sc = sc;
+            best = &c;
+        }
+    }
+    if (!best) return false;
+    if (enemies.empty()) cast_on_camp(*best);
+    if ((st & ST_CAST) && kit.shield >= 0 && g.str_left() > 0 && hp < 0.9f * max_hp && cooldown(kit.shield) == 0) {
+        if (raw_cast(kit.shield, 0, 0, {-1, -1}) == 1) st &= ~ST_CAST;
+    }
+    return attack_unit_handle(best->handle, false);
+}
+
+void Bot::act_group(int gi) {
+    auto& g = world.groups[gi];
+    const auto& f = world.group_field(gi);
+    const bool all_dead = g.state == GState::reward ||
+                          (g.state != GState::respawning && g.hp_left() <= 0 && g.seen_round == round);
+    if (all_dead) {
+        act = A_F_CAPT;
+        if (g.is_tile(pos)) return;
+        try_dash_field(f);
+        step_field(f, true);
+        return;
+    }
+    if (g.state == GState::respawning) {
+        act = A_F_WAIT;
+        // Wait near the group but off its spawn tiles.
+        if (f.get(pos) > 2) {
+            try_dash_field(f);
+            step_field(f, false);
+        }
+        return;
+    }
+    act = A_F_ATK;
+    if (attack_camp(g)) return;
+    act = A_F_TRAV;
+    if (!moved) {
+        if (f.get(pos) <= 6) {
+            // Close in on living camps only; dead spawn tiles are not targets.
+            bitboard roots;
+            for (auto& c : g.camps)
+                if (!c.dead) roots.set(c.pos);
+            if (!roots.is_empty()) {
+                bitboard visited;
+                bc::distance_field lf;
+                lf.compute(world.static_block, roots, visited, 14);
+                if (kit.melee || lf.get(pos) > static_cast<std::uint16_t>(range)) step_field(lf, false);
+            }
+        } else {
+            try_dash_field(f);
+            step_field(f, false);
+        }
+    }
+    if (kit.melee && attack_camp(g)) act = A_F_ATK;
+}
+
+void Bot::farm() {
+    if (gscore.size() != world.groups.size()) gscore.assign(world.groups.size(), 0.f);
+    std::fill(gscore.begin(), gscore.end(), 0.f);
+    int cand = choose_group();
+    if (target_valid(target) && cand != target) {
+        const auto& g = world.groups[target];
+        const bool engaged = cheb(pos, g.center) <= 4;
+        if (engaged || gscore[target] * 1.6f >= gscore[cand < 0 ? target : cand]) cand = target;
+    }
+    target = cand;
+    claim(target);
+    if (BEAST_LOG && type == 0 && round % 4 == 0 && round < 260)
+        LOG("R%d ryth pos(%d,%d) tgt=%d st=%d d=%d hpl=%.0f claims=%d pack=%d\n", round, pos.x, pos.y, target,
+            target >= 0 ? (int)world.groups[target].state : -1, target >= 0 ? (int)world.group_field(target).get(pos) : -1,
+            target >= 0 ? world.groups[target].hp_left() : 0.f, target >= 0 ? claims_on(target) : 0, (int)shm[6] - 1);
+    if (target < 0) {
+        act = A_F_NONE;
+        step_field(world.spawn_f(), true);
+        return;
+    }
+    act_group(target);
+}
+
+// ---------------------------------------------------------------- turn
+
+void Bot::turn() {
+    if (!inited) init();
+    act = A_OTHER;
+    turn_inner();
+    ++acts[act];
+    if (BEAST_LOG && alive_state() && hp < 0.25f * max_hp)
+        LOG("LOW R%d slot%d pos(%d,%d) hp=%.0f act=%d camp_in=%.0f near=%d moved=%d st=%u\n", round, world.my_slot, pos.x, pos.y, hp, act,
+            camp_in, (int)camp_near, (int)moved, st);
+    if (BEAST_LOG && (round == 300 || round == 600)) {
+        static const char* names[] = {"other", "dead", "chan_rec", "chan_sub", "combat", "heal", "bank", "f_trav", "f_atk", "f_capt", "f_wait", "f_none"};
+        LOG("ACT R%d slot%d type%d:", round, world.my_slot, type);
+        for (int i = 0; i < A_N; ++i) LOG(" %s=%d", names[i], acts[i]);
+        LOG(" gold=%d str=%.0f hp=%.0f\n", gold, str, max_hp);
+    }
+}
+
+void Bot::turn_inner() {
+    snapshot();
+    if (!alive_state()) {
+        if (BEAST_LOG && was_alive)
+            LOG("DEATH R%d slot%d type%d last: %s\n", round, world.my_slot, type, last_note);
+        was_alive = false;
+        act = A_DEAD;
+        healing = false;
+        shop();
+        claim(-1);
+        return;
+    }
+    if (st & (ST_RECALL | ST_SUBMIT | ST_TELE)) {
+        act = (st & ST_SUBMIT) ? A_CHAN_SUB : A_CHAN_REC;
+        if (world.ally_spawn.is_set(pos)) shop();
+        return;
+    }
+    was_alive = true;
+    observe_groups();
+    predict_groups();
+    assess_camps();
+    if (BEAST_LOG && hp < 0.4f * max_hp)
+        std::snprintf(last_note, sizeof last_note, "R%d pos(%d,%d) hp=%.0f/%.0f camp_in=%.0f near=%d heal=%d tgt=%d en=%d", round, pos.x,
+                      pos.y, hp, max_hp, camp_in, (int)camp_near, (int)healing, target, (int)enemies.size());
+    const bool at_spawn = world.ally_spawn.is_set(pos);
+    if (at_spawn) shop();
+    if (bc::fuel_remaining() < 20000) return;
+
+    if (combat()) {
+        act = A_COMBAT;
+        return;
+    }
+    if (need_heal()) {
+        act = A_HEAL;
+        claim(-1);
+        go_heal();
+        return;
+    }
+    if (should_bank()) {
+        act = A_BANK;
+        go_bank();
+        return;
+    }
+    if (bc::fuel_remaining() < 25000) return;
+    farm();
+}
