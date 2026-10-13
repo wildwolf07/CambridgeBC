@@ -88,7 +88,7 @@
 #define P_CALL_BONUS 0.7f
 #endif
 #ifndef CFG_NO_SOLO
-#define CFG_NO_SOLO 1
+#define CFG_NO_SOLO 0
 #endif
 #ifndef CFG_SQUAD
 #define CFG_SQUAD 0
@@ -179,4 +179,28 @@
 #endif
 #ifndef CFG_HITRUN
 #define CFG_HITRUN 1
+#endif
+#ifndef CFG_ASSIST
+#define CFG_ASSIST 0
+#endif
+#ifndef P_JOIN_D
+#define P_JOIN_D 9
+#endif
+#ifndef P_JOIN_NEED
+#define P_JOIN_NEED 0.5f
+#endif
+#ifndef CFG_NOWAIT
+#define CFG_NOWAIT 0
+#endif
+#ifndef P_WAIT_SLACK
+#define P_WAIT_SLACK 3
+#endif
+#ifndef CFG_LOCKFIX
+#define CFG_LOCKFIX 1
+#endif
+#ifndef CFG_LOCKS
+#define CFG_LOCKS 0
+#endif
+#ifndef P_LOCK_UNTIL
+#define P_LOCK_UNTIL 1500
 #endif

@@ -98,3 +98,23 @@ Gap ≈ 412 gems/game ≈ 89 transferred + 132 dead-time farming + 234 lower gem
 | v15 | CFG_HITRUN: melee strikes before stepping away; ranged that cannot outrun a chaser shoots back | 58.3% vs v14 (n=108, +105 gems/game; mirror 46.3%, −40); 68.5% vs v13 (n=54) | adopted |
 | — | CFG_TEAMFIGHT: one fight verdict per union-find engagement cluster (+flee cost of pinned allies) | 40.7%/51.9% vs v14 before HITRUN; 46–52% vs v15 | off (neutral locally; aimed at coherent ladder teams) |
 | — | Squad / hunt variants of the bot as benchmark opponents | lose 15–22% to v14 | not representative of ladder packs |
+
+More verified facts (probes):
+- **Vision is per champion, not shared**: a bot cannot see enemies (or even allies) outside its own vision radius.
+  The only team channel is 8 bytes of shared memory, fully used by claims (36b), pack (6b), focus (3b), rally (19b).
+- Teams lock their own banking altars (Cabbage/Miru/larp/WHIM) so invaders cannot tribute there.
+
+Fight micro audit (tools/micro.py, units within 3 tiles of an enemy champion):
+ladder leaders hit champions 34.9% / approach 19.8% / retreat 18.0% / idle 8.2%;
+our ladder bot 24.7% / 11.1% / 29.8% / 12.6%; v15 locally 33.8% / 12.4% / 16.7% / 13.0%.
+Largest idle bucket: melee waiting at distance 3 (CFG_NO_SOLO).
+
+| Ver | Change | Evidence | Decision |
+|---|---|---|---|
+| — | CFG_ASSIST (join allies' fights) / CFG_RALLY answer | assist never fires (no shared vision); rally 33% vs v15 | rejected |
+| — | CFG_NOWAIT (skip camps still respawning on arrival) | econ 395/391 vs 392 | rejected (no effect) |
+| — | CFG_BUDDY pairs | econ 408 vs 392; 50% vs v15, 0/12 expanse | parked (map-dependent) |
+| — | Draft pool (WHIM/:3/ET drafts with our logic) | our draft 52–57% vs each | draft not a lever with our logic |
+| v16 | CFG_NO_SOLO=0 (melee may step into reach first) + CFG_LOCKFIX (break or skip enemy altar locks) | pool 56.5% vs 52.8% (gemdiff better vs all 4); v16 60.2% vs v15 and vs v14 (n=108 each) | adopted |
+| — | CFG_TERRITORY=0 / P_TERRITORY=6 | 54.2% / 57.4% vs 56.5% base | no gain |
+| — | P_SIM_MARGIN −0.3 / +0.3 | 44.9% / 55.1% vs 56.5% | keep 0 |

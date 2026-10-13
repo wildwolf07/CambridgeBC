@@ -77,6 +77,8 @@ private:
     std::vector<int> cl_a, cl_e;
     void build_cluster();
     float flee_cost() const;
+    bool helper_ok(const UnitView& a) const;
+    bool assist();
     bool answer_rally();
     bool shop_trip();
     bool follow_partner();
@@ -114,6 +116,7 @@ private:
     void go_heal();
     bool should_bank();
     void go_bank();
+    void place_locks(bool at_spawn);
     void farm();
     int choose_group();
     void act_group(int gi);

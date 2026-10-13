@@ -16,6 +16,8 @@ def cheb(a, b):
 
 
 def find_us(js, us_draft):
+    if os.environ.get('FORCE_US') is not None:
+        return int(os.environ['FORCE_US'])
     drafts = js["drafts"]
     c = [t for t in (0, 1) if [x for x in drafts[t] if x >= 0] == us_draft[:len([x for x in drafts[t] if x >= 0])]]
     if len(c) == 1:

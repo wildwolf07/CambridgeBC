@@ -521,7 +521,7 @@ bool Bot::combat() {
         e_hp += e.hp;
         if (enemy_can_act(e)) e_dps += dps_of(e.type, e.str, e.focus);
     }
-    if (near == 0) return false;
+    if (near == 0) return CFG_ASSIST ? assist() : false;
     float a_hp = hp, a_dps = dps_of(type, str, focus);
     for (auto& a : allies)
         if (cheb(a.pos, pos) <= 7) {
@@ -716,55 +716,46 @@ float Bot::flee_cost() const {
     return c;
 }
 
-float Bot::sim_fight() const {
-    struct U {
-        float hp, dps, val;
-        bool me;
-    };
-    auto is_ci = [](int t) {
-        return t == static_cast<int>(bc::champion_type::cassi) || t == static_cast<int>(bc::champion_type::issac);
-    };
-    U A[8], E[8];
-    int na = 0, ne = 0;
-    A[na++] = {hp, dps_of(type, str, focus), is_ci(type) ? 2.f : 1.f, true};
-    if (CFG_TEAMFIGHT) {
-        for (int ai : cl_a)
-            if (na < 8) A[na++] = {allies[ai].hp, dps_of(allies[ai].type, allies[ai].str, allies[ai].focus), is_ci(allies[ai].type) ? 2.f : 1.f, false};
-        for (int ei : cl_e)
-            if (ne < 8) E[ne++] = {enemies[ei].hp, dps_of(enemies[ei].type, enemies[ei].str, enemies[ei].focus), is_ci(enemies[ei].type) ? 2.f : 1.f, false};
-    } else {
-    for (auto& a : allies)
-        if (na < 8 && cheb(a.pos, pos) <= 7) A[na++] = {a.hp, dps_of(a.type, a.str, a.focus), is_ci(a.type) ? 2.f : 1.f, false};
-    for (auto& e : enemies) {
-        const int d = cheb(pos, e.pos);
-        if (ne >= 8 || d > 8 || (world.enemy_spawn.is_set(e.pos) && d > e.range + 1)) continue;
-        E[ne++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci(e.type) ? 2.f : 1.f, false};
-    }
-    }
+namespace {
+struct SU {
+    float hp, dps, val;
+    int start;
+    bool me;
+};
+// Lanchester-style focus-fire race; units join the fight `start` rounds in. Value = bodies won (C&I count 2),
+// our own death costs half a body more, plus half the HP-fraction difference.
+float sim_race(SU* A, int na, SU* E, int ne) {
     if (ne == 0) return 1.f;
     float a_start = 0, e_start = 0;
     for (int i = 0; i < na; ++i) a_start += A[i].hp;
     for (int i = 0; i < ne; ++i) e_start += E[i].hp;
-    auto hit = [](U* side, int n, float dmg) {
+    auto hit = [](SU* side, int n, float dmg, int r) {
         while (dmg > 0) {
             int t = -1;
             for (int i = 0; i < n; ++i)
-                if (side[i].hp > 0 && (t < 0 || side[i].hp < side[t].hp)) t = i;
+                if (side[i].hp > 0 && side[i].start <= r && (t < 0 || side[i].hp < side[t].hp)) t = i;
             if (t < 0) return;
             const float d = std::min(dmg, side[t].hp);
             side[t].hp -= d;
             dmg -= d;
         }
     };
-    for (int r = 0; r < 25; ++r) {
+    for (int r = 0; r < 30; ++r) {
         float da = 0, de = 0;
+        bool a_left = false, e_left = false;
         for (int i = 0; i < na; ++i)
-            if (A[i].hp > 0) da += A[i].dps;
+            if (A[i].hp > 0) {
+                a_left = true;
+                if (A[i].start <= r) da += A[i].dps;
+            }
         for (int i = 0; i < ne; ++i)
-            if (E[i].hp > 0) de += E[i].dps;
-        if (da <= 0 || de <= 0) break;
-        hit(E, ne, da);
-        hit(A, na, de);
+            if (E[i].hp > 0) {
+                e_left = true;
+                if (E[i].start <= r) de += E[i].dps;
+            }
+        if (!a_left || !e_left) break;
+        hit(E, ne, da, r);
+        hit(A, na, de, r);
     }
     float v = 0, a_end = 0, e_end = 0;
     for (int i = 0; i < ne; ++i) {
@@ -777,6 +768,132 @@ float Bot::sim_fight() const {
     }
     v += 0.5f * ((e_start - e_end) / std::max(1.f, e_start) - (a_start - a_end) / std::max(1.f, a_start));
     return v;
+}
+bool is_ci_t(int t) {
+    return t == static_cast<int>(bc::champion_type::cassi) || t == static_cast<int>(bc::champion_type::issac);
+}
+}  // namespace
+
+bool Bot::helper_ok(const UnitView& a) const {
+    // An ally free to answer a fight: healthy, not channelling, not carrying a bag worth protecting.
+    return a.hp > 0.55f * a.max_hp && !(a.state & (ST_RECALL | ST_SUBMIT | ST_TELE));
+}
+
+float Bot::sim_fight() const {
+    SU A[10], E[10];
+    int na = 0, ne = 0;
+    A[na++] = {hp, dps_of(type, str, focus), is_ci_t(type) ? 2.f : 1.f, 0, true};
+    if (CFG_TEAMFIGHT) {
+        for (int ai : cl_a)
+            if (na < 10) A[na++] = {allies[ai].hp, dps_of(allies[ai].type, allies[ai].str, allies[ai].focus), is_ci_t(allies[ai].type) ? 2.f : 1.f, 0, false};
+        for (int ei : cl_e)
+            if (ne < 10) E[ne++] = {enemies[ei].hp, dps_of(enemies[ei].type, enemies[ei].str, enemies[ei].focus), is_ci_t(enemies[ei].type) ? 2.f : 1.f, 0, false};
+        if (CFG_TEAMFIGHT >= 2 && !cl_e.empty()) {
+            // Reinforcements on both sides arrive after walking into reach.
+            for (int ai = 0; ai < static_cast<int>(allies.size()); ++ai) {
+                if (std::find(cl_a.begin(), cl_a.end(), ai) != cl_a.end() || na >= 10 || !helper_ok(allies[ai])) continue;
+                int dd = 99;
+                for (int ei : cl_e) dd = std::min(dd, cheb(allies[ai].pos, enemies[ei].pos));
+                if (dd > P_JOIN_D) continue;
+                A[na++] = {allies[ai].hp, dps_of(allies[ai].type, allies[ai].str, allies[ai].focus), is_ci_t(allies[ai].type) ? 2.f : 1.f,
+                           std::max(0, dd - allies[ai].range), false};
+            }
+            for (int ei = 0; ei < static_cast<int>(enemies.size()); ++ei) {
+                if (std::find(cl_e.begin(), cl_e.end(), ei) != cl_e.end() || ne >= 10 || world.enemy_spawn.is_set(enemies[ei].pos)) continue;
+                int dd = 99;
+                for (int ai : cl_a) dd = std::min(dd, cheb(allies[ai].pos, enemies[ei].pos));
+                dd = std::min(dd, cheb(pos, enemies[ei].pos));
+                if (dd > P_JOIN_D) continue;
+                E[ne++] = {enemies[ei].hp, dps_of(enemies[ei].type, enemies[ei].str, enemies[ei].focus), is_ci_t(enemies[ei].type) ? 2.f : 1.f,
+                           std::max(0, dd - enemies[ei].range), false};
+            }
+        }
+    } else {
+        for (auto& a : allies)
+            if (na < 10 && cheb(a.pos, pos) <= 7) A[na++] = {a.hp, dps_of(a.type, a.str, a.focus), is_ci_t(a.type) ? 2.f : 1.f, 0, false};
+        for (auto& e : enemies) {
+            const int d = cheb(pos, e.pos);
+            if (ne >= 10 || d > 8 || (world.enemy_spawn.is_set(e.pos) && d > e.range + 1)) continue;
+            E[ne++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci_t(e.type) ? 2.f : 1.f, 0, false};
+        }
+    }
+    return sim_race(A, na, E, ne);
+}
+
+bool Bot::assist() {
+    // Not in a fight myself: answer an ally's fight when it is lost or close without me and winnable with me.
+    LOG("ASSISTCALL R%d slot%d gems=%d heal=%d hp=%.0f en=%d al=%d\n", round, world.my_slot, gems, (int)healing, hp, (int)enemies.size(), (int)allies.size());
+    if (gems >= 40 || healing || hp < 0.6f * max_hp) return false;
+    const int na = static_cast<int>(allies.size()), ne = static_cast<int>(enemies.size());
+    if (na == 0 || ne == 0) return false;
+    const int n = std::min(1 + na + ne, 24);
+    int par[24];
+    vec2 p[24];
+    bool en[24];
+    for (int i = 0; i < n; ++i) par[i] = i;
+    p[0] = pos;
+    en[0] = false;
+    for (int i = 0; i < na && 1 + i < n; ++i) {
+        p[1 + i] = allies[i].pos;
+        en[1 + i] = false;
+    }
+    for (int i = 0; i < ne && 1 + na + i < n; ++i) {
+        p[1 + na + i] = enemies[i].pos;
+        en[1 + na + i] = true;
+    }
+    auto find = [&](int x) {
+        while (par[x] != x) x = par[x] = par[par[x]];
+        return x;
+    };
+    for (int i = 1; i < n; ++i) {
+        if (en[i] && world.enemy_spawn.is_set(p[i])) continue;
+        for (int j = i + 1; j < n; ++j) {
+            if (en[j] && world.enemy_spawn.is_set(p[j])) continue;
+            if (cheb(p[i], p[j]) <= ((en[i] != en[j]) ? P_CL_AE : P_CL_AA)) par[find(i)] = find(j);
+        }
+    }
+    float best_gain = 0;
+    const UnitView* tgt = nullptr;
+    for (int root = 1; root < n; ++root) {
+        if (find(root) != root) continue;
+        SU A[10], E[10];
+        int ka = 0, ke = 0, dme = 99, dal = 99;
+        const UnitView* near_e = nullptr;
+        for (int i = 1; i < n; ++i) {
+            if (find(i) != root) continue;
+            if (en[i]) {
+                const auto& e = enemies[i - 1 - na];
+                if (world.enemy_spawn.is_set(e.pos) || ke >= 10) continue;
+                E[ke++] = {e.hp, dps_of(e.type, e.str, e.focus), is_ci_t(e.type) ? 2.f : 1.f, 0, false};
+                const int d = cheb(pos, e.pos);
+                if (d < dme) {
+                    dme = d;
+                    near_e = &e;
+                }
+            } else if (ka < 9) {
+                const auto& a = allies[i - 1];
+                A[ka++] = {a.hp, dps_of(a.type, a.str, a.focus), is_ci_t(a.type) ? 2.f : 1.f, 0, false};
+                dal = std::min(dal, cheb(pos, a.pos));
+            }
+        }
+        if (ka == 0 || ke == 0 || dal > P_JOIN_D || !near_e) continue;
+        SU A0[10], E0[10];
+        std::copy(A, A + ka, A0);
+        std::copy(E, E + ke, E0);
+        const float v0 = sim_race(A0, ka, E0, ke);
+        LOG("ASSIST R%d slot%d ka=%d ke=%d dal=%d dme=%d v0=%.2f\n", round, world.my_slot, ka, ke, dal, dme, v0);
+        if (v0 >= P_JOIN_NEED) continue;
+        A[ka] = {hp, dps_of(type, str, focus), is_ci_t(type) ? 2.f : 1.f, std::max(0, dme - range), true};
+        const float v1 = sim_race(A, ka + 1, E, ke);
+        const float gain = v1 - v0;
+        if (v1 > P_SIM_MARGIN - 0.2f && gain > 0.3f && gain > best_gain) {
+            best_gain = gain;
+            tgt = near_e;
+        }
+    }
+    if (!tgt) return false;
+    sh.set_rally(pos, round);
+    return engage(*tgt);
 }
 
 bool Bot::engage(const UnitView& e) {
@@ -1260,6 +1377,30 @@ void Bot::go_heal() {
     step_field(sf, true);
 }
 
+// ---------------------------------------------------------------- altar locks
+
+void Bot::place_locks(bool at_spawn) {
+    std::array<std::uint32_t, 4> cnt{};
+    if (bc::detail::sdk_champion_consumables(world.self_handle, cnt.data()) != 0) return;
+    if (cnt[2] == 0) {
+        if (at_spawn && gold >= 10 + 30 && round < P_LOCK_UNTIL && bc::detail::sdk_buy_consumable(2) == 0) gold -= 10;
+        return;
+    }
+    // Lock altars on the enemy's side of the map: their tributes there cost three hits or a detour.
+    bitboard alock;
+    try {
+        alock = bc::vision::altar_lock_tiles(team::ally);
+    } catch (...) {
+        return;
+    }
+    for (auto a : world.altars) {
+        if (cheb(a, pos) > 2 || alock.is_set(a) || !vis.is_set(a)) continue;
+        if (cheb(a, world.enemy_center) + 4 > cheb(a, world.spawn_center)) continue;
+        std::int32_t ok = 0;
+        if (bc::detail::sdk_use_consumable(2, a.x, a.y, &ok) == 0 && ok) return;
+    }
+}
+
 // ---------------------------------------------------------------- banking
 
 bool Bot::should_bank() {
@@ -1289,9 +1430,29 @@ void Bot::go_bank() {
     const auto& af = world.altars_f();
     const int da = af.get(pos);
     if (da <= 1) {
+        bitboard elock;
+        if (CFG_LOCKFIX) {
+            try {
+                elock = bc::vision::altar_lock_tiles(team::enemy);
+            } catch (...) {
+            }
+        }
         for (auto a : world.altars) {
-            if (cheb(a, pos) > 1) continue;
+            if (cheb(a, pos) > 1 || elock.is_set(a)) continue;
             if (bc::detail::sdk_submit_gems(a.x, a.y) == 0) return;
+        }
+        // Every reachable altar is enemy-locked: three basic attacks break a lock.
+        if (CFG_LOCKFIX && (st & ST_ATTACK)) {
+            for (auto a : world.altars) {
+                if (cheb(a, pos) > range || !elock.is_set(a)) continue;
+                try {
+                    bc::self().attack(bc::vision::altar_lock_at(a));
+                    st &= ~ST_ATTACK;
+                    if (!kit.melee) st &= ~ST_MOVE;
+                    return;
+                } catch (...) {
+                }
+            }
         }
     }
     try_dash_field(af);
@@ -1338,6 +1499,8 @@ int Bot::choose_group() {
         float hpl = g.hp_left(), strl = g.str_left();
         if (g.state == GState::respawning) {
             wait = std::max(0, g.respawn_round - round);
+            // Arriving long before the respawn means standing idle: leave it for later.
+            if (CFG_NOWAIT && wait > d + P_WAIT_SLACK && gi != target) continue;
             hpl = g.hp_total;
             strl = g.str_total;
         } else if (g.state == GState::reward) {
@@ -1727,6 +1890,7 @@ void Bot::turn_inner() {
         std::snprintf(last_note, sizeof last_note, "R%d pos(%d,%d) hp=%.0f/%.0f camp_in=%.0f near=%d heal=%d tgt=%d en=%d", round, pos.x,
                       pos.y, hp, max_hp, camp_in, (int)camp_near, (int)healing, target, (int)enemies.size());
     const bool at_spawn = world.ally_spawn.is_set(pos);
+    if (CFG_LOCKS) place_locks(at_spawn);
     if (at_spawn || type == static_cast<int>(bc::champion_type::tavi)) shop();
     if (bc::fuel_remaining() < 20000) return;
 
