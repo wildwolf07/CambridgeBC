@@ -20,6 +20,8 @@
 2. Upload `beast_v19` and do the same.
 3. Keep whichever beats the v18 baseline on more maps / by more gems against those three; if both are worse,
    fall back to v14 (`submissions/` older zips) and report back.
-4. Download the new replays with `tools/ladder_download.py orZers <dir> --kind unranked --since <time>` and run
+4. Instant comparison: `python3 tools/compare_baseline.py <upload time ISO> --refresh` prints every new
+   (opponent, map) result next to v18's (gem margin better/worse).
+5. Download the new replays with `tools/ladder_download.py orZers <dir> --kind unranked --since <time>` and run
    `tools/solo_fights.py`, `tools/hit_safety.py`, `tools/ranged_response.py`, `tools/opening.py` to see which
    failure modes moved.

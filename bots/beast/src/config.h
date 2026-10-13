@@ -315,3 +315,18 @@
 #ifndef CFG_TRAVEL_SPREAD
 #define CFG_TRAVEL_SPREAD 0
 #endif
+// Linked-pair caution level 2: C&I count as "low" below P_LINK_LOW and head home P_LINK_HEAL_ADD earlier.
+#ifndef P_LINK_LOW
+#define P_LINK_LOW 0.55f
+#endif
+#ifndef P_LINK_HEAL_ADD
+#define P_LINK_HEAL_ADD 0.12f
+#endif
+// Issac buys the health-heavy tank build (Kratos's Issac: half health items) instead of all-strength.
+#ifndef CFG_ISSAC_HP
+#define CFG_ISSAC_HP 0
+#endif
+// Cassi engages a champion only when an allied melee is within 2 of it (or it is killable/helpless).
+#ifndef CFG_CASSI_SUPPORT
+#define CFG_CASSI_SUPPORT 0
+#endif

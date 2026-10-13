@@ -91,3 +91,33 @@ c_safe vs a_base        :  20/36  ( 55.6%)  gemdiff/game  +118.4
 per map: collision:6/8  corners:5/8  elkring:7/8  expanse:3/8  interlock:5/8  lanes:1/8  monolith:4/8  packs:2/8  rows:5/8
 TOTAL 38/72 (52.8%)  K/D 682/918  avg win round 648  CRASHES 0
 
+== c_full2 (on top of v19 unless noted)
+c_full2 vs beast_v18     :  18/36  ( 50.0%)  gemdiff/game   -84.3
+c_full2 vs c_full        :  15/36  ( 41.7%)  gemdiff/game   -15.7
+per map: collision:3/8  corners:4/8  elkring:2/8  expanse:4/8  interlock:3/8  lanes:3/8  monolith:3/8  packs:6/8  rows:5/8
+TOTAL 33/72 (45.8%)  K/D 492/749  avg win round 619  CRASHES 0
+
+== d_lock2 (on top of v19 unless noted)
+d_lock2 vs beast_v19     :  21/36  ( 58.3%)  gemdiff/game  +154.6
+d_lock2 vs beast_v18     :  15/36  ( 41.7%)  gemdiff/game   -19.9
+per map: collision:5/8  corners:4/8  elkring:6/8  expanse:2/8  interlock:6/8  lanes:4/8  monolith:1/8  packs:5/8  rows:3/8
+TOTAL 36/72 (50.0%)  K/D 533/651  avg win round 643  CRASHES 0
+
+== d_lock1 (on top of v19 unless noted)
+d_lock1 vs beast_v19     :  18/36  ( 50.0%)  gemdiff/game   +41.2
+d_lock1 vs beast_v18     :  20/36  ( 55.6%)  gemdiff/game    +8.2
+per map: collision:4/8  corners:3/8  elkring:5/8  expanse:2/8  interlock:4/8  lanes:5/8  monolith:6/8  packs:5/8  rows:4/8
+TOTAL 38/72 (52.8%)  K/D 536/707  avg win round 641  CRASHES 0
+
+== e_link2 (on top of v19 unless noted)
+e_link2 vs beast_v19     :  19/36  ( 52.8%)  gemdiff/game   +56.0
+e_link2 vs beast_v18     :  17/36  ( 47.2%)  gemdiff/game   -61.7
+per map: collision:4/8  corners:6/8  elkring:6/8  expanse:3/8  interlock:4/8  lanes:2/8  monolith:4/8  packs:4/8  rows:3/8
+TOTAL 36/72 (50.0%)  K/D 537/645  avg win round 632  CRASHES 0
+
+== e_isshp (on top of v19 unless noted)
+e_isshp vs beast_v19     :  15/36  ( 41.7%)  gemdiff/game   -15.5
+e_isshp vs beast_v18     :  22/36  ( 61.1%)  gemdiff/game   +76.6
+per map: collision:4/8  corners:2/8  elkring:3/8  expanse:4/8  interlock:5/8  lanes:6/8  monolith:3/8  packs:4/8  rows:6/8
+TOTAL 37/72 (51.4%)  K/D 534/673  avg win round 618  CRASHES 0
+

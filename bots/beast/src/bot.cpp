@@ -459,7 +459,7 @@ bool Bot::try_dash_field(const bc::distance_field& f) {
 
 void Bot::shop() {
     if (gold < 30) return;
-    const bool tank = type == static_cast<int>(bc::champion_type::ryth);
+    const bool tank = type == static_cast<int>(bc::champion_type::ryth) || (CFG_ISSAC_HP && type == static_cast<int>(bc::champion_type::issac));
     const bool caster = CFG_CASSI_FOCUS && type == static_cast<int>(bc::champion_type::cassi);
     const std::uint32_t* build = caster ? (CFG_CASSI_FOCUS == 2 ? BUILD_CHP : BUILD_FOC) : (tank ? BUILD_TANK : BUILD_STR);
     int guard = 0;
@@ -602,7 +602,7 @@ bool Bot::combat() {
         helpless = !enemy_can_act(*best) && d <= range + 2;
     }
     const bool linked = CFG_LINKED_CAUTION && (type == static_cast<int>(bc::champion_type::cassi) || type == static_cast<int>(bc::champion_type::issac));
-    const bool low = hp < (linked ? 0.4f : 0.3f) * max_hp || (CFG_LOWHP && hp < P_LOWHP * max_hp);
+    const bool low = hp < (linked ? (CFG_LINKED_CAUTION >= 2 ? P_LINK_LOW : 0.4f) : 0.3f) * max_hp || (CFG_LOWHP && hp < P_LOWHP * max_hp);
     const bool rich = gems >= 40;
     float need = rich ? 1.5f * P_ENGAGE : (linked ? 1.12f * P_ENGAGE : P_ENGAGE);
     if (low) need = 2.5f;
@@ -636,6 +636,14 @@ bool Bot::combat() {
         if (call) margin -= P_CALL_BONUS;
         if (isolated_prey) margin -= 0.6f;
         fight = v > margin || (helpless && v > -0.3f);
+    }
+    if (fight && CFG_CASSI_SUPPORT && type == static_cast<int>(bc::champion_type::cassi) && !killable && !helpless) {
+        // Ladder: lone Cassi starting fights = 72 episodes, 47 of our deaths, 0 kills in 43 games. She only joins
+        // a target an allied melee is already on (within 2).
+        bool backed = false;
+        for (auto& a : allies)
+            if (a.range <= 1 && cheb(a.pos, best->pos) <= 2) backed = true;
+        if (!backed) fight = false;
     }
     if (fight) {
         int ei = -1;
@@ -1598,6 +1606,8 @@ bool Bot::need_heal() const {
         if (t >= 2) thr = std::max(thr, 0.6f);
         else if (t == 1) thr = std::max(thr, 0.5f);
     }
+    if (CFG_LINKED_CAUTION >= 2 && (type == static_cast<int>(bc::champion_type::cassi) || type == static_cast<int>(bc::champion_type::issac)))
+        thr += P_LINK_HEAL_ADD;  // one death costs two bodies: go home earlier
     return hp < thr * max_hp;
 }
 
@@ -1663,7 +1673,12 @@ void Bot::place_locks(bool at_spawn) {
     }
     for (auto a : world.altars) {
         if (cheb(a, pos) > 2 || alock.is_set(a) || !vis.is_set(a)) continue;
-        if (cheb(a, world.enemy_center) + 4 > cheb(a, world.spawn_center)) continue;
+        if (CFG_LOCKS == 2) {
+            // Own-side altars (Mite 45 own / 24 enemy, WHIM 72 / 24): invaders cannot bank on our side.
+            if (cheb(a, world.spawn_center) > cheb(a, world.enemy_center)) continue;
+        } else if (cheb(a, world.enemy_center) + 4 > cheb(a, world.spawn_center)) {
+            continue;
+        }
         std::int32_t ok = 0;
         if (bc::detail::sdk_use_consumable(2, a.x, a.y, &ok) == 0 && ok) return;
     }
