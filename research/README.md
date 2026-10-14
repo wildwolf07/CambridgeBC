@@ -1,5 +1,13 @@
 # Research handoff — Cambridge Battlecode 2026A (team orZers)
 
+<!-- STATUS (updated hourly) -->
+**STATUS 14 Oct 05:45 UTC** — Live: **v19** (uploaded ~04:55 UTC; identified by its item/gold signature). Rank 41, rating 1568.
+Testing: (a) live-v19 baseline per map vs Mite, SHINK, VeryGood, Univardisty, KratosMessi, hello, Snowcrab, Quant Merch, Nyx, SSSA
+(`research/analysis/baseline_v19_live.txt`; KratosMessi/hello/Nyx/SSSA still missing); (b) fallback choice v14 vs v19, paired per map.
+Results so far: v19 vs the 6 covered teams 10/32 maps. Opponents change versions (Mite's rows game differs from 13 Oct), so paired tests must be back-to-back.
+Next: owner runs the missing v19 challenges, then uploads v14 and repeats the same challenges; capture-reward rule being verified from replays.
+<!-- /STATUS -->
+
 Start here. This folder is the complete memory of the analysis and experiments done on the bot, written so that
 another engineer or model can continue without repeating anything.
 

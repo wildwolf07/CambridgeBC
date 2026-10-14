@@ -71,3 +71,11 @@ Base `a_base` = v18 + `CFG_BUILD 3`. 36 games per row (SE ≈ 8%).
 | CFG_ISSAC_HP (Issac health build) | 41.7% / 61.1% | not adopted (noise) |
 | CFG_CASSI_SUPPORT (Cassi engages only next to an allied melee) | 52.8% / 41.7% | not adopted (noise) |
 All switches remain in `bots/beast/src/config.h` for ladder A/B if wanted.
+
+## Ladder protocol from 14 Oct (owner rules): one change per upload, paired per (opponent, map), ≤3 open hypotheses
+Live version: v19 (uploaded ~04:55 UTC 14 Oct). Fallback candidates: v14 (rank ~10 era), v19.
+| # | Hypothesis | Test | Result | Decision |
+|---|---|---|---|---|
+| L0 | v14 is a better fallback than live v19 | v19 challenges (05:00 UTC, `analysis/baseline_v19_live.txt`) vs v14 challenges on the same opponents/maps, back-to-back | pending | — |
+| L1 | Retreating when outnumbered instead of trading cuts deaths and wins more maps | one-switch build on top of the chosen fallback, paired challenges | not started | — |
+| L2 | Cassi & Issac farming apart reduces double deaths | one-switch build, paired challenges (depends on the capture-reward rule check) | not started | — |
