@@ -30,6 +30,10 @@ Evidence tags: **[SDK]** = documented in `sdk/cpp/cambc.h`; **[probe]** = measur
   → lowest index). A lone capturer gets the whole pot; a second capturer adds no team income and does not speed it up.
   Damage dealt is irrelevant. Gold-item bonuses apply to each share. The engine snapshot exposes `captureTeam`/`captureTimer`.
   The 13 Oct "two champions each 22+90 from one wolf pair" (KratosMessi vs Mite, packs, R113) is a split of 44/180. [replay]
+  Verified independently on 708 other games (36,214 captures). Details: a champion killed by enemy action in the
+  finishing round (incl. Cassi/Issac via the link) is not paid; if it was the lone capturer the capture is lost and
+  the timer resets. The timer also resets if the last occupant leaves and a teammate arrives in the same round with the
+  leaver acting first. Gold bonuses (Treasure emblem, Vesper +20%) multiply each share.
 
 ## Vision and information
 - **Vision is per champion.** A bot cannot inspect enemies or even allies outside its own vision (~radius 8 with
