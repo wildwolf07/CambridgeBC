@@ -78,4 +78,5 @@ Live version: v19 (uploaded ~04:55 UTC 14 Oct). Fallback candidates: v14 (rank ~
 |---|---|---|---|---|
 | L0 | v14 is a better fallback than live v19 | v19 challenges (05:00 UTC, `analysis/baseline_v19_live.txt`) vs v14 challenges on the same opponents/maps, back-to-back | pending | — |
 | L1 | Retreating when outnumbered instead of trading cuts deaths and wins more maps | one-switch build on top of the chosen fallback, paired challenges | not started | — |
-| L2 | Cassi & Issac farming apart reduces double deaths | one-switch build, paired challenges (depends on the capture-reward rule check) | not started | — |
+| L2 | Cassi & Issac farming apart reduces double deaths and adds income | one-switch build, paired challenges | capture rule settled 14 Oct: one pot per group split among champions on its tiles → co-capturing a group adds 0 income (our replays: 59 two-capturer completions of 784, 26 of them Cassi+Issac) | not started |
+| — | Capture rule check (owner's packs 22+90 ×2 observation) | 2 independent replay derivations over ~37,700 captures + code reading | per-group pot, equal split among champions on tiles at finish; lone capturer gets all | docs corrected (01, README, RESEARCH_LOG) |

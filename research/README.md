@@ -1,11 +1,10 @@
 # Research handoff — Cambridge Battlecode 2026A (team orZers)
 
 <!-- STATUS (updated hourly) -->
-**STATUS 14 Oct 05:45 UTC** — Live: **v19** (uploaded ~04:55 UTC; identified by its item/gold signature). Rank 41, rating 1568.
-Testing: (a) live-v19 baseline per map vs Mite, SHINK, VeryGood, Univardisty, KratosMessi, hello, Snowcrab, Quant Merch, Nyx, SSSA
-(`research/analysis/baseline_v19_live.txt`; KratosMessi/hello/Nyx/SSSA still missing); (b) fallback choice v14 vs v19, paired per map.
-Results so far: v19 vs the 6 covered teams 10/32 maps. Opponents change versions (Mite's rows game differs from 13 Oct), so paired tests must be back-to-back.
-Next: owner runs the missing v19 challenges, then uploads v14 and repeats the same challenges; capture-reward rule being verified from replays.
+**STATUS 14 Oct 06:30 UTC** — Live: **v19** (uploaded ~04:55 UTC). Rank 41, rating 1568. Fallback bundle ready: `submissions/beast_v14.zip`.
+Testing: L0 = which fallback (v14 vs v19), paired per (opponent, map) on 10 teams (Mite, SHINK, VeryGood, Univardisty, KratosMessi, hello, Snowcrab, Quant Merch, Nyx, SSSA).
+Results: v19 so far 10/32 maps vs 6 of those teams (`analysis/baseline_v19_live.txt`). Capture rule settled: one pot per group, split among champions on its tiles.
+Next: owner (1) runs the remaining v19 challenges, (2) uploads v14 and repeats; then `tools/live_table.py` pairs the two windows → keep the better as fallback.
 <!-- /STATUS -->
 
 Start here. This folder is the complete memory of the analysis and experiments done on the bot, written so that
@@ -49,7 +48,8 @@ The older running log is `../RESEARCH_LOG.md` (kept in sync).
 1. **The killer takes all the victim's carried gems** (+50 gold) and the victim is out for 60 rounds.
 2. **Vision is per champion, not shared.** Bots know only what they personally see; the only team channel is
    8 bytes of shared memory. Enemy *alive flags* are readable for every champion regardless of vision.
-3. **Capture** = one champion stands on the dead camp's tile 5 consecutive rounds and receives the whole reward.
+3. **Capture** = one pot per camp group, paid after 5 rounds to the team's champions standing on any of the group's
+   tiles, split equally among them (a lone capturer gets it all; a second capturer adds nothing). See 01 §Camps.
 4. **Team size varies by map** (3/4/5 picks); both teams may draft the same champion.
 5. Melee champions can attack and then move in the same turn; ranged attacks consume the move.
 

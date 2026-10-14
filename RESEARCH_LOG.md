@@ -43,7 +43,8 @@ closed unless a fundamentally different mechanism is found (logged so it isn't r
 - C&I pair is our weakest pick: dies 4–6x/game, collects 0–90 gems. Packs vs larp: pair captured once in 489 rounds,
   parked on the respawning center cluster, killed by a lone Varg. Opponents (:3) run Cassi and Issac as two farmers
   (Cassi 1250 gold, 7 kills 0 deaths).
-- Capture rewards are split among contributing champions, NOT by who stands on the tile (Issac stepping off: identical game).
+- [CORRECTED 14 Oct] Capture pays one pot per group, split equally among the team's champions standing on the group's tiles
+  when the 5-round timer ends; damage dealt is irrelevant (research/01 §Camps). The old line here was wrong.
 - Corners vs :3: our Vendetta held 0 gold all game (max HP 800 = no HP items); their Ryth reached 1700 HP.
 
 | — | Cassi independent (CFG_PAIR 0 / 2) | 41% / 43% vs v13, 93% / 94% vs hunter (n=54 each) | not adopted (inconclusive) |

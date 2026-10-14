@@ -23,9 +23,13 @@ Evidence tags: **[SDK]** = documented in `sdk/cpp/cambc.h`; **[probe]** = measur
   Monolith group = monolith (20000 HP, 200 str) + 8 gem clusters → 392 gems + 300 gold, respawn 150 (never worth it).
   Camp attack range 3, vision 8; awake camps sleep after 2 rounds with no champion in range; **camps never regenerate
   HP**. Groups can contain several camps (rows: 3-wolf groups 66 gems; collision/expanse 108-gem groups). [probe][replay]
-- **Capture:** after all camps of a group die, a champion must stand **on a camp tile for 5 consecutive rounds**;
-  stepping off resets the timer (replay whim_lanes group 0: timer restarted 3 times). The single capturer gets the
-  **whole** gem+gold reward. The engine snapshot exposes `captureTeam`/`captureTimer`. [replay]
+- **Capture (corrected 14 Oct, ~37,700 replay captures):** one reward pot **per camp group** (packs wolf pair 44 gems
+  + 180 gold, rows 3-wolf group 66 + 270, 4-tile cluster 48 + 70). After all camps die, the group's 5-round timer runs
+  while ≥1 champion of a team stands on **any** of the group's tiles (stepping off with nobody left resets it). When it
+  ends, the pot is split **equally among that team's champions standing on the group's tiles at that moment** (odd gold
+  → lowest index). A lone capturer gets the whole pot; a second capturer adds no team income and does not speed it up.
+  Damage dealt is irrelevant. Gold-item bonuses apply to each share. The engine snapshot exposes `captureTeam`/`captureTimer`.
+  The 13 Oct "two champions each 22+90 from one wolf pair" (KratosMessi vs Mite, packs, R113) is a split of 44/180. [replay]
 
 ## Vision and information
 - **Vision is per champion.** A bot cannot inspect enemies or even allies outside its own vision (~radius 8 with
